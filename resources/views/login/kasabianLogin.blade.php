@@ -23,18 +23,18 @@
                 {{ $errors->first('message') }}
             </div>
         @endif
-        <div class="bg-gray-800 w-1/3 rounded-md p-5">
-            <h1 class="p-2 text-lg text-center font-bold">Login ke akun anda</h1>
+        <div class="bg-gray-200 border border-gray-600 w-1/3 rounded-md p-5">
+            <h1 class="p-2 text-lg text-gray-800 text-center font-bold">Login ke akun anda</h1>
 
             <div class="">
                 <form class="space-y-3" method="POST" action="/login">
                     @csrf
-                    <label for="user" class="text-sm font-medium text-white">Username</label>
+                    <label for="user" class="text-sm font-medium text-gray-800">Username</label>
                     <input name="kasabianUser" id="user"
-                        class="bg-gray-700 border border-gray-600 w-full rounded-md p-1" type="text">
-                    <label for="pass" class="block text-sm font-medium text-white">Password</label>
+                        class="bg-white border text-gray-500 border-gray-600 w-full rounded-md p-1 pl-2" type="text" placeholder="Example">
+                    <label for="pass" class="block text-sm font-medium text-gray-800">Password</label>
                     <input name="kasabianPass" id="pass"
-                        class="bg-gray-700 border border-gray-600 w-full rounded-md p-1" type="text">
+                        class="bg-white border text-gray-500 border-gray-600 w-full rounded-md p-1 pl-2" type="password" placeholder="********">
                     <button type="submit"
                         class="w-max text-gray-800 font-medium bg-yellow-400 rounded-lg px-3 py-2">Sign in</button>
                 </form>

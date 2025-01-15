@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kasabian_book;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreKasabian_bookRequest;
 use App\Http\Requests\UpdateKasabian_bookRequest;
+use App\Models\KasabianKategoriBuku;
 
 class KasabianBookController extends Controller
 {
@@ -13,17 +15,22 @@ class KasabianBookController extends Controller
      */
     public function index()
     {
-        $kasabianBuku = Kasabian_book::get();
+        $kasabianBuku = Kasabian_book::with('relasi.kategori')->get();
 
-        return response($kasabianBuku);
+        
+        return view('admin.buku.kasabianBuku', ['dataBuku' => $kasabianBuku]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function kategori()
+    {
+        $kasabianKategori = KasabianKategoriBuku::with('relasi.books')->get();
+
+        return view('admin.kategori.kasabianKategori', ['dataKategori' => $kasabianKategori]);
+    }
+
     public function create()
     {
-        //
+        
     }
 
     /**

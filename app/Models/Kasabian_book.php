@@ -16,4 +16,9 @@ class Kasabian_book extends Model
         'kasabianPenerbit',
         'kasabianTahunTerbit',
     ];
+
+    public function relasi()
+    {
+        return $this->hasMany(KasabianKategoriBukuRelasi::class, 'bukuId', 'bukuId');
+    }
 }

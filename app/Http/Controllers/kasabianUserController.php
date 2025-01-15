@@ -15,7 +15,7 @@ class kasabianUserController extends Controller
     {
         $user = User::with('kasabianRoles')->get();
 
-        return response($user);
+        return view('admin.users.kasabianUser', ['userData' => $user]);
     }
 
 }

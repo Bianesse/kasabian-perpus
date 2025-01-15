@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             KasabianBookSeeder::class,
+            KasabianKategoriBukuSeeder::class,
+            KasabianKategoriBukuRelasiSeeder::class,
         ]);
     }
 }

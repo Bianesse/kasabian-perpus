@@ -7,6 +7,7 @@
     <title>Document</title>
     @vite('resources/css/app.css')
 <body>
+    <x-kasabian-navbar />
     @yield('head')
     @yield('content')
 </body>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/users', [kasabianUserController::class, 'index'])->name('users');
 Route::get('/buku', [KasabianBookController::class, 'index'])->name('book');
+Route::get('/kategori', [KasabianBookController::class, 'kategori'])->name('kategori');
 Route::post('/login', [KasabianLoginController::class, 'index'])->name('loginProcess');
 
 Route::get('/', function () {
