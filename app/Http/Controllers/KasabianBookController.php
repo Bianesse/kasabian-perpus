@@ -13,7 +13,9 @@ class KasabianBookController extends Controller
      */
     public function index()
     {
-        //
+        $kasabianBuku = Kasabian_book::get();
+
+        return response($kasabianBuku);
     }
 
     /**

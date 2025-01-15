@@ -18,19 +18,25 @@
 
 <body class="text-white">
     <div class="flex flex-col items-center justify-center h-screen">
+        @if ($errors->has('message'))
+            <div class="mb-4 text-red-600 bg-red-50 p-3 rounded border border-red-200">
+                {{ $errors->first('message') }}
+            </div>
+        @endif
         <div class="bg-gray-800 w-1/3 rounded-md p-5">
             <h1 class="p-2 text-lg text-center font-bold">Login ke akun anda</h1>
 
             <div class="">
                 <form class="space-y-3" method="POST" action="/login">
                     @csrf
-                    <label for="user" class="text-sm font-medium text-white" >Username</label>
+                    <label for="user" class="text-sm font-medium text-white">Username</label>
                     <input name="kasabianUser" id="user"
                         class="bg-gray-700 border border-gray-600 w-full rounded-md p-1" type="text">
                     <label for="pass" class="block text-sm font-medium text-white">Password</label>
                     <input name="kasabianPass" id="pass"
                         class="bg-gray-700 border border-gray-600 w-full rounded-md p-1" type="text">
-                    <button type="submit" class="w-max text-gray-800 font-medium bg-yellow-400 rounded-lg px-3 py-2">Sign in</button>
+                    <button type="submit"
+                        class="w-max text-gray-800 font-medium bg-yellow-400 rounded-lg px-3 py-2">Sign in</button>
                 </form>
             </div>
         </div>
