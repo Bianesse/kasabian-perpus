@@ -18,16 +18,10 @@ class KasabianBookController extends Controller
     {
         $kasabianBuku = Kasabian_book::with('relasi.kategori')->get();
 
-        
+
         return view('admin.buku.kasabianBuku', ['dataBuku' => $kasabianBuku]);
     }
 
-    public function kategori()
-    {
-        $kasabianKategori = KasabianKategoriBuku::with('relasi.books')->get();
-
-        return view('admin.kategori.kasabianKategori', ['dataKategori' => $kasabianKategori]);
-    }
 
     public function tambahBukuPage()
     {
@@ -45,7 +39,7 @@ class KasabianBookController extends Controller
             'kasabianKategori' => 'required',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back();
         }
 
@@ -70,12 +64,40 @@ class KasabianBookController extends Controller
     {
         $kasabianBuku = Kasabian_book::find($id);
         $kasabianKategori = KasabianKategoriBuku::get();
-        return view('admin.buku.kasabianEditBuku', ['dataBuku' => $kasabianBuku,'dataKategori' => $kasabianKategori]);
+        return view('admin.buku.kasabianEditBuku', ['dataBuku' => $kasabianBuku, 'dataKategori' => $kasabianKategori]);
     }
 
-    public function editBuku(Request $request)
+    public function editBuku(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'kasabianJudul' => 'required',
+            'kasabianPenulis' => 'required',
+            'kasabianPenerbit' => 'required',
+            'kasabianTahunTerbit' => 'required',
+            'kasabianKategori' => 'required',
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()->back();
+        }
+
+        $kasabianBuku = Kasabian_book::with('relasi')->find($id);
+
+        $kasabianBuku->update([
+            'kasabianJudul' => $request->kasabianJudul,
+            'kasabianPenulis' => $request->kasabianPenulis,
+            'kasabianPenerbit' => $request->kasabianPenerbit,
+            'kasabianTahunTerbit' => $request->kasabianTahunTerbit,
+        ]);
+
+        $kasabianKategori = KasabianKategoriBukuRelasi::where('bukuId', $id)->first();
+        $kasabianKategori->update([
+            'kategoriId' => $request->kasabianKategori,
+        ]);
+
+        $kasabianKategori->save();
+
+        return redirect()->route('book');
     }
 
     public function hapusBuku($id)
@@ -83,4 +105,41 @@ class KasabianBookController extends Controller
         $kasabianBuku = Kasabian_book::destroy($id);
         return redirect()->route('book');
     }
+
+    public function kategori()
+    {
+        $kasabianKategori = KasabianKategoriBuku::with('relasi.books')->get();
+
+        return view('admin.kategori.kasabianKategori', ['dataKategori' => $kasabianKategori]);
+    }
+
+    public function tambahKategoriPage()
+    {
+        $kasabianKategori = KasabianKategoriBuku::get();
+        return view('admin.kategori.kasabianTambahKategori');
+    }
+
+    public function tambahKategori(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'kasabianNamaKategori' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back();
+        }
+
+        $kasabianKategori = KasabianKategoriBuku::create([
+            'kasabianNamaKategori' => $request->kasabianKategori
+        ]);
+
+
+    }
+
+    public function hapusKategori($id)
+    {
+
+    }
+
+
 }

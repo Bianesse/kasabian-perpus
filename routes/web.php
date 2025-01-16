@@ -16,6 +16,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/buku/edit/{id}', [KasabianBookController::class, 'editBuku'])->name('editBuku');
 
     Route::get('/kategori', [KasabianBookController::class, 'kategori'])->name('kategori');
+    Route::get('/kategori/add', [KasabianBookController::class, 'tambahKategoriPage'])->name('tambahKategoriPage');
+    Route::post('/kategori/add', [KasabianBookController::class, 'tambahKategori'])->name('tambahKategori');
+    Route::post('/kategori/hapus/{id}', [KasabianBookController::class, 'hapusBuku'])->name('hapusKategori');
 
     Route::post('/logout', [KasabianLoginController::class, 'logout'])->name('logout');
 });

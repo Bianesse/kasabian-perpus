@@ -37,9 +37,7 @@
                     <label for="kategori" class="block mb-2 text-sm font-medium text-gray-700">Kategori</label>
                     <select name="kasabianKategori" id="kategori" class="bg-white border border-gray-300  rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5">
                         @foreach ($dataKategori as $item)
-                            <option value="{{$item->kategoriId}}" @if ($item->kategoriId == $dataBuku)
-                                
-                            @endif>{{$item->kasabianNamaKategori}}</option>
+                            <option value="{{$item->kategoriId}}">{{$item->kasabianNamaKategori}}</option>
                         @endforeach
                     </select>
                 </div>
