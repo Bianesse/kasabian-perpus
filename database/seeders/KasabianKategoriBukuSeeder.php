@@ -17,7 +17,7 @@ class KasabianKategoriBukuSeeder extends Seeder
             ['kasabianNamaKategori' => 'Action'],
             ['kasabianNamaKategori' => 'Drama'],
             ['kasabianNamaKategori' => 'Philosophy'],
-            ['kasabianNamaKategori' => 'fantasy'],
+            ['kasabianNamaKategori' => 'Fantasy'],
         ]);
     }
 }
