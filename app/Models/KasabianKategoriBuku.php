@@ -10,6 +10,9 @@ class KasabianKategoriBuku extends Model
         'kasabianNamaKategori',
     ];
 
+    protected $primaryKey = 'kategoriId';
+
+
     public function relasi()
     {
         return $this->hasMany(KasabianKategoriBukuRelasi::class, 'kategoriId','kategoriId');

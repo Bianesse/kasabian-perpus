@@ -18,11 +18,7 @@
 
 <body class="text-white">
     <div class="flex flex-col items-center justify-center h-screen">
-        @if ($errors->has('message'))
-            <div class="mb-4 text-red-600 bg-red-50 p-3 rounded border border-red-200">
-                {{ $errors->first('message') }}
-            </div>
-        @endif
+        
         <div class="bg-gray-200 border border-gray-600 w-1/3 rounded-md p-5">
             <h1 class="p-2 text-lg text-gray-800 text-center font-bold">Login ke akun anda</h1>
 
@@ -40,6 +36,11 @@
                 </form>
             </div>
         </div>
+        @if ($errors->has('message'))
+            <div class="mt-4 text-red-600 bg-red-50 p-3 rounded border border-red-200">
+                {{ $errors->first('message') }}
+            </div>
+        @endif
     </div>
 
 </body>

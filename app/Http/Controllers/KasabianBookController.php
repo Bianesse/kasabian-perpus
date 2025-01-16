@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Kasabian_book;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreKasabian_bookRequest;
-use App\Http\Requests\UpdateKasabian_bookRequest;
 use App\Models\KasabianKategoriBuku;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\UpdateKasabian_bookRequest;
+use App\Models\KasabianKategoriBukuRelasi;
 
 class KasabianBookController extends Controller
 {
@@ -28,48 +29,58 @@ class KasabianBookController extends Controller
         return view('admin.kategori.kasabianKategori', ['dataKategori' => $kasabianKategori]);
     }
 
-    public function create()
+    public function tambahBukuPage()
     {
-        
+        $kasabianKategori = KasabianKategoriBuku::get();
+        return view('admin.buku.kasabianTambahBuku', ['dataKategori' => $kasabianKategori]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreKasabian_bookRequest $request)
+    public function tambahBuku(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'kasabianJudul' => 'required',
+            'kasabianPenulis' => 'required',
+            'kasabianPenerbit' => 'required',
+            'kasabianTahunTerbit' => 'required',
+            'kasabianKategori' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back();
+        }
+
+        $kasabianBuku = Kasabian_book::create([
+            'kasabianJudul' => $request->kasabianJudul,
+            'kasabianPenulis' => $request->kasabianPenulis,
+            'kasabianPenerbit' => $request->kasabianPenerbit,
+            'kasabianTahunTerbit' => $request->kasabianTahunTerbit,
+        ]);
+
+        $bukuId = Kasabian_book::latest()->pluck('bukuId')->first();
+
+        $kasabianKategori = KasabianKategoriBukuRelasi::create([
+            'bukuId' => $bukuId,
+            'kategoriId' => $request->kasabianKategori
+        ]);
+
+        return redirect()->route('book');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Kasabian_book $kasabian_book)
+    public function editBukuPage($id)
     {
-        //
+        $kasabianBuku = Kasabian_book::find($id);
+        $kasabianKategori = KasabianKategoriBuku::get();
+        return view('admin.buku.kasabianEditBuku', ['dataBuku' => $kasabianBuku,'dataKategori' => $kasabianKategori]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Kasabian_book $kasabian_book)
+    public function editBuku(Request $request)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateKasabian_bookRequest $request, Kasabian_book $kasabian_book)
+    public function hapusBuku($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Kasabian_book $kasabian_book)
-    {
-        //
+        $kasabianBuku = Kasabian_book::destroy($id);
+        return redirect()->route('book');
     }
 }

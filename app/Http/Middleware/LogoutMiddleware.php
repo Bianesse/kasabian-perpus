@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthMiddleware
+class LogoutMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check()){
+        if (Auth::check()) {
+            return redirect()->back();
+        } else {
             return $next($request);
-        }else{
-            return redirect()->route('loginPage');
         }
     }
 }
