@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('head')
-    <h1 class="text-3xl font-bold tracking-tight text-primary-yellow">Tambah Kategori</h1>
+    <h1 class="text-3xl font-bold tracking-tight text-primary-yellow">Tambah User</h1>
 @endsection
 
 @section('content')

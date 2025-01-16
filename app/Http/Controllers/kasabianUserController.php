@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Kasabian_role;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class kasabianUserController extends Controller
@@ -42,7 +43,7 @@ class kasabianUserController extends Controller
         $kasabianUser = User::create([
             'kasabianUsername' => $request->kasabianUsername,
             'kasabianEmail' => $request->kasabianEmail,
-            'password' => $request->kasabianPassword,
+            'password' => Hash::make($request->kasabianPassword),
             'kasabianRoleId' => $request->kasabianRole,
             'kasabianNamaLengkap' => $request->kasabianNamaLengkap,
             'kasabianAlamat' => $request->kasabianAlamat,
@@ -59,16 +60,15 @@ class kasabianUserController extends Controller
 
     public function editUsersPage($id)
     {
-        $kasabianUser = User::find($id);
-        return view('admin.kategori.kasabianEditKategoriPage', ['dataUser' => $kasabianUser]);
+        $kasabianUser = User::with('kasabianRoles')->find($id);
+        return view('admin.users.kasabianEditUser', ['dataUser' => $kasabianUser]);
     }
 
-    public function editKategori(Request $request, $id)
+    public function editUsers(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'kasabianUsername' => 'required',
             'kasabianEmail' => 'required',
-            'kasabianPassword' => 'required',
             'kasabianRole' => 'required',
             'kasabianNamaLengkap' => 'required',
             'kasabianAlamat' => 'required',
@@ -78,18 +78,17 @@ class kasabianUserController extends Controller
             return redirect()->back();
         }
 
-        $kasabianKategori = User::find($id);
+        $kasabianUser = User::find($id);
 
-        $kasabianKategori->update([
+        $kasabianUser->update([
             'kasabianUsername' => $request->kasabianUsername,
             'kasabianEmail' => $request->kasabianEmail,
-            'password' => $request->kasabianPassword,
             'kasabianRoleId' => $request->kasabianRole,
             'kasabianNamaLengkap' => $request->kasabianNamaLengkap,
             'kasabianAlamat' => $request->kasabianAlamat,
         ]);
 
-        return redirect()->route('kategori');
+        return redirect()->route('users');
     }
 
 }
