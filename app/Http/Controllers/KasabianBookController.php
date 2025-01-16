@@ -122,7 +122,7 @@ class KasabianBookController extends Controller
     public function tambahKategori(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kasabianNamaKategori' => 'required',
+            'kasabianKategori' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -133,12 +133,38 @@ class KasabianBookController extends Controller
             'kasabianNamaKategori' => $request->kasabianKategori
         ]);
 
-
+        return redirect()->route('kategori');
     }
 
     public function hapusKategori($id)
     {
+        $kasabianKategori = KasabianKategoriBuku::destroy($id);
+        return redirect()->route('kategori');
+    }
 
+    public function editKategoriPage($id)
+    {
+        $kasabianKategori = KasabianKategoriBuku::find($id);
+        return view('admin.kategori.kasabianEditKategoriPage', ['dataKategori' => $kasabianKategori]);
+    }
+
+    public function editKategori(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'kasabianKategori' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back();
+        }
+
+        $kasabianKategori = KasabianKategoriBuku::find($id);
+
+        $kasabianKategori->update([
+            'kasabianNamaKategori' => $request->kasabianKategori,
+        ]);
+
+        return redirect()->route('kategori');
     }
 
 

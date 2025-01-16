@@ -31,13 +31,19 @@
                             @endforeach
                         @endforeach
                     </td>
-                    <td>
-                        <button class="bg-blue-500 rounded-lg w-20 h-10 font-medium my-2">
-                            Edit
-                        </button>
-                        <button class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
-                            Hapus
-                        </button>
+                    <td class="flex flex-row space-x-2">
+                        <a href="{{ route('editKategoriPage', $item->kategoriId) }}">
+                            <button class="bg-blue-500 rounded-lg w-20 h-10 font-medium my-2">
+                                Edit
+                            </button>
+                        </a>
+                        <form method="POST" action="{{ route('hapusKategori', $item->kategoriId) }}">
+                            @csrf
+                            <button onclick="return confirm('Apakah ingin menghapus data ini?')"
+                                class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
+                                Hapus
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
