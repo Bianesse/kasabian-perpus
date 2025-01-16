@@ -1,12 +1,12 @@
 @extends('layout.main')
 
 @section('head')
-    <h1 class="text-3xl font-bold tracking-tight text-primary-yellow">Tambah Kategori</h1>
+    <h1 class="text-3xl font-bold tracking-tight text-primary-yellow">Tambah buku</h1>
 @endsection
 
 @section('content')
     <div>
-        <form action="{{route('tambahKategori')}}" method="POST">
+        <form action="{{route('editKategori', $dataKategori->kategoriId)}}" method="POST">
             @csrf
             <div class="grid gap-4 mb-4 grid-cols-4">
 
@@ -14,7 +14,7 @@
                     <label for="kategori" class="block mb-2 text-sm font-medium text-gray-700">Nama Kategori</label>
                     <input type="text" name="kasabianKategori" id="kategori"
                         class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
-                        placeholder="Ketik Kategori" required>
+                        value="{{$dataKategori->kasabianNamaKategori}}" placeholder="Ketik Judul" required>
                 </div>
                 
                 <div class="col-span-4">

@@ -20,8 +20,8 @@ return new class extends Migration
 
         Schema::create('kasabian_kategori_buku_relasis', function (Blueprint $table) {
             $table->id('kategoriBukuID');
-            $table->foreignId('bukuId')->constrained('kasabian_books', 'bukuId');
-            $table->foreignId('kategoriId')->constrained('kasabian_kategori_bukus', 'kategoriId');
+            $table->foreignId('bukuId')->constrained('kasabian_books', 'bukuId')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('kategoriId')->constrained('kasabian_kategori_bukus', 'kategoriId')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

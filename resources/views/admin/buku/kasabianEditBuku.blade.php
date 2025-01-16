@@ -6,7 +6,7 @@
 
 @section('content')
     <div>
-        <form action="" method="POST">
+        <form action="{{route('editBuku', $dataBuku->bukuId)}}" method="POST">
             @csrf
             <div class="grid gap-4 mb-4 grid-cols-4">
                 <div class="col-span-2">
@@ -42,7 +42,7 @@
                     </select>
                 </div>
                 <div class="col-span-4">
-                    <button class="bg-green-500 rounded-lg w-full h-10 font-medium border-2 border-green-700">
+                    <button type="submit" class="bg-green-500 rounded-lg w-full h-10 font-medium border-2 border-green-700">
                         Submit
                     </button>
                 </div>
