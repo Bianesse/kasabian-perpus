@@ -16,6 +16,8 @@ class KasabianKategoriBukuRelasi extends Model
     ];
 
     protected $primaryKey = 'kategoriBukuId';
+    protected $table = 'kasabian_kategori_buku_relasi';
+
 
 
     public function books()

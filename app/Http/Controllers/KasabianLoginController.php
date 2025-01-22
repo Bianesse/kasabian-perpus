@@ -25,7 +25,7 @@ class KasabianLoginController extends Controller
         }
 
         if(Auth::attempt(['kasabianUsername' => $request->kasabianUser, 'password' => $request->kasabianPass])){
-            return redirect()->route('book');
+            return redirect()->route('main');
         }else{
             return back()->withErrors([
                 'message' => 'Credential Unkown',

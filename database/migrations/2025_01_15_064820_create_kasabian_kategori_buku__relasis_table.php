@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
 
-        Schema::create('kasabian_kategori_bukus', function (Blueprint $table) {
+        Schema::create('kasabian_kategori_buku', function (Blueprint $table) {
             $table->id('kategoriId');
             $table->string('kasabianNamaKategori');
             $table->timestamps();
         });
 
-        Schema::create('kasabian_kategori_buku_relasis', function (Blueprint $table) {
+        Schema::create('kasabian_kategori_buku_relasi', function (Blueprint $table) {
             $table->id('kategoriBukuID');
             $table->foreignId('bukuId')->constrained('kasabian_books', 'bukuId')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('kategoriId')->constrained('kasabian_kategori_bukus', 'kategoriId')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('kategoriId')->constrained('kasabian_kategori_buku', 'kategoriId')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

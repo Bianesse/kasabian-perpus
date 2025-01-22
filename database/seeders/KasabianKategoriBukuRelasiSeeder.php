@@ -16,7 +16,6 @@ class KasabianKategoriBukuRelasiSeeder extends Seeder
         KasabianKategoriBukuRelasi::insert([
             ['bukuId' => 1, 'kategoriId' => '3'],
             ['bukuId' => 2, 'kategoriId' => '2'],
-            ['bukuId' => 2, 'kategoriId' => '4'],
         ]);
     }
 }
