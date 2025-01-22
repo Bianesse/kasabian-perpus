@@ -14,6 +14,7 @@ class Kasabian_book extends Model
         'kasabianJudul',
         'kasabianPenulis',
         'kasabianPenerbit',
+        'kasabianGambar',
         'kasabianTahunTerbit',
     ];
 
@@ -23,5 +24,20 @@ class Kasabian_book extends Model
     public function relasi()
     {
         return $this->hasMany(KasabianKategoriBukuRelasi::class, 'bukuId', 'bukuId');
+    }
+
+    public function ulasan()
+    {
+        return $this->hasMany(KasabianUlasanBuku::class, 'bukuId', 'bukuId');
+    }
+
+    public function koleksiPribadi()
+    {
+        return $this->hasMany(KasabianKoleksiPribadi::class, 'bukuId', 'bukuId');
+    }
+
+    public function peminjaman()
+    {
+        return $this->hasMany(KasabianPeminjaman::class, 'bukuId', 'bukuId');
     }
 }

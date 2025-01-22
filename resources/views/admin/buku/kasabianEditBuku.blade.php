@@ -6,7 +6,7 @@
 
 @section('content')
     <div>
-        <form action="{{route('editBuku', $dataBuku->bukuId)}}" method="POST">
+        <form action="{{route('editBuku', $dataBuku->bukuId)}}" enctype="multipart/form-data" method="POST">
             @csrf
             <div class="grid gap-4 mb-4 grid-cols-4">
                 <div class="col-span-2">

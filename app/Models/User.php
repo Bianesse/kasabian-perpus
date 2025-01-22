@@ -31,6 +31,21 @@ class User extends Authenticatable
         return $this->belongsTo(Kasabian_role::class, 'kasabianRoleId');
     }
 
+    public function ulasan()
+    {
+        return $this->hasMany(KasabianUlasanBuku::class, 'userId');
+    }
+
+    public function peminjaman()
+    {
+        return $this->hasMany(KasabianPeminjaman::class, 'userId');
+    }
+
+    public function koleksiPribadi()
+    {
+        return $this->hasMany(KasabianKoleksiPribadi::class, 'userId');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

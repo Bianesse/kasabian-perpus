@@ -24,10 +24,12 @@ class KasabianBookController extends Controller
 
     public function detail($id)
     {
-        $kasabianBuku = Kasabian_book::with('relasi.kategori')->find($id);
-        $kasabianKategori = $kasabianBuku->relasi;
-;
-        return view('peminjam.kasabianBukuDetail', ['dataBuku' => $kasabianBuku, 'dataKategori' => $kasabianKategori]);
+        $kasabianBuku = Kasabian_book::with(['relasi.kategori', 'ulasan'])->find($id);
+
+        $kasabianUlasan = $kasabianBuku->ulasan()->count('rating');
+        $kasabianUlasan = $kasabianBuku->ulasan()->sum('rating');
+
+        return view('peminjam.kasabianBukuDetail', ['dataBuku' => $kasabianBuku, 'dataUlasan' => $kasabianUlasan]);
     }
 
     public function tambahBukuPage()
@@ -80,6 +82,7 @@ class KasabianBookController extends Controller
             'kasabianJudul' => 'required',
             'kasabianPenulis' => 'required',
             'kasabianPenerbit' => 'required',
+            'kasabianGambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'kasabianTahunTerbit' => 'required',
             'kasabianKategori' => 'required',
         ]);
@@ -90,9 +93,14 @@ class KasabianBookController extends Controller
 
         $kasabianBuku = Kasabian_book::with('relasi')->find($id);
 
+        $file = $request->file('kasabianGambar');
+        $path = $file->store('photos', 'public');
+        $url = asset('storage/' . $path);
+
         $kasabianBuku->update([
             'kasabianJudul' => $request->kasabianJudul,
             'kasabianPenulis' => $request->kasabianPenulis,
+            'kasabianGambar' => $url,
             'kasabianPenerbit' => $request->kasabianPenerbit,
             'kasabianTahunTerbit' => $request->kasabianTahunTerbit,
         ]);
