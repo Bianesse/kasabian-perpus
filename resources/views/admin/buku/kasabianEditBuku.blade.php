@@ -15,7 +15,7 @@
                         class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
                         value="{{$dataBuku->kasabianJudul}}" placeholder="Ketik Judul" required>
                 </div>
-                <div class="col-span-2">
+                <div class="col-span-1">
                     <label for="penulis" class="block mb-2 text-sm font-medium text-gray-700">Penulis</label>
                     <input type="text" name="kasabianPenulis" id="penulis"
                         class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
@@ -26,6 +26,12 @@
                     <input type="text" name="kasabianPenerbit" id="penerbit"
                         class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
                         value="{{$dataBuku->kasabianPenerbit}}" placeholder="Ketik Penerbit" required>
+                </div>
+                <div class="col-span-1">
+                    <label for="gambar" class="block mb-2 text-sm font-medium text-gray-700">Penerbit</label>
+                    <input type="file" name="kasabianGambar" id="gambar"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
+                        placeholder="Masukkan Gambar" required>
                 </div>
                 <div class="col-span-1">
                     <label for="tahunTerbit" class="block mb-2 text-sm font-medium text-gray-700">Tahun Terbit</label>

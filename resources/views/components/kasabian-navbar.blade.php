@@ -1,7 +1,7 @@
 <nav class="w-full h-14 bg-yellow-400">
     <div class="flex flex-row">
         <section class="flex flex-row p-4">
-            <h1 class="mr-24 font-medium">Perpustakaan</h1>
+            <a class="mr-24 font-medium" href="{{route('main')}}">Perpustakaan</a>
 
             <a class="mr-4 font-medium" href="{{route('book')}}">Buku</a>
             <a class="mr-4 font-medium" href="{{route('kategori')}}">Kategori</a>
@@ -9,7 +9,7 @@
         </section>
 
         <section class="p-4">
-        </section>          
+        </section>
         <form method="POST" action="/logout" class="ml-auto mt-2 mr-4 font-medium">
             @csrf
             <button type="submit" class="bg-gray-200 font-medium text-red-700 rounded-lg w-20 h-10">Logout</button>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('kasabianPenerbit');
             $table->integer('kasabianTahunTerbit');
             $table->string('kasabianGambar')->nullable();
+            $table->text('kasabianDeskripsi');
             $table->timestamps();
         });
     }
