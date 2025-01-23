@@ -12,6 +12,10 @@ class KasabianPeminjaman extends Model
     protected $table = 'kasabian_peminjaman';
     protected $primaryKey = 'peminjamanId';
 
+    public $fillable = [
+        'userId', 'bukuId', 'tanggalPeminjaman', 'tanggalPengembalian', 'statusPeminjaman',
+    ];
+
     public function users()
     {
         return $this->belongsTo(User::class, 'userId');

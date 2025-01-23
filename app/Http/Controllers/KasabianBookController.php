@@ -44,6 +44,8 @@ class KasabianBookController extends Controller
             'kasabianJudul' => 'required',
             'kasabianPenulis' => 'required',
             'kasabianPenerbit' => 'required',
+            'kasabianDeskripsi' => 'required',
+            'kasabianGambar' => 'image|mimes:jpeg,png,jpg|max:2048',
             'kasabianTahunTerbit' => 'required',
             'kasabianKategori' => 'required',
         ]);
@@ -52,11 +54,17 @@ class KasabianBookController extends Controller
             return redirect()->back();
         }
 
+        $file = $request->file('kasabianGambar');
+        $path = $file->store('photos', 'public');
+        $url = asset('storage/' . $path);
+
         $kasabianBuku = Kasabian_book::create([
             'kasabianJudul' => $request->kasabianJudul,
             'kasabianPenulis' => $request->kasabianPenulis,
             'kasabianPenerbit' => $request->kasabianPenerbit,
             'kasabianTahunTerbit' => $request->kasabianTahunTerbit,
+            'kasabianGambar' => $url,
+            'kasabianDeskripsi' => $request->kasabianDeskripsi,
         ]);
 
         $bukuId = Kasabian_book::latest()->pluck('bukuId')->first();
@@ -82,7 +90,8 @@ class KasabianBookController extends Controller
             'kasabianJudul' => 'required',
             'kasabianPenulis' => 'required',
             'kasabianPenerbit' => 'required',
-            'kasabianGambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'kasabianDeskripsi' => 'required',
+            'kasabianGambar' => 'image|mimes:jpeg,png,jpg|max:2048',
             'kasabianTahunTerbit' => 'required',
             'kasabianKategori' => 'required',
         ]);
@@ -93,17 +102,23 @@ class KasabianBookController extends Controller
 
         $kasabianBuku = Kasabian_book::with('relasi')->find($id);
 
-        $file = $request->file('kasabianGambar');
-        $path = $file->store('photos', 'public');
-        $url = asset('storage/' . $path);
-
         $kasabianBuku->update([
             'kasabianJudul' => $request->kasabianJudul,
             'kasabianPenulis' => $request->kasabianPenulis,
-            'kasabianGambar' => $url,
             'kasabianPenerbit' => $request->kasabianPenerbit,
             'kasabianTahunTerbit' => $request->kasabianTahunTerbit,
+            'kasabianDeskripsi' => $request->kasabianDeskripsi,
         ]);
+
+        if($request->file('kasabianGambar')){
+            $file = $request->file('kasabianGambar');
+            $path = $file->store('photos', 'public');
+            $url = asset('storage/' . $path);
+
+            $kasabianBuku->update([
+                'kasabianGambar' => $url,
+            ]);
+        }
 
         $kasabianKategori = KasabianKategoriBukuRelasi::where('bukuId', $id)->first();
         $kasabianKategori->update([

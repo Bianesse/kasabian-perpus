@@ -2,10 +2,22 @@
     <div class="flex flex-row">
         <section class="flex flex-row p-4">
             <a class="mr-24 font-medium" href="{{route('main')}}">Perpustakaan</a>
-
+            @if ($userData->kasabianRoleId == 1)
             <a class="mr-4 font-medium" href="{{route('book')}}">Buku</a>
             <a class="mr-4 font-medium" href="{{route('kategori')}}">Kategori</a>
             <a class="mr-4 font-medium" href="{{route('users')}}">User</a>
+            @elseif ($userData->kasabianRoleId == 2)
+            <a class="mr-4 font-medium" href="{{route('book')}}">Buku</a>
+            <a class="mr-4 font-medium" href="{{route('kategori')}}">Kategori</a>
+            <a class="mr-4 font-medium" href="{{route('users')}}">User</a>
+            @elseif ($userData->kasabianRoleId == 3)
+            <a class="mr-4 font-medium" href="{{route('peminjamHome')}}">Buku</a>
+            <a class="mr-4 font-medium" href="{{route('displayPinjam')}}">Peminjaman</a>
+            <a class="mr-4 font-medium" href="">Koleksi Pribadi</a>
+
+            @else
+
+            @endif
         </section>
 
         <section class="p-4">
@@ -16,16 +28,3 @@
         </form>
     </div>
 </nav>
-
-{{-- <div class="h-screen fixed top-0 left-0 z-40 w-1/5 bg-white">
-    <div class="flex flex-col">
-        <h1 class="m-4 text-xl font-medium">Perpustakaan</h1>
-
-        <ul class="space-y-4 text-lg">
-            <li><a class="mr-4 font-medium" href="">Buku</a></li>
-            <hr class="w-3/4 mx-auto">
-            <li><a class="mr-4 font-medium" href="">Kategori</a></li>
-            <li><a class="mr-4 font-medium" href="">User</a></li>
-        </ul>
-    </div>
-</div> --}}

@@ -31,7 +31,7 @@
                     <label for="gambar" class="block mb-2 text-sm font-medium text-gray-700">Penerbit</label>
                     <input type="file" name="kasabianGambar" id="gambar"
                         class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
-                        placeholder="Masukkan Gambar" required>
+                        placeholder="Masukkan Gambar">
                 </div>
                 <div class="col-span-1">
                     <label for="tahunTerbit" class="block mb-2 text-sm font-medium text-gray-700">Tahun Terbit</label>
@@ -46,6 +46,12 @@
                             <option value="{{$item->kategoriId}}">{{$item->kasabianNamaKategori}}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="col-span-4">
+                    <label for="deskripsi" class="block mb-2 text-sm font-medium text-gray-700">Deskripsi</label>
+                    <textarea name="kasabianDeskripsi" id="deskripsi"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
+                        placeholder="Ketik Deskripsi" required>{{$dataBuku->kasabianDeskripsi}}</textarea>
                 </div>
                 <div class="col-span-4">
                     <button type="submit" class="bg-green-500 rounded-lg w-full h-10 font-medium border-2 border-green-700">

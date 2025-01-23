@@ -5,62 +5,49 @@ namespace App\Http\Controllers;
 use App\Models\KasabianPeminjaman;
 use App\Http\Requests\StoreKasabianPeminjamanRequest;
 use App\Http\Requests\UpdateKasabianPeminjamanRequest;
+use App\Models\Kasabian_book;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class KasabianPeminjamanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function displayPinjam()
     {
-        //
+        $kasabianUserId = Auth::user()->id;
+        $kasabianPeminjaman = KasabianPeminjaman::with(['users', 'books'])->where('userId', $kasabianUserId)->get();
+
+        return view('peminjam.kasabianDisplayPeminjaman', $kasabianPeminjaman);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function pinjamPage($id)
     {
-        //
+        $kasabianBuku = Kasabian_book::find($id);
+
+        return view('peminjam.kasabianMinjamPage', ['dataBuku' => $kasabianBuku]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreKasabianPeminjamanRequest $request)
+    public function pinjamBuku(Request $request)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'kasabianPeminjamId' => 'required',
+            'kasabianBukuId' => 'required',
+            'kasabianTanggalPeminjaman' => 'required',
+            'kasabianTanggalPengembalian' => 'required',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(KasabianPeminjaman $kasabianPeminjaman)
-    {
-        //
-    }
+        $kasabianPeminjaman = KasabianPeminjaman::create([
+            'userId' => $request->kasabianPeminjamId,
+            'bukuId' => $request->kasabianBukuId,
+            'tanggalPeminjaman' => $request->kasabianTanggalPeminjaman,
+            'tanggalPengembalian' => $request->kasabianTanggalPengembalian,
+            'statusPeminjaman' => 'Dipinjam',
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(KasabianPeminjaman $kasabianPeminjaman)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateKasabianPeminjamanRequest $request, KasabianPeminjaman $kasabianPeminjaman)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(KasabianPeminjaman $kasabianPeminjaman)
-    {
-        //
+        return redirect()->route('peminjamHome');
     }
 }

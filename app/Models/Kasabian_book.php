@@ -15,6 +15,7 @@ class Kasabian_book extends Model
         'kasabianPenulis',
         'kasabianPenerbit',
         'kasabianGambar',
+        'kasabianDeskripsi',
         'kasabianTahunTerbit',
     ];
 
