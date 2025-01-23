@@ -5,62 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\KasabianKoleksiPribadi;
 use App\Http\Requests\StoreKasabianKoleksiPribadiRequest;
 use App\Http\Requests\UpdateKasabianKoleksiPribadiRequest;
+use Illuminate\Support\Facades\Auth;
 
 class KasabianKoleksiPribadiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function koleksiPribadi()
     {
-        //
+        $kasabianUserId = Auth::user()->id;
+        $kasabianKoleksi = KasabianKoleksiPribadi::with(['users', 'books.relasi.kategori'])->where('userId', $kasabianUserId)->get();
+        return view('peminjam.kasabianKoleksiPribadi', ['dataKoleksi' => $kasabianKoleksi]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function tambahKoleksi($id)
     {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreKasabianKoleksiPribadiRequest $request)
-    {
-        //
-    }
+        $kasabianUserId = Auth::user()->id;
+        $kasabianKoleksi = KasabianKoleksiPribadi::where('userId', $kasabianUserId)->where('bukuId', $id)->first();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(KasabianKoleksiPribadi $kasabianKoleksiPribadi)
-    {
-        //
-    }
+        if(is_null($kasabianKoleksi)){
+            KasabianKoleksiPribadi::create([
+                'userId' => $kasabianUserId,
+                'bukuId' => $id,
+            ]);
+        }else{
+            $kasabianKoleksi->delete();
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(KasabianKoleksiPribadi $kasabianKoleksiPribadi)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateKasabianKoleksiPribadiRequest $request, KasabianKoleksiPribadi $kasabianKoleksiPribadi)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(KasabianKoleksiPribadi $kasabianKoleksiPribadi)
-    {
-        //
+        return redirect()->route('koleksiPribadi');
     }
 }

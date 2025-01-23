@@ -13,7 +13,9 @@
                         <img src="{{ $item->kasabianGambar }}" style="" alt="">
                     </a>
                     <h1 class="mt-2 text-gray-500 text-xs">{{ $item->kasabianPenulis }}, {{ $item->kasabianPenerbit }}</h1>
-                    <h1 class="">{{ $item->kasabianJudul }}</h1>
+                    <a href="{{ route('bukuDetail', $item->bukuId) }}">
+                        <h1 class="">{{ $item->kasabianJudul }}</h1>
+                    </a>
                     <h1 class="text-gray-500 text-xs">
                         {{ $item->relasi->pluck('kategori')->flatten()->pluck('kasabianNamaKategori')->join(' ') }}
                     </h1>

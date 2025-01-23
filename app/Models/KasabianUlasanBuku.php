@@ -20,7 +20,7 @@ class KasabianUlasanBuku extends Model
         'rating',
     ];
 
-    public function bukus()
+    public function books()
     {
         return $this->belongsTo(Kasabian_book::class, 'bukuId', 'bukuId');
     }

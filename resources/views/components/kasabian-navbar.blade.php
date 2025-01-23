@@ -13,7 +13,7 @@
             @elseif ($userData->kasabianRoleId == 3)
             <a class="mr-4 font-medium" href="{{route('peminjamHome')}}">Buku</a>
             <a class="mr-4 font-medium" href="{{route('displayPinjam')}}">Peminjaman</a>
-            <a class="mr-4 font-medium" href="">Koleksi Pribadi</a>
+            <a class="mr-4 font-medium" href="{{route('koleksiPribadi')}}">Koleksi Pribadi</a>
 
             @else
 

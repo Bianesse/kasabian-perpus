@@ -13,13 +13,17 @@ class KasabianKoleksiPribadi extends Model
     protected $primaryKey = 'koleksiId';
     protected $table = 'kasabian_koleksi_pribadi';
 
+    public $fillable = [
+        'userId', 'bukuId',
+    ];
+
 
     public function users()
     {
         return $this->belongsTo(User::class, 'userId');
     }
 
-    public function buku()
+    public function books()
     {
         return $this->belongsTo(Kasabian_book::class, 'bukuId', 'bukuId');
     }

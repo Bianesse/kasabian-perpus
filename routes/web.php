@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KasabianBookController;
 use App\Http\Controllers\KasabianHomeController;
+use App\Http\Controllers\KasabianKoleksiPribadiController;
 use App\Http\Controllers\KasabianLoginController;
 use App\Http\Controllers\KasabianPeminjamanController;
 use App\Http\Controllers\KasabianPeminjamController;
@@ -49,10 +50,14 @@ Route::middleware('auth')->group(function () {
         Route::prefix('peminjam')->group(function(){
             Route::get('/', [KasabianPeminjamController::class, 'home'])->name('peminjamHome');
             Route::get('/buku/{id}', [KasabianBookController::class, 'detail'])->name('bukuDetail');
+
             Route::get('/pinjam', [KasabianPeminjamanController::class, 'displayPinjam'])->name('displayPinjam');
             Route::get('/pinjam/{id}', [KasabianPeminjamanController::class, 'pinjamPage'])->name('pinjamPage');
             Route::post('/pinjam/{id}', [KasabianPeminjamanController::class, 'pinjamBuku'])->name('pinjamBuku');
             Route::post('/kembalikan/{id}', [KasabianPeminjamanController::class, 'kembalikanBuku'])->name('kembalikanBuku');
+
+            Route::get('/koleksi', [KasabianKoleksiPribadiController::class, 'koleksiPribadi'])->name('koleksiPribadi');
+            Route::post('/koleksi/{id}', [KasabianKoleksiPribadiController::class, 'tambahKoleksi'])->name('tambahKoleksi');
         });
     });
 
