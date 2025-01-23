@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/pinjam', [KasabianPeminjamanController::class, 'displayPinjam'])->name('displayPinjam');
             Route::get('/pinjam/{id}', [KasabianPeminjamanController::class, 'pinjamPage'])->name('pinjamPage');
             Route::post('/pinjam/{id}', [KasabianPeminjamanController::class, 'pinjamBuku'])->name('pinjamBuku');
+            Route::post('/kembalikan/{id}', [KasabianPeminjamanController::class, 'kembalikanBuku'])->name('kembalikanBuku');
         });
     });
 

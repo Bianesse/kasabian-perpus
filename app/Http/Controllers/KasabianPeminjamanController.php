@@ -21,7 +21,7 @@ class KasabianPeminjamanController extends Controller
         $kasabianUserId = Auth::user()->id;
         $kasabianPeminjaman = KasabianPeminjaman::with(['users', 'books'])->where('userId', $kasabianUserId)->get();
 
-        return view('peminjam.kasabianDisplayPeminjaman', $kasabianPeminjaman);
+        return view('peminjam.kasabianDisplayPeminjaman', ['dataPeminjaman' => $kasabianPeminjaman]);
     }
 
     public function pinjamPage($id)
@@ -49,5 +49,16 @@ class KasabianPeminjamanController extends Controller
         ]);
 
         return redirect()->route('peminjamHome');
+    }
+
+    public function kembalikanBuku($id)
+    {
+        $kasabianPeminjaman = KasabianPeminjaman::find($id);
+
+        $kasabianPeminjaman->update([
+            'statusPeminjaman' => 'Dikembalikan',
+        ]);
+
+        return redirect()->route('displayPinjam');
     }
 }

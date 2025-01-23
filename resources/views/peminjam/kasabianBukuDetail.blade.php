@@ -20,13 +20,9 @@
                 {{ $dataBuku->kasabianDeskripsi }}
             </h1>
 
-            <h1 class="text-gray-500 text-md mt-8">
-                Stok: 20
-            </h1>
-
             <a href="{{route('pinjamPage', $dataBuku->bukuId)}}">
                 <button
-                    class="bg-gray-300 font-medium text-black rounded-lg border-2 border-gray-700 w-full h-10 mt-3">Pinjam</button>
+                    class="bg-gray-300 font-medium text-black rounded-lg border-2 border-gray-700 w-full h-10 mt-3" >Pinjam</button>
             </a>
         </div>
     </div>
