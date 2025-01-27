@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Kasabian_role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,7 +15,7 @@ class kasabianUserController extends Controller
     public function index()
     {
         $user = User::with('kasabianRoles')->get();
-        return view('admin.users.kasabianUser', ['userData' => $user]);
+        return view('admin.users.kasabianUser', ['dataUser' => $user]);
     }
 
     public function tambahUsersPage()
