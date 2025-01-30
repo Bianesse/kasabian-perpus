@@ -8,7 +8,7 @@
     <title>Document</title>
     @vite('resources/css/app.css')
 
-<body >
+<body>
     <x-kasabian-navbar />
 
     <header class="bg-transparent shadow">
@@ -18,8 +18,14 @@
     </header>
 
     <div class="w-5/6 mx-auto mt-5 bg-gray-100 p-10 border-2 border-gray-200 rounded-lg">
-    @yield('content')
+        @yield('content')
     </div>
+
+    @hasSection('extra')
+        <div class="w-5/6 mx-auto mt-5 bg-gray-100 p-10 border-2 border-gray-200 rounded-lg">
+            @yield('extra')
+        </div>
+    @endif
 
 </body>
 

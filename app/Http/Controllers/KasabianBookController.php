@@ -18,18 +18,19 @@ class KasabianBookController extends Controller
     {
         $kasabianBuku = Kasabian_book::with('relasi.kategori')->get();
 
-
         return view('admin.buku.kasabianBuku', ['dataBuku' => $kasabianBuku]);
     }
 
     public function detail($id)
     {
-        $kasabianBuku = Kasabian_book::with(['relasi.kategori', 'ulasan'])->find($id);
+        $kasabianBuku = Kasabian_book::with(['relasi.kategori', 'ulasan.users'])->find($id);
 
-        $kasabianUlasan = $kasabianBuku->ulasan()->count('rating');
-        $kasabianUlasan = $kasabianBuku->ulasan()->sum('rating');
+        $kasabianCount = $kasabianBuku->ulasan->count('rating');
+        $kasabianSum = $kasabianBuku->ulasan->sum('rating');
 
-        return view('peminjam.kasabianBukuDetail', ['dataBuku' => $kasabianBuku, 'dataUlasan' => $kasabianUlasan]);
+        $kasabianAverage = round($kasabianSum / $kasabianCount, 1);
+
+        return view('peminjam.kasabianBukuDetail', ['dataBuku' => $kasabianBuku, 'dataUlasan' => $kasabianAverage]);
     }
 
     public function tambahBukuPage()
