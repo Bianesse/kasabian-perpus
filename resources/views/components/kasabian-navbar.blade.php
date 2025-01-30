@@ -6,6 +6,7 @@
             <a class="mr-4 font-medium" href="{{route('book')}}">Buku</a>
             <a class="mr-4 font-medium" href="{{route('kategori')}}">Kategori</a>
             <a class="mr-4 font-medium" href="{{route('users')}}">User</a>
+            <a class="mr-4 font-medium" href="{{route('adminPeminjaman')}}">Peminjaman</a>
             @elseif ($userData->kasabianRoleId == 2)
             <a class="mr-4 font-medium" href="{{route('book')}}">Buku</a>
             <a class="mr-4 font-medium" href="{{route('kategori')}}">Kategori</a>

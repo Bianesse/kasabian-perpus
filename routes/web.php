@@ -44,6 +44,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [KasabianBookController::class, 'editKategoriPage'])->name('editKategoriPage');
             Route::post('/edit/{id}', [KasabianBookController::class, 'editKategori'])->name('editKategori');
         });
+
+        Route::prefix('peminjaman')->group(function () {
+            Route::get('/', [KasabianPeminjamanController::class, 'adminDisplayPinjam'])->name('adminPeminjaman');
+            Route::post('/pinjam/{id}', [KasabianPeminjamanController::class, 'adminKonfirmasiPinjam'])->name('adminKonfirmasiPeminjaman');
+        });
     });
 
     Route::middleware('role:3')->group(function () {

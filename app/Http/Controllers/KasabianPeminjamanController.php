@@ -45,7 +45,7 @@ class KasabianPeminjamanController extends Controller
             'bukuId' => $request->kasabianBukuId,
             'tanggalPeminjaman' => $request->kasabianTanggalPeminjaman,
             'tanggalPengembalian' => $request->kasabianTanggalPengembalian,
-            'statusPeminjaman' => 'Dipinjam',
+            'statusPeminjaman' => 'Pending Dipinjam',
         ]);
 
         return redirect()->route('peminjamHome');
@@ -56,9 +56,39 @@ class KasabianPeminjamanController extends Controller
         $kasabianPeminjaman = KasabianPeminjaman::find($id);
 
         $kasabianPeminjaman->update([
-            'statusPeminjaman' => 'Dikembalikan',
+            'statusPeminjaman' => 'Pending Dikembalikan',
         ]);
 
         return redirect()->route('displayPinjam');
+    }
+
+    public function adminDisplayPinjam()
+    {
+        $kasabianPeminjaman = KasabianPeminjaman::with(['users', 'books'])->get();
+
+        return view('admin.peminjaman.kasabianDisplayPeminjaman', ['dataPeminjaman' => $kasabianPeminjaman]);
+    }
+
+    public function adminKonfirmasiPinjam($id)
+    {
+        $kasabianPeminjaman = KasabianPeminjaman::find($id);
+
+
+
+        if ($kasabianPeminjaman->statusPeminjaman === 'Pending Dipinjam') {
+            $kasabianPeminjaman->update([
+                'statusPeminjaman' => 'Dipinjam',
+            ]);
+        } elseif ($kasabianPeminjaman->statusPeminjaman === 'Pending Dikembalikan') {
+            $kasabianPeminjaman->update([
+                'statusPeminjaman' => 'Dikembalikan',
+            ]);
+        } elseif ($kasabianPeminjaman->statusPeminjaman === 'Dipinjam') {
+            $kasabianPeminjaman->update([
+                'statusPeminjaman' => 'Dikembalikan',
+            ]);
+        }
+
+        return redirect()->route('adminPeminjaman');
     }
 }

@@ -37,15 +37,20 @@
                         @else
                             <span class="px-2 py-1 text-white bg-red-500 rounded-lg">Overdue</span>
                         @endif
-
                     </td>
                     <td class="px-4 py-3 flex flex-row space-x-2">
-                        <form action="{{ route('kembalikanBuku', $item->peminjamanId) }}" method="POST">
+                        <form action="{{ route('adminKonfirmasiPeminjaman', $item->peminjamanId) }}" method="POST">
                             @csrf
-                            <button onclick="return confirm('Apakah mau mengembalikan buku?')"
+                            <button onclick="return confirm('Apakah mau konfirmasi buku?')"
                                 class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-4 py-2"
                                 @disabled($item->statusPeminjaman === 'Dikembalikan')>
-                                Kembalikan
+                                @if ($item->statusPeminjaman === 'Pending Dikembalikan' || $item->statusPeminjaman === 'Pending Dipinjam')
+                                    Konfirmasi
+                                @elseif ($item->statusPeminjaman === 'Dipinjam')
+                                    Kembalikan
+                                @else
+                                    Selesai
+                                @endif
                             </button>
                         </form>
                     </td>
