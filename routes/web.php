@@ -4,6 +4,7 @@ use App\Http\Controllers\KasabianBookController;
 use App\Http\Controllers\KasabianHomeController;
 use App\Http\Controllers\KasabianKoleksiPribadiController;
 use App\Http\Controllers\KasabianLoginController;
+use App\Http\Controllers\KasabianLogPeminjamanController;
 use App\Http\Controllers\KasabianPeminjamanController;
 use App\Http\Controllers\KasabianPeminjamController;
 use App\Http\Controllers\KasabianPeminjamHome;
@@ -45,10 +46,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [KasabianBookController::class, 'editKategoriPage'])->name('editKategoriPage');
             Route::post('/edit/{id}', [KasabianBookController::class, 'editKategori'])->name('editKategori');
         });
+
+        Route::prefix('log')->group(function () {
+            Route::get('/', [KasabianLogPeminjamanController::class, 'showLog'])->name('showLog');
+            Route::post('/', [KasabianLogPeminjamanController::class, 'showLog'])->name('showLogFilter');
+        });
     });
 
     Route::middleware('role:3')->group(function () {
-        Route::prefix('peminjam')->group(function(){
+        Route::prefix('peminjam')->group(function () {
             Route::get('/', [KasabianPeminjamController::class, 'home'])->name('peminjamHome');
             Route::get('/buku/{id}', [KasabianBookController::class, 'detail'])->name('bukuDetail');
 
