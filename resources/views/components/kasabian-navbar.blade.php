@@ -19,12 +19,14 @@
 
             @endif
         </section>
-
-        <section class="p-4">
-        </section>
-        <form method="POST" action="/logout" class="ml-auto mt-2 mr-4 font-medium">
+        <form method="POST" action="/logout" class="ml-auto flex items-center space-x-4 mr-4 font-medium">
             @csrf
-            <button type="submit" class="bg-gray-200 font-medium text-red-700 rounded-lg w-20 h-10">Logout</button>
+            <h1 class="text-gray-800">{{ $userData->kasabianUsername }}</h1>
+
+            <button type="submit" class="bg-gray-200 font-medium text-red-700 rounded-lg w-20 h-10 hover:bg-gray-300 transition">
+                Logout
+            </button>
         </form>
+
     </div>
 </nav>

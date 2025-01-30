@@ -5,62 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\KasabianUlasanBuku;
 use App\Http\Requests\StoreKasabianUlasanBukuRequest;
 use App\Http\Requests\UpdateKasabianUlasanBukuRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class KasabianUlasanBukuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function tambahUlasan(Request $request, $id)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'kasabianUlasan' => 'required',
+            'kasabianRating' => 'required',
+        ]);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        $kasabianUlasan = $request->kasabianUlasan;
+        $kasabianRating = $request->kasabianRating;
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreKasabianUlasanBukuRequest $request)
-    {
-        //
-    }
+        KasabianUlasanBuku::create([
+            'bukuId' => $id,
+            'userId' => Auth::user()->id,
+            'ulasan' => $kasabianUlasan,
+            'rating' => $kasabianRating,
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(KasabianUlasanBuku $kasabianUlasanBuku)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(KasabianUlasanBuku $kasabianUlasanBuku)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateKasabianUlasanBukuRequest $request, KasabianUlasanBuku $kasabianUlasanBuku)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(KasabianUlasanBuku $kasabianUlasanBuku)
-    {
-        //
+        return redirect()->back();
     }
 }
