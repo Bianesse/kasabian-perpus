@@ -7,6 +7,7 @@ use App\Http\Controllers\KasabianLoginController;
 use App\Http\Controllers\KasabianPeminjamanController;
 use App\Http\Controllers\KasabianPeminjamController;
 use App\Http\Controllers\KasabianPeminjamHome;
+use App\Http\Controllers\KasabianUlasanBukuController;
 use App\Http\Controllers\kasabianUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,8 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/koleksi', [KasabianKoleksiPribadiController::class, 'koleksiPribadi'])->name('koleksiPribadi');
             Route::post('/koleksi/{id}', [KasabianKoleksiPribadiController::class, 'tambahKoleksi'])->name('tambahKoleksi');
+
+            Route::post('/ulasan/{id}', [KasabianUlasanBukuController::class, 'tambahUlasan'])->name('tambahUlasan');
         });
     });
 

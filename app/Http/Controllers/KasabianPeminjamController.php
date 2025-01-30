@@ -10,7 +10,7 @@ class KasabianPeminjamController extends Controller
 {
     public function home()
     {
-        $kasabianBuku = Kasabian_book::with('relasi.kategori')->get();
+        $kasabianBuku = Kasabian_book::with(['relasi.kategori'])->get();
 
         return view('peminjam.kasabianHome', ['dataBuku' => $kasabianBuku]);
     }

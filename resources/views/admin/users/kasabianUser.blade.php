@@ -23,7 +23,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            @foreach ($userData as $item)
+            @foreach ($dataUser as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->kasabianUsername }}</td>

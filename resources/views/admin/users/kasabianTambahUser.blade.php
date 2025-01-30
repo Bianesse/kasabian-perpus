@@ -34,9 +34,9 @@
                 <div class="col-span-2">
                     <label for="role" class="block mb-2 text-sm font-medium text-gray-700">Role</label>
                     <select name="kasabianRole" id="role" class="bg-white border border-gray-300  rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5">
-                        @foreach ($dataUser as $item)
-                            <option value="{{$item->kasabianRoleId}}">{{$item->kasabianRoles->kasabianRoleName}}</option>
-                        @endforeach
+                        <option value="1">Admin</option>
+                        <option value="2">Petugas</option>
+                        <option value="3">Peminjam</option>
                     </select>
                 </div>
 
@@ -53,8 +53,8 @@
                         class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
                         placeholder="Ketik Alamat Lengkap" required></textarea>
                 </div>
-                
-                
+
+
                 <div class="col-span-4">
                     <button class="bg-green-500 rounded-lg w-full h-10 font-medium border-2 border-green-700">
                         Submit
