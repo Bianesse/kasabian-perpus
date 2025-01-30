@@ -26,13 +26,16 @@
                 <form class="space-y-3" method="POST" action="/login">
                     @csrf
                     <label for="user" class="text-sm font-medium text-gray-800">Username</label>
-                    <input name="kasabianUser" id="user"
-                        class="bg-white border text-gray-500 border-gray-600 w-full rounded-md p-1 pl-2" type="text" placeholder="Example">
+                    <input name="kasabianUser" id="user" required
+                        class="bg-white border text-gray-500 border-gray-600 w-full rounded-md p-1 pl-2" type="text"
+                        placeholder="Example">
                     <label for="pass" class="block text-sm font-medium text-gray-800">Password</label>
-                    <input name="kasabianPass" id="pass"
-                        class="bg-white border text-gray-500 border-gray-600 w-full rounded-md p-1 pl-2" type="password" placeholder="********">
+                    <input name="kasabianPass" id="pass" required
+                        class="bg-white border text-gray-500 border-gray-600 w-full rounded-md p-1 pl-2" type="password"
+                        placeholder="********">
                     <button type="submit"
-                        class="w-max text-gray-800 font-medium bg-gray-300 border-2 border-gray-400 rounded-lg px-3 py-2">Sign in</button>
+                        class="w-max text-gray-800 font-medium bg-gray-300 border-2 border-gray-400 rounded-lg px-3 py-2">Sign
+                        in</button>
                 </form>
             </div>
         </div>
