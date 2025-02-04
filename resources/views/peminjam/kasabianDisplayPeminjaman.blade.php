@@ -27,15 +27,15 @@
                     <td class="px-4 py-3">{{ $item->tanggalPengembalian }}</td>
                     <td class="px-4 py-3">
                         @if ($item->statusPeminjaman === 'Dikembalikan')
-                            <span class="px-2 py-1 text-white bg-green-500 rounded-lg">Dikembalikan</span>
+                            <span class="px-2 py-1 text-green-700 bg-green-100 rounded-lg">Dikembalikan</span>
                         @elseif ($item->statusPeminjaman === 'Dipinjam')
-                            <span class="px-2 py-1 text-white bg-blue-500 rounded-lg">Dipinjam</span>
+                            <span class="px-2 py-1 text-blue-700 bg-blue-100 rounded-lg">Dipinjam</span>
                         @elseif ($item->statusPeminjaman === 'Pending Dikembalikan')
-                            <span class="px-2 py-1 text-black bg-yellow-300 rounded-lg">Pending Dikembalikan</span>
+                            <span class="px-2 py-1 text-yellow-700 bg-yellow-100 rounded-lg">Pending Dikembalikan</span>
                         @elseif ($item->statusPeminjaman === 'Pending Dipinjam')
-                            <span class="px-2 py-1 text-black bg-yellow-300 rounded-lg">Pending Dipinjam</span>
+                            <span class="px-2 py-1 text-yellow-700 bg-yellow-100 rounded-lg">Pending Dipinjam</span>
                         @else
-                            <span class="px-2 py-1 text-white bg-red-500 rounded-lg">Overdue</span>
+                            <span class="px-2 py-1 text-red-700 bg-red-100 rounded-lg">Overdue</span>
                         @endif
 
                     </td>

@@ -11,42 +11,44 @@
                 Tambah
             </button>
         </a>
-        <table class="divide-y divide-gray-300 border">
-            <thead class="bg-gray-50">
+        <table class="w-full text-sm text-left text-gray-500 border border-gray-300 rounded-lg shadow-lg">
+            <thead class="bg-gray-100 text-gray-700 text-sm uppercase">
                 <tr class="text-left">
-                    <th>No.</th>
-                    <th>Nama Kategori</th>
-                    <th>Buku</th>
-                    <th>Action</th>
+                    <th class="px-4 py-3">No.</th>
+                    <th class="px-4 py-3">Nama Kategori</th>
+                    <th class="px-4 py-3">Buku</th>
+                    <th class="px-4 py-3">Action</th>
                 </tr>
             </thead>
-            @foreach ($dataKategori as $item)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->kasabianNamaKategori }}</td>
-                    <td>
-                        @foreach ($item->relasi as $data)
-                            @foreach ($data->books as $buku)
-                                {{ $buku->kasabianJudul }},
+            <tbody class="divide-y divide-gray-200 bg-white">
+                @foreach ($dataKategori as $item)
+                    <tr>
+                        <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-3">{{ $item->kasabianNamaKategori }}</td>
+                        <td class="px-4 py-3">
+                            @foreach ($item->relasi as $data)
+                                @foreach ($data->books as $buku)
+                                    {{ $buku->kasabianJudul }},
+                                @endforeach
                             @endforeach
-                        @endforeach
-                    </td>
-                    <td class="flex flex-row space-x-2">
-                        <a href="{{ route('editKategoriPage', $item->kategoriId) }}">
-                            <button class="bg-blue-500 rounded-lg w-20 h-10 font-medium my-2">
-                                Edit
-                            </button>
-                        </a>
-                        <form method="POST" action="{{ route('hapusKategori', $item->kategoriId) }}">
-                            @csrf
-                            <button onclick="return confirm('Apakah ingin menghapus data ini?')"
-                                class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
-                                Hapus
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
+                        </td>
+                        <td class="px-4 py-3 flex flex-row space-x-2 text-white">
+                            <a href="{{ route('editKategoriPage', $item->kategoriId) }}">
+                                <button class="bg-blue-500 rounded-lg w-20 h-10 font-medium my-2">
+                                    Edit
+                                </button>
+                            </a>
+                            <form method="POST" action="{{ route('hapusKategori', $item->kategoriId) }}">
+                                @csrf
+                                <button onclick="return confirm('Apakah ingin menghapus data ini?')"
+                                    class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
+                                    Hapus
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
 @endsection

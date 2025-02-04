@@ -49,6 +49,7 @@
 @endsection
 
 @section('extra')
+<section>
     <h2 class="text-2xl font-semibold text-gray-800 mb-4">Ulasan</h2>
 
     <form action="{{ route('tambahUlasan', $dataBuku->bukuId) }}" method="POST" class="mb-6">

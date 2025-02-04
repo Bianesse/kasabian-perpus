@@ -28,7 +28,7 @@ class KasabianBookController extends Controller
         $kasabianCount = $kasabianBuku->ulasan->count('rating');
         $kasabianSum = $kasabianBuku->ulasan->sum('rating');
 
-        $kasabianAverage = round($kasabianSum / $kasabianCount, 1);
+        $kasabianAverage = $kasabianCount > 0 ? round($kasabianSum / $kasabianCount, 1) : 0;
 
         return view('peminjam.kasabianBukuDetail', ['dataBuku' => $kasabianBuku, 'dataUlasan' => $kasabianAverage]);
     }
