@@ -69,20 +69,35 @@ class KasabianPeminjamanController extends Controller
         return view('admin.peminjaman.kasabianDisplayPeminjaman', ['dataPeminjaman' => $kasabianPeminjaman]);
     }
 
-    public function adminKonfirmasiPinjam($id)
+    public function adminKonfirmasiPinjam(Request $request, $id)
     {
         $kasabianPeminjaman = KasabianPeminjaman::find($id);
 
 
 
+
         if ($kasabianPeminjaman->statusPeminjaman === 'Pending Dipinjam') {
-            $kasabianPeminjaman->update([
-                'statusPeminjaman' => 'Dipinjam',
-            ]);
+            if ($request->kasabianTolak) {
+                $kasabianPeminjaman->update([
+                    'statusPeminjaman' => 'Dikembalikan',
+                ]);
+            } elseif ($request->kasabianKonfirmasi) {
+                $kasabianPeminjaman->update([
+                    'statusPeminjaman' => 'Dipinjam',
+                ]);
+            } else {
+            }
         } elseif ($kasabianPeminjaman->statusPeminjaman === 'Pending Dikembalikan') {
-            $kasabianPeminjaman->update([
-                'statusPeminjaman' => 'Dikembalikan',
-            ]);
+            if ($request->kasabianTolak) {
+                $kasabianPeminjaman->update([
+                    'statusPeminjaman' => 'Dipinjam',
+                ]);
+            } elseif ($request->kasabianKonfirmasi) {
+                $kasabianPeminjaman->update([
+                    'statusPeminjaman' => 'Dikembalikan',
+                ]);
+            } else {
+            }
         } elseif ($kasabianPeminjaman->statusPeminjaman === 'Dipinjam') {
             $kasabianPeminjaman->update([
                 'statusPeminjaman' => 'Dikembalikan',

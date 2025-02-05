@@ -38,20 +38,31 @@
                             <span class="px-2 py-1 text-red-700 bg-red-100 rounded-lg">Overdue</span>
                         @endif
                     </td>
-                    <td class="px-4 py-3 flex flex-row space-x-2">
-                        <form action="{{ route('adminKonfirmasiPeminjaman', $item->peminjamanId) }}" method="POST">
+                    <td class="px-4 py-3 space-x-2">
+                        <form class="grid grid-cols-2 space-x-1"
+                            action="{{ route('adminKonfirmasiPeminjaman', $item->peminjamanId) }}" method="POST">
                             @csrf
-                            <button onclick="return confirm('Apakah mau konfirmasi buku?')"
-                                class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-4 py-2"
-                                @disabled($item->statusPeminjaman === 'Dikembalikan')>
-                                @if ($item->statusPeminjaman === 'Pending Dikembalikan' || $item->statusPeminjaman === 'Pending Dipinjam')
-                                    Konfirmasi
-                                @elseif ($item->statusPeminjaman === 'Dipinjam')
+                            @if ($item->statusPeminjaman === 'Pending Dikembalikan' || $item->statusPeminjaman === 'Pending Dipinjam')
+                                <button onclick="return confirm('Apakah mau konfirmasi buku?')" name="kasabianKonfirmasi" value="1"
+                                    class="col-span-1 bg-green-500 hover:bg-blue-600 text-white font-medium rounded-lg py-2"
+                                    @disabled($item->statusPeminjaman === 'Dikembalikan')>
+                                    ✔
+                                </button>
+                                <button onclick="return confirm('Apakah mau konfirmasi peminjaman?')" name="kasabianTolak" value="1"
+                                    class="col-span-1 bg-red-500 hover:bg-blue-600 text-white font-medium rounded-lg py-2"
+                                    @disabled($item->statusPeminjaman === 'Dikembalikan')>
+                                    ✖
+                                </button>
+                            @elseif ($item->statusPeminjaman === 'Dipinjam')
+                                <button onclick="return confirm('Apakah mau tolak peminjaman?')"
+                                    class="col-span-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-3 py-2"
+                                    @disabled($item->statusPeminjaman === 'Dikembalikan')>
                                     Kembalikan
-                                @else
-                                    Selesai
-                                @endif
-                            </button>
+                                </button>
+                            @else
+                                Selesai
+                            @endif
+
                         </form>
                     </td>
                 </tr>
