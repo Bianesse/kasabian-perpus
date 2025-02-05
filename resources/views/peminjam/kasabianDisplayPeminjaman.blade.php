@@ -42,11 +42,15 @@
                     <td class="px-4 py-3 flex flex-row space-x-2">
                         <form action="{{ route('kembalikanBuku', $item->peminjamanId) }}" method="POST">
                             @csrf
-                            <button onclick="return confirm('Apakah mau mengembalikan buku?')"
-                                class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-4 py-2"
-                                @disabled($item->statusPeminjaman === 'Dikembalikan')>
-                                Kembalikan
-                            </button>
+                            @if ($item->statusPeminjaman === 'Dikembalikan')
+                                
+                            @else
+                                <button onclick="return confirm('Apakah mau mengembalikan buku?')"
+                                    class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-4 py-2"
+                                    @disabled($item->statusPeminjaman === 'Dikembalikan')>
+                                    Kembalikan
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>
