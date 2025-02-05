@@ -5,6 +5,13 @@
 @endsection
 
 @section('content')
+<form action="">
+    <select class="bg-white border border-gray-300 rounded-lg block w-48 p-2.5" name="" id="">
+        @foreach ($dataKategori as $item)
+        <option value="{{$item->kategoriId}}">{{$item->kasabianNamaKategori}}</option>
+        @endforeach
+    </select>
+</form>
     <div class="grid grid-cols-5 gap-x-5 gap-y-5">
         @foreach ($dataBuku as $item)
             <div class="col-span-1 max-h-88 w-42 p-5 bg-white rounded-md">

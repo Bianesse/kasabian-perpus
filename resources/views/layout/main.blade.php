@@ -19,7 +19,9 @@
     </header>
 
     <div class="w-5/6 mx-auto mt-5 bg-gray-100 p-10 border-2 border-gray-200 rounded-lg">
-        @yield('content')
+        <div class="overflow-auto max-h-[500px]">
+            @yield('content')
+        </div>
     </div>
 
     @hasSection('extra')

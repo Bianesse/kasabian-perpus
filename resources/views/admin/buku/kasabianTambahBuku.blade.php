@@ -12,36 +12,36 @@
                 <div class="col-span-2">
                     <label for="judul" class="block mb-2 text-sm font-medium text-gray-700">Judul</label>
                     <input type="text" name="kasabianJudul" id="judul"
-                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                         placeholder="Ketik Judul" required>
                 </div>
                 <div class="col-span-1">
                     <label for="penulis" class="block mb-2 text-sm font-medium text-gray-700">Penulis</label>
                     <input type="text" name="kasabianPenulis" id="penulis"
-                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                         placeholder="Ketik Penulis" required>
                 </div>
                 <div class="col-span-1">
                     <label for="penerbit" class="block mb-2 text-sm font-medium text-gray-700">Penerbit</label>
                     <input type="text" name="kasabianPenerbit" id="penerbit"
-                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                         placeholder="Ketik Penerbit" required>
                 </div>
                 <div class="col-span-1">
                     <label for="gambar" class="block mb-2 text-sm font-medium text-gray-700">Gambar</label>
                     <input type="file" name="kasabianGambar" id="gambar"
-                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                         placeholder="Masukkan Gambar">
                 </div>
                 <div class="col-span-1">
                     <label for="tahunTerbit" class="block mb-2 text-sm font-medium text-gray-700">Tahun Terbit</label>
                     <input type="number" name="kasabianTahunTerbit" id="tahunTerbit"
-                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                         placeholder="Ketik Tahun Terbit" required>
                 </div>
                 <div class="col-span-2">
                     <label for="kategori" class="block mb-2 text-sm font-medium text-gray-700">Kategori</label>
-                    <select name="kasabianKategori" id="kategori" class="bg-white border border-gray-300  rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5">
+                    <select name="kasabianKategori" id="kategori" class="bg-white border border-gray-300  rounded-lg block w-full p-2.5">
                         @foreach ($dataKategori as $item)
                             <option value="{{$item->kategoriId}}">{{$item->kasabianNamaKategori}}</option>
                         @endforeach
@@ -50,7 +50,7 @@
                 <div class="col-span-4">
                     <label for="deskripsi" class="block mb-2 text-sm font-medium text-gray-700">Deskripsi</label>
                     <textarea name="kasabianDeskripsi" id="deskripsi"
-                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                         placeholder="Ketik Deskripsi" required></textarea>
                 </div>
                 <div class="col-span-4">

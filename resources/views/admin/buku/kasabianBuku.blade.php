@@ -36,7 +36,7 @@
                         <td class="px-4 py-3">{{ $item->kasabianPenulis }}</td>
                         <td class="px-4 py-3">{{ $item->kasabianPenerbit }}</td>
                         <td class="px-4 py-3">{{ $item->kasabianTahunTerbit }}</td>
-                        <td class="flex flex-row space-x-2 text-white">
+                        <td class="flex flex-row space-x-2 px-4 py-3 text-white">
                             <a href="{{ route('editBukuPage', $item->bukuId) }}">
                                 <button class="bg-blue-500 rounded-lg w-20 h-10 font-medium my-2">
                                     Edit
