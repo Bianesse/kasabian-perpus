@@ -23,7 +23,7 @@
             <div class="bg-white rounded-lg shadow-md overflow-hidden p-4">
                 <div class="flex flex-col items-center">
                     <a href="{{ route('bukuDetail', $item->bukuId) }}">
-                        <img src="{{ asset('storage/'.$item->kasabianGambar ) }}" class="w-40 h-60 object-cover rounded-md" alt="">
+                        <img src="{{ asset('storage/'.$item->kasabianGambar ) }}" class="w-full h-80 object-cover rounded-md" alt="">
                     </a>
                     <h1 class="mt-2 text-gray-500 text-xs text-center">
                         {{ $item->kasabianPenulis }}, {{ $item->kasabianPenerbit }}
