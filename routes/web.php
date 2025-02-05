@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:3')->group(function () {
         Route::prefix('peminjam')->group(function () {
             Route::get('/', [KasabianPeminjamController::class, 'home'])->name('peminjamHome');
+            Route::post('/', [KasabianPeminjamController::class, 'home'])->name('peminjamHome');
             Route::get('/buku/{id}', [KasabianBookController::class, 'detail'])->name('bukuDetail');
 
             Route::get('/pinjam', [KasabianPeminjamanController::class, 'displayPinjam'])->name('displayPinjam');

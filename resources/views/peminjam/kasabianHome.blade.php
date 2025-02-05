@@ -5,29 +5,38 @@
 @endsection
 
 @section('content')
-<form action="">
-    <select class="bg-white border border-gray-300 rounded-lg block w-48 p-2.5" name="" id="">
-        @foreach ($dataKategori as $item)
-        <option value="{{$item->kategoriId}}">{{$item->kasabianNamaKategori}}</option>
-        @endforeach
-    </select>
-</form>
-    <div class="grid grid-cols-5 gap-x-5 gap-y-5">
+    <form action="{{route('peminjamHome')}}" method="POST" class="mb-5 flex space-x-4">
+        @csrf
+        <select class="bg-white border border-gray-300 rounded-lg block w-48 p-2.5" name="kategoriId" id="">
+            <option value="all" selected hidden>Pilih Kategori</option>
+            @foreach ($dataKategori as $item)
+                <option value="{{ $item->kategoriId }}">{{ $item->kasabianNamaKategori }}</option>
+            @endforeach
+        </select>
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-4 py-2">
+            Filter
+        </button>
+    </form>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         @foreach ($dataBuku as $item)
-            <div class="col-span-1 max-h-88 w-42 p-5 bg-white rounded-md">
-                <div class="grid grid-rows">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden p-4">
+                <div class="flex flex-col items-center">
                     <a href="{{ route('bukuDetail', $item->bukuId) }}">
-                        <img src="{{ $item->kasabianGambar }}" class="w-40 h-60 object-cover" alt="">
+                        <img src="{{ $item->kasabianGambar }}" class="w-40 h-60 object-cover rounded-md" alt="">
                     </a>
-                    <h1 class="mt-2 text-gray-500 text-xs">{{ $item->kasabianPenulis }}, {{ $item->kasabianPenerbit }}</h1>
-                    <a href="{{ route('bukuDetail', $item->bukuId) }}">
-                        <h1 class="">{{ $item->kasabianJudul }}</h1>
+                    <h1 class="mt-2 text-gray-500 text-xs text-center">
+                        {{ $item->kasabianPenulis }}, {{ $item->kasabianPenerbit }}
+                    </h1>
+                    <a href="{{ route('bukuDetail', $item->bukuId) }}" class="text-center">
+                        <h1 class="text-sm font-medium text-gray-800">{{ $item->kasabianJudul }}</h1>
                     </a>
-                    <h1 class="text-gray-500 text-xs">
+                    <h1 class="text-gray-500 text-xs text-center">
                         {{ $item->relasi->kategori->kasabianNamaKategori }}
                     </h1>
                 </div>
             </div>
         @endforeach
+
     </div>
 @endsection
