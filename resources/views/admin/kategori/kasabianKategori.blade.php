@@ -26,11 +26,10 @@
                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
                         <td class="px-4 py-3">{{ $item->kasabianNamaKategori }}</td>
                         <td class="px-4 py-3">
-                            @foreach ($item->relasi as $data)
-                                @foreach ($data->books as $buku)
-                                    {{ $buku->kasabianJudul }},
-                                @endforeach
-                            @endforeach
+                            @if (!empty($item->relasi->books->kasabianJudul))
+                                {{ $item->relasi->books->kasabianJudul }}
+                            @endif
+
                         </td>
                         <td class="px-4 py-3 flex flex-row space-x-2 text-white">
                             <a href="{{ route('editKategoriPage', $item->kategoriId) }}">

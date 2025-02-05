@@ -16,6 +16,6 @@ class KasabianKategoriBuku extends Model
 
     public function relasi()
     {
-        return $this->hasMany(KasabianKategoriBukuRelasi::class, 'kategoriId','kategoriId');
+        return $this->hasOne(KasabianKategoriBukuRelasi::class, 'kategoriId','kategoriId');
     }
 }

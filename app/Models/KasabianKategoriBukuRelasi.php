@@ -22,11 +22,11 @@ class KasabianKategoriBukuRelasi extends Model
 
     public function books()
     {
-        return $this->hasMany(Kasabian_book::class, 'bukuId', 'bukuId');
+        return $this->hasOne(Kasabian_book::class, 'bukuId', 'bukuId');
     }
 
     public function kategori()
     {
-        return $this->hasMany(KasabianKategoriBuku::class, 'kategoriId', 'kategoriId');
+        return $this->hasOne(KasabianKategoriBuku::class, 'kategoriId', 'kategoriId');
     }
 }

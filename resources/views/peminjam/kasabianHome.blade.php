@@ -10,14 +10,14 @@
             <div class="col-span-1 max-h-88 w-42 p-5 bg-white rounded-md">
                 <div class="grid grid-rows">
                     <a href="{{ route('bukuDetail', $item->bukuId) }}">
-                        <img src="{{ $item->kasabianGambar }}" style="" alt="">
+                        <img src="{{ $item->kasabianGambar }}" class="w-40 h-60 object-cover" alt="">
                     </a>
                     <h1 class="mt-2 text-gray-500 text-xs">{{ $item->kasabianPenulis }}, {{ $item->kasabianPenerbit }}</h1>
                     <a href="{{ route('bukuDetail', $item->bukuId) }}">
                         <h1 class="">{{ $item->kasabianJudul }}</h1>
                     </a>
                     <h1 class="text-gray-500 text-xs">
-                        {{ $item->relasi->pluck('kategori')->flatten()->pluck('kasabianNamaKategori')->join(' ') }}
+                        {{ $item->relasi->kategori->kasabianNamaKategori }}
                     </h1>
                 </div>
             </div>

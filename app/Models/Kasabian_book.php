@@ -24,7 +24,7 @@ class Kasabian_book extends Model
 
     public function relasi()
     {
-        return $this->hasMany(KasabianKategoriBukuRelasi::class, 'bukuId', 'bukuId');
+        return $this->hasOne(KasabianKategoriBukuRelasi::class, 'bukuId', 'bukuId');
     }
 
     public function ulasan()

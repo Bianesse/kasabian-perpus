@@ -1,8 +1,8 @@
 @extends('layout.main')
 
-@section('head')
+{{-- @section('head')
     <h1 class="text-3xl font-bold tracking-tight text-primary-yellow"></h1>
-@endsection
+@endsection --}}
 
 @section('content')
     <div class="grid grid-cols-3 gap-x-5">
@@ -13,7 +13,7 @@
             <h1 class="text-gray-500 text-lg">{{ $dataBuku->kasabianPenulis }}, {{ $dataBuku->kasabianPenerbit }}</h1>
             <h1 class="text-3xl">{{ $dataBuku->kasabianJudul }}</h1>
             <h1 class="text-gray-500 text-md">
-                {{ $dataBuku->relasi->pluck('kategori')->flatten()->pluck('kasabianNamaKategori')->join('') }}
+                {{ $dataBuku->relasi->kategori->kasabianNamaKategori }}
             </h1>
 
             <h1 class="text-yellow-500">
@@ -34,11 +34,9 @@
                 <form method="POST" action="{{ route('tambahKoleksi', $dataBuku->bukuId) }}">
                     @csrf
                     <button
-                        class="col-span-1 bg-yellow-400 flex items-center justify-center font-medium text-black rounded-lg border-2 border-yellow-500 w-full h-10 mt-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5">
-                            <path
-                                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
+                    class="col-span-1 flex items-center justify-center font-medium text-2xl rounded-lg border-2 w-full h-10 mt-3
+                    {{ $checkFavorit ? 'bg-yellow-400 text-yellow-600 border-yellow-500' : 'bg-white text-gray-500 border-gray-300' }}">
+                        ★
                     </button>
                 </form>
             </div>

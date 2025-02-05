@@ -21,7 +21,7 @@
                             <h1 class="">{{ $item->books->kasabianJudul }}</h1>
                         </a>
                         <h1 class="col-span-1 text-gray-500 text-xs">
-                            {{ $item->books->relasi->pluck('kategori')->flatten()->pluck('kasabianNamaKategori')->join(' ') }}
+                            {{ $item->books->relasi->kategori->kasabianNamaKategori }}
                         </h1>
                     </div>
                 </div>

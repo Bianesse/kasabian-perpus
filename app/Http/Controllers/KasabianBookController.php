@@ -23,14 +23,21 @@ class KasabianBookController extends Controller
 
     public function detail($id)
     {
-        $kasabianBuku = Kasabian_book::with(['relasi.kategori', 'ulasan.users'])->find($id);
+        $kasabianBuku = Kasabian_book::with(['relasi.kategori', 'ulasan.users', 'koleksiPribadi'])->find($id);
+        $kasabianFavorit = Kasabian_book::with('koleksiPribadi')
+            ->whereHas('koleksiPribadi', function ($query) use ($id) {
+                $query->where('bukuId', $id)
+                    ->where('userId', auth()->id());
+            })
+            ->exists();
+
 
         $kasabianCount = $kasabianBuku->ulasan->count('rating');
         $kasabianSum = $kasabianBuku->ulasan->sum('rating');
 
         $kasabianAverage = $kasabianCount > 0 ? round($kasabianSum / $kasabianCount, 1) : 0;
 
-        return view('peminjam.kasabianBukuDetail', ['dataBuku' => $kasabianBuku, 'dataUlasan' => $kasabianAverage]);
+        return view('peminjam.kasabianBukuDetail', ['dataBuku' => $kasabianBuku, 'dataUlasan' => $kasabianAverage, 'checkFavorit' => $kasabianFavorit]);
     }
 
     public function tambahBukuPage()
@@ -80,7 +87,7 @@ class KasabianBookController extends Controller
 
     public function editBukuPage($id)
     {
-        $kasabianBuku = Kasabian_book::find($id);
+        $kasabianBuku = Kasabian_book::with('relasi')->find($id);
         $kasabianKategori = KasabianKategoriBuku::get();
         return view('admin.buku.kasabianEditBuku', ['dataBuku' => $kasabianBuku, 'dataKategori' => $kasabianKategori]);
     }
@@ -111,7 +118,7 @@ class KasabianBookController extends Controller
             'kasabianDeskripsi' => $request->kasabianDeskripsi,
         ]);
 
-        if($request->file('kasabianGambar')){
+        if ($request->file('kasabianGambar')) {
             $file = $request->file('kasabianGambar');
             $path = $file->store('photos', 'public');
             $url = asset('storage/' . $path);
@@ -197,6 +204,4 @@ class KasabianBookController extends Controller
 
         return redirect()->route('kategori');
     }
-
-
 }

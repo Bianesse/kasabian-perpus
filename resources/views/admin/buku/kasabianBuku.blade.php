@@ -15,6 +15,7 @@
             <thead class="bg-gray-100 text-gray-700 text-sm uppercase">
                 <tr class="text-left">
                     <th class="px-4 py-3">No.</th>
+                    <th class="px-4 py-3">Gambar</th>
                     <th class="px-4 py-3">Judul</th>
                     <th class="px-4 py-3">Kategori</th>
                     <th class="px-4 py-3">Penulis</th>
@@ -24,36 +25,33 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
-            @foreach ($dataBuku as $item)
-                <tr>
-                    <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                    <td class="px-4 py-3">{{ $item->kasabianJudul }}</td>
-                    <td class="px-4 py-3">
-                        @foreach ($item->relasi as $data)
-                            @foreach ($data->kategori as $kategori)
-                                {{ $kategori->kasabianNamaKategori }}
-                            @endforeach
-                        @endforeach
-                    </td>
-                    <td class="px-4 py-3">{{ $item->kasabianPenulis }}</td>
-                    <td class="px-4 py-3">{{ $item->kasabianPenerbit }}</td>
-                    <td class="px-4 py-3">{{ $item->kasabianTahunTerbit }}</td>
-                    <td class="flex flex-row space-x-2 text-white">
-                        <a href="{{ route('editBukuPage', $item->bukuId) }}">
-                            <button class="bg-blue-500 rounded-lg w-20 h-10 font-medium my-2">
-                                Edit
-                            </button>
-                        </a>
-                        <form method="POST" action="{{ route('hapusBuku', $item->bukuId) }}">
-                            @csrf
-                            <button onclick="return confirm('Apakah ingin menghapus data ini?')"
-                                class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
-                                Hapus
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
+                @foreach ($dataBuku as $item)
+                    <tr>
+                        <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-3"><img src="{{ $item->kasabianGambar }}" class="w-10" alt=""></td>
+                        <td class="px-4 py-3">{{ $item->kasabianJudul }}</td>
+                        <td class="px-4 py-3">
+                            {{ $item->relasi->kategori->kasabianNamaKategori }}
+                        </td>
+                        <td class="px-4 py-3">{{ $item->kasabianPenulis }}</td>
+                        <td class="px-4 py-3">{{ $item->kasabianPenerbit }}</td>
+                        <td class="px-4 py-3">{{ $item->kasabianTahunTerbit }}</td>
+                        <td class="flex flex-row space-x-2 text-white">
+                            <a href="{{ route('editBukuPage', $item->bukuId) }}">
+                                <button class="bg-blue-500 rounded-lg w-20 h-10 font-medium my-2">
+                                    Edit
+                                </button>
+                            </a>
+                            <form method="POST" action="{{ route('hapusBuku', $item->bukuId) }}">
+                                @csrf
+                                <button onclick="return confirm('Apakah ingin menghapus data ini?')"
+                                    class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
+                                    Hapus
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
 
