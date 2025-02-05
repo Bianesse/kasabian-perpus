@@ -81,6 +81,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('logout')->group(function () {
     Route::post('/login', [KasabianLoginController::class, 'index'])->name('loginProcess');
+    Route::get('/register', [KasabianLoginController::class, 'register'])->name('registerPage');
+    Route::post('/register', [KasabianLoginController::class, 'registerProcess'])->name('registerProcess');
 
     Route::get('/login', function () {
         return view('login.kasabianLogin');

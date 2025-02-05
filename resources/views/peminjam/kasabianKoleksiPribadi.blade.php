@@ -11,7 +11,7 @@
                 <div class="grid grid-rows">
                     <div class="max-w-60">
                         <a href="{{ route('bukuDetail', $item->bukuId) }}">
-                            <img src="{{ $item->books->kasabianGambar }}" style="" alt="">
+                            <img src="{{ asset('storage/'.$item->books->kasabianGambar ) }}" style="" alt="">
                         </a>
                     </div>
                     <div>

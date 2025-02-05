@@ -7,7 +7,7 @@
 @section('content')
     <div class="grid grid-cols-3 gap-x-5">
         <div class="col-span-1">
-            <img src="{{ $dataBuku->kasabianGambar }}" alt="">
+            <img src="{{ asset('storage/'.$dataBuku->kasabianGambar ) }}" alt="">
         </div>
         <div class="col-span-2 ml-5">
             <h1 class="text-gray-500 text-lg">{{ $dataBuku->kasabianPenulis }}, {{ $dataBuku->kasabianPenerbit }}</h1>

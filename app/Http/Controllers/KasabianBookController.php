@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kasabian_book;
 use App\Models\KasabianKategoriBuku;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\UpdateKasabian_bookRequest;
 use App\Models\KasabianKategoriBukuRelasi;
+use App\Http\Requests\UpdateKasabian_bookRequest;
 
 class KasabianBookController extends Controller
 {
@@ -71,7 +72,7 @@ class KasabianBookController extends Controller
             'kasabianPenulis' => $request->kasabianPenulis,
             'kasabianPenerbit' => $request->kasabianPenerbit,
             'kasabianTahunTerbit' => $request->kasabianTahunTerbit,
-            'kasabianGambar' => $url,
+            'kasabianGambar' => $path,
             'kasabianDeskripsi' => $request->kasabianDeskripsi,
         ]);
 
@@ -110,6 +111,17 @@ class KasabianBookController extends Controller
 
         $kasabianBuku = Kasabian_book::with('relasi')->find($id);
 
+        if($request->has('kasabianGambar')) {
+            Storage::disk('public')->delete($kasabianBuku->kasabianGambar);
+            $file = $request->file('kasabianGambar');
+            $path = $file->store('photos', 'public');
+            $url = asset('storage/' . $path);
+
+            $kasabianBuku->update([
+                'kasabianGambar' => $path,
+            ]);
+        }
+
         $kasabianBuku->update([
             'kasabianJudul' => $request->kasabianJudul,
             'kasabianPenulis' => $request->kasabianPenulis,
@@ -124,7 +136,7 @@ class KasabianBookController extends Controller
             $url = asset('storage/' . $path);
 
             $kasabianBuku->update([
-                'kasabianGambar' => $url,
+                'kasabianGambar' => $path,
             ]);
         }
 
@@ -140,7 +152,12 @@ class KasabianBookController extends Controller
 
     public function hapusBuku($id)
     {
-        $kasabianBuku = Kasabian_book::destroy($id);
+        $kasabianBuku = Kasabian_book::find($id);
+        if(!empty($kasabianBuku->kasabianGambar)){
+            Storage::disk('public')->delete($kasabianBuku->kasabianGambar);
+        }
+        $kasabianBuku->delete();
+        
         return redirect()->route('book');
     }
 

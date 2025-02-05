@@ -28,7 +28,7 @@
                 @foreach ($dataBuku as $item)
                     <tr>
                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                        <td class="px-4 py-3"><img src="{{ $item->kasabianGambar }}" class="w-10" alt=""></td>
+                        <td class="px-4 py-3"><img src="{{ asset('storage/'.$item->kasabianGambar )}}" class="w-10" alt=""></td>
                         <td class="px-4 py-3">{{ $item->kasabianJudul }}</td>
                         <td class="px-4 py-3">
                             {{ $item->relasi->kategori->kasabianNamaKategori }}
