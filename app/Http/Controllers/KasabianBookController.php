@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Models\KasabianKategoriBukuRelasi;
 use App\Http\Requests\UpdateKasabian_bookRequest;
+use App\Models\KasabianPeminjaman;
+use App\Models\KasabianUlasanBuku;
+use Illuminate\Support\Facades\Auth;
 
 class KasabianBookController extends Controller
 {
@@ -32,13 +35,16 @@ class KasabianBookController extends Controller
             })
             ->exists();
 
+        $kasabianUser = Auth::user()->id;
+        $kasabianCheckUlasan = KasabianUlasanBuku::where('userId', $kasabianUser)->where('bukuId', $id)->exists();
+        $kasabianCheckPeminjaman = KasabianPeminjaman::where('userId', $kasabianUser)->where('bukuId', $id)->exists();
 
         $kasabianCount = $kasabianBuku->ulasan->count('rating');
         $kasabianSum = $kasabianBuku->ulasan->sum('rating');
 
         $kasabianAverage = $kasabianCount > 0 ? round($kasabianSum / $kasabianCount, 1) : 0;
 
-        return view('peminjam.kasabianBukuDetail', ['dataBuku' => $kasabianBuku, 'dataUlasan' => $kasabianAverage, 'checkFavorit' => $kasabianFavorit]);
+        return view('peminjam.kasabianBukuDetail', ['dataBuku' => $kasabianBuku, 'dataUlasan' => $kasabianAverage, 'checkFavorit' => $kasabianFavorit, 'checkUlasan' => $kasabianCheckUlasan, 'checkPeminjaman' => $kasabianCheckPeminjaman]);
     }
 
     public function tambahBukuPage()
@@ -157,7 +163,7 @@ class KasabianBookController extends Controller
             Storage::disk('public')->delete($kasabianBuku->kasabianGambar);
         }
         $kasabianBuku->delete();
-        
+
         return redirect()->route('book');
     }
 
