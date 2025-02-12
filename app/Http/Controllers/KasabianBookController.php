@@ -117,8 +117,10 @@ class KasabianBookController extends Controller
 
         $kasabianBuku = Kasabian_book::with('relasi')->find($id);
 
-        if($request->has('kasabianGambar')) {
-            Storage::disk('public')->delete($kasabianBuku->kasabianGambar);
+        if ($request->has('kasabianGambar')) {
+            if (!empty($kasabianBuku->kasabianGambar)) {
+                Storage::disk('public')->delete($kasabianBuku->kasabianGambar);
+            }
             $file = $request->file('kasabianGambar');
             $path = $file->store('photos', 'public');
             $url = asset('storage/' . $path);
@@ -159,7 +161,7 @@ class KasabianBookController extends Controller
     public function hapusBuku($id)
     {
         $kasabianBuku = Kasabian_book::find($id);
-        if(!empty($kasabianBuku->kasabianGambar)){
+        if (!empty($kasabianBuku->kasabianGambar)) {
             Storage::disk('public')->delete($kasabianBuku->kasabianGambar);
         }
         $kasabianBuku->delete();
