@@ -27,30 +27,26 @@ class KasabianHomeController extends Controller
 
     public function dashboard()
     {
-        $totalBooks = Kasabian_book::count();
+        $kasabianTotalBuku = Kasabian_book::count();
 
-        // Total Categories
-        $totalCategories = KasabianKategoriBuku::count();
+        $kasabianTotalKategori = KasabianKategoriBuku::count();
 
-        // Total Borrowed Books
-        $borrowedBooks = KasabianPeminjaman::where('statusPeminjaman', 'Dikembalikan')->count();
+        $kasabianTotalTerpinjam = KasabianPeminjaman::where('statusPeminjaman', 'Dikembalikan')->count();
 
-        // Most Popular Books (by highest borrow count)
-        $mostPopularBooks = Kasabian_book::withCount('peminjaman')
+        $kasabianBukuPopuler = Kasabian_book::withCount('peminjaman')
             ->orderByDesc('peminjaman_count')
             ->first();
 
-        // Least Popular Books (by lowest borrow count)
-        $leastPopularBooks = Kasabian_book::withCount('peminjaman')
+        $kasabianBukuTidakPopuler = Kasabian_book::withCount('peminjaman')
             ->orderBy('peminjaman_count')
             ->first();
 
         return view('admin.kasabianDashboard', compact(
-            'totalBooks',
-            'totalCategories',
-            'borrowedBooks',
-            'mostPopularBooks',
-            'leastPopularBooks'
+            'kasabianTotalBuku',
+            'kasabianTotalKategori',
+            'kasabianTotalTerpinjam',
+            'kasabianBukuPopuler',
+            'kasabianBukuTidakPopuler'
         ));
     }
 }

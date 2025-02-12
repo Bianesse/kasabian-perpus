@@ -11,7 +11,7 @@
                 <div class="flex flex-col items-center">
                     <a href="{{ route('bukuDetail', $item->bukuId) }}">
                         <img src="{{ asset('storage/' . $item->books->kasabianGambar) }}"
-                            class="w-full h-80 object-cover rounded-md" alt="">
+                            class="w-full h-60 object-cover rounded-md" alt="">
                     </a>
                     <h1 class="mt-2 text-gray-500 text-xs text-center">
                         {{ $item->books->kasabianPenulis }}, {{ $item->books->kasabianPenerbit }}
