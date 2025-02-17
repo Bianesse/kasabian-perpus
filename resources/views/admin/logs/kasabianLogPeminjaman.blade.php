@@ -5,49 +5,15 @@
 @endsection
 
 @section('content')
-    <div class="grid grid-cols-3 gap-5">
-        <!-- Total Books -->
-        <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
-            <h2 class="text-lg font-semibold text-gray-700">Total Buku</h2>
-            <p class="text-3xl font-bold text-gray-900">{{ $kasabianTotalBuku }}</p>
-        </div>
-
-        <!-- Total Categories -->
-        <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
-            <h2 class="text-lg font-semibold text-gray-700">Total Kategori</h2>
-            <p class="text-3xl font-bold text-gray-900">{{ $kasabianTotalKategori }}</p>
-        </div>
-
-        <!-- Total Borrowed Books -->
-        <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
-            <h2 class="text-lg font-semibold text-gray-700">Buku Terpinjam</h2>
-            <p class="text-3xl font-bold text-gray-900">{{ $kasabianTotalTerpinjam }}</p>
-        </div>
-    </div>
-
-    <!-- Popular & Least Popular Books -->
-    <div class="mt-5 grid grid-cols-2 gap-5">
-        <!-- Most Popular Books -->
-        <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
-            <h2 class="text-lg font-semibold text-gray-700">Buku Paling Populer</h2>
-            <p class="text-3xl font-bold text-gray-900">{{ $kasabianBukuPopuler->kasabianJudul }}</p>
-
-        </div>
-
-        <!-- Least Popular Books -->
-        <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
-            <h2 class="text-lg font-semibold text-gray-700">Buku Tidak Populer</h2>
-            <p class="text-3xl font-bold text-gray-900">{{ $kasabianBukuTidakPopuler->kasabianJudul }}</p>
-        </div>
-    </div>
+    <x-dashboard-data :kasabianTotalTerpinjam="$kasabianTotalTerpinjam" :kasabianTotalBuku="$kasabianTotalBuku" :kasabianTotalKategori="$kasabianTotalKategori" :kasabianBukuPopuler="$kasabianBukuPopuler" :kasabianBukuTidakPopuler="$kasabianBukuTidakPopuler" />
 
     <form action="{{ route('showLogFilter') }}" method="POST" class="flex items-center gap-4 bg-gray-100 p-4 rounded-lg">
         @csrf
         <label for="kasabianTanggalAwal" class="text-gray-700 font-medium">Dari:</label>
-        <input type="date" name="kasabianDari" id="kasabianTanggalAwal" required
+        <input type="date" name="kasabianDari" id="kasabianTanggalAwal" 
             class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         <label for="kasabianTanggalAkhir" class="text-gray-700 font-medium">Hingga:</label>
-        <input type="date" name="kasabianHingga" id="kasabianTanggalAkhir" required
+        <input type="date" name="kasabianHingga" id="kasabianTanggalAkhir"
             class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
 
         <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-4 py-2">
@@ -97,7 +63,6 @@
             @endforeach
         </tbody>
     </table>
-
 @endsection
 
 @section('extra')

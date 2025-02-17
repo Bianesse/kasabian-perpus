@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:1,2')->group(function () {
         Route::get('/dashboard', [KasabianHomeController::class, 'dashboard'])->name('dashboard');
+        Route::post('/dashboard', [KasabianHomeController::class, 'dashboard'])->name('showLogFilter');
         Route::prefix('users')->group(function () {
             Route::get('/', [kasabianUserController::class, 'index'])->name('users');
         });
@@ -64,10 +65,10 @@ Route::middleware('auth')->group(function () {
             Route::post('/pinjam/{id}', [KasabianPeminjamanController::class, 'adminKonfirmasiPinjam'])->name('adminKonfirmasiPeminjaman');
         });
 
-        Route::prefix('log')->group(function () {
+        /* Route::prefix('log')->group(function () {
             Route::get('/', [KasabianLogPeminjamanController::class, 'showLog'])->name('showLog');
             Route::post('/', [KasabianLogPeminjamanController::class, 'showLog'])->name('showLogFilter');
-        });
+        }); */
     });
 
     Route::middleware('role:3')->group(function () {

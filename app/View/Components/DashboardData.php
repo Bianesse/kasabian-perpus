@@ -11,9 +11,19 @@ class DashboardData extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $kasabianTotalBuku;
+    public $kasabianTotalKategori;
+    public $kasabianTotalTerpinjam;
+    public $kasabianBukuPopuler;
+    public $kasabianBukuTidakPopuler;
+
+    public function __construct($kasabianTotalBuku, $kasabianTotalKategori, $kasabianTotalTerpinjam, $kasabianBukuPopuler, $kasabianBukuTidakPopuler)
     {
-        //
+        $this->kasabianTotalBuku = $kasabianTotalBuku;
+        $this->kasabianTotalKategori = $kasabianTotalKategori;
+        $this->kasabianTotalTerpinjam = $kasabianTotalTerpinjam;
+        $this->kasabianBukuPopuler = $kasabianBukuPopuler;
+        $this->kasabianBukuTidakPopuler = $kasabianBukuTidakPopuler;
     }
 
     /**

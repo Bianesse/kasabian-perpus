@@ -25,7 +25,7 @@ class KasabianHomeController extends Controller
         }
     }
 
-    public function dashboard()
+    public function dashboard(Request $request)
     {
         $kasabianTotalBuku = Kasabian_book::count();
 
@@ -41,12 +41,24 @@ class KasabianHomeController extends Controller
             ->orderBy('peminjaman_count')
             ->first();
 
+        $kasabianLog = KasabianPeminjaman::with(['users', 'books']);
+
+        if ($request->filled('kasabianDari') && $request->filled('kasabianHingga')) {
+            $kasabianDari = $request->kasabianDari;
+            $kasabianHingga = $request->kasabianHingga;
+        
+            $kasabianLog = $kasabianLog->whereBetween('tanggalPeminjaman',  [$kasabianDari, $kasabianHingga]);
+        }
+
+        $kasabianLog = $kasabianLog->get();
+
         return view('admin.kasabianDashboard', compact(
             'kasabianTotalBuku',
             'kasabianTotalKategori',
             'kasabianTotalTerpinjam',
             'kasabianBukuPopuler',
-            'kasabianBukuTidakPopuler'
+            'kasabianBukuTidakPopuler',
+            'kasabianLog'
         ));
     }
 }
