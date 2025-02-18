@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('userId')->constrained('users')->cascadeOnDelete();
             $table->foreignId('bukuId')->constrained('kasabian_books', 'bukuId')->cascadeOnDelete();
             $table->date('tanggalPeminjaman');
-            $table->date('tanggalPengembalian');
+            $table->date('tanggalPengembalian')->nullable();
             $table->string('statusPeminjaman');
             $table->timestamps();
         });

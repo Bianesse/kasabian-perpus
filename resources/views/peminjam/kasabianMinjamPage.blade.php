@@ -24,17 +24,10 @@
                 <input type="hidden" name="kasabianBukuId" value="{{ $dataBuku->bukuId }}">
             </div>
 
-            <div class="col-span-2">
+            <div class="col-span-4">
                 <label for="tanggalPeminjaman" class="block mb-2 text-sm font-medium text-gray-700">Tanggal
                     Peminjaman</label>
                 <input type="date" name="kasabianTanggalPeminjaman" id="tanggalPeminjaman"
-                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" required>
-            </div>
-
-            <div class="col-span-2">
-                <label for="tanggalPengembalian" class="block mb-2 text-sm font-medium text-gray-700">Tanggal
-                    Pengembalian</label>
-                <input type="date" name="kasabianTanggalPengembalian" id="tanggalPengembalian"
                     class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" required>
             </div>
             <div class="col-span-4">

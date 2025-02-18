@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KasabianPeminjaman;
-use App\Http\Requests\StoreKasabianPeminjamanRequest;
-use App\Http\Requests\UpdateKasabianPeminjamanRequest;
-use App\Models\Kasabian_book;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\Kasabian_book;
+use App\Models\KasabianPeminjaman;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreKasabianPeminjamanRequest;
+use App\Http\Requests\UpdateKasabianPeminjamanRequest;
 
 class KasabianPeminjamanController extends Controller
 {
@@ -37,14 +38,13 @@ class KasabianPeminjamanController extends Controller
             'kasabianPeminjamId' => 'required',
             'kasabianBukuId' => 'required',
             'kasabianTanggalPeminjaman' => 'required',
-            'kasabianTanggalPengembalian' => 'required',
         ]);
 
         $kasabianPeminjaman = KasabianPeminjaman::create([
             'userId' => $request->kasabianPeminjamId,
             'bukuId' => $request->kasabianBukuId,
             'tanggalPeminjaman' => $request->kasabianTanggalPeminjaman,
-            'tanggalPengembalian' => $request->kasabianTanggalPengembalian,
+            'tanggalPengembalian' => null,
             'statusPeminjaman' => 'Pending Dipinjam',
         ]);
 
@@ -74,34 +74,37 @@ class KasabianPeminjamanController extends Controller
         $kasabianPeminjaman = KasabianPeminjaman::find($id);
 
 
-
-
-        if ($kasabianPeminjaman->statusPeminjaman === 'Pending Dipinjam') {
-            if ($request->kasabianTolak) {
+        switch ($kasabianPeminjaman->statusPeminjaman) {
+            case 'Pending Dipinjam':
+                if ($request->kasabianTolak) {
+                    $kasabianPeminjaman->update([
+                        'statusPeminjaman' => 'Dikembalikan',
+                        'tanggalPengembalian' => Carbon::now()->format('Y-m-d'),
+                    ]);
+                } elseif ($request->kasabianKonfirmasi) {
+                    $kasabianPeminjaman->update([
+                        'statusPeminjaman' => 'Dipinjam',
+                    ]);
+                }
+                break;
+            case 'Pending Dikembalikan':
+                if ($request->kasabianTolak) {
+                    $kasabianPeminjaman->update([
+                        'statusPeminjaman' => 'Dipinjam',
+                    ]);
+                } elseif ($request->kasabianKonfirmasi) {
+                    $kasabianPeminjaman->update([
+                        'statusPeminjaman' => 'Dikembalikan',
+                        'tanggalPengembalian' => Carbon::now()->format('Y-m-d'),
+                    ]);
+                }
+                break;
+            case 'Dipinjam':
                 $kasabianPeminjaman->update([
                     'statusPeminjaman' => 'Dikembalikan',
+                    'tanggalPengembalian' => Carbon::now()->format('Y-m-d'),
                 ]);
-            } elseif ($request->kasabianKonfirmasi) {
-                $kasabianPeminjaman->update([
-                    'statusPeminjaman' => 'Dipinjam',
-                ]);
-            } else {
-            }
-        } elseif ($kasabianPeminjaman->statusPeminjaman === 'Pending Dikembalikan') {
-            if ($request->kasabianTolak) {
-                $kasabianPeminjaman->update([
-                    'statusPeminjaman' => 'Dipinjam',
-                ]);
-            } elseif ($request->kasabianKonfirmasi) {
-                $kasabianPeminjaman->update([
-                    'statusPeminjaman' => 'Dikembalikan',
-                ]);
-            } else {
-            }
-        } elseif ($kasabianPeminjaman->statusPeminjaman === 'Dipinjam') {
-            $kasabianPeminjaman->update([
-                'statusPeminjaman' => 'Dikembalikan',
-            ]);
+                break;
         }
 
         return redirect()->route('adminPeminjaman');
