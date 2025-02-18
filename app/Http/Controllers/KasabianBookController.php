@@ -21,8 +21,9 @@ class KasabianBookController extends Controller
     public function index()
     {
         $kasabianBuku = Kasabian_book::with('relasi.kategori')->get();
+        $kasabianKategori = KasabianKategoriBuku::get();
 
-        return view('admin.buku.kasabianBuku', ['dataBuku' => $kasabianBuku]);
+        return view('admin.buku.kasabianBuku', ['dataBuku' => $kasabianBuku, 'dataKategori' => $kasabianKategori]);
     }
 
     public function detail($id)
@@ -47,11 +48,6 @@ class KasabianBookController extends Controller
         return view('peminjam.kasabianBukuDetail', ['dataBuku' => $kasabianBuku, 'dataUlasan' => $kasabianAverage, 'checkFavorit' => $kasabianFavorit, 'checkUlasan' => $kasabianCheckUlasan, 'checkPeminjaman' => $kasabianCheckPeminjaman]);
     }
 
-    public function tambahBukuPage()
-    {
-        $kasabianKategori = KasabianKategoriBuku::get();
-        return view('admin.buku.kasabianTambahBuku', ['dataKategori' => $kasabianKategori]);
-    }
 
     public function tambahBuku(Request $request)
     {
@@ -92,12 +88,6 @@ class KasabianBookController extends Controller
         return redirect()->route('book');
     }
 
-    public function editBukuPage($id)
-    {
-        $kasabianBuku = Kasabian_book::with('relasi')->find($id);
-        $kasabianKategori = KasabianKategoriBuku::get();
-        return view('admin.buku.kasabianEditBuku', ['dataBuku' => $kasabianBuku, 'dataKategori' => $kasabianKategori]);
-    }
 
     public function editBuku(Request $request, $id)
     {
@@ -176,12 +166,6 @@ class KasabianBookController extends Controller
         return view('admin.kategori.kasabianKategori', ['dataKategori' => $kasabianKategori]);
     }
 
-    public function tambahKategoriPage()
-    {
-        $kasabianKategori = KasabianKategoriBuku::get();
-        return view('admin.kategori.kasabianTambahKategori');
-    }
-
     public function tambahKategori(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -205,11 +189,6 @@ class KasabianBookController extends Controller
         return redirect()->route('kategori');
     }
 
-    public function editKategoriPage($id)
-    {
-        $kasabianKategori = KasabianKategoriBuku::find($id);
-        return view('admin.kategori.kasabianEditKategoriPage', ['dataKategori' => $kasabianKategori]);
-    }
 
     public function editKategori(Request $request, $id)
     {

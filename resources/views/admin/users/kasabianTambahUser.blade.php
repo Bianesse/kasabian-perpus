@@ -34,6 +34,7 @@
                 <div class="col-span-2">
                     <label for="role" class="block mb-2 text-sm font-medium text-gray-700">Role</label>
                     <select name="kasabianRole" id="role" class="bg-white border border-gray-300  rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5">
+                        
                         <option value="1">Admin</option>
                         <option value="2">Petugas</option>
                         <option value="3">Peminjam</option>
@@ -44,7 +45,7 @@
                     <label for="namaLengkap" class="block mb-2 text-sm font-medium text-gray-700">Nama Lengkap</label>
                     <input type="text" name="kasabianNamaLengkap" id="namaLengkap"
                         class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
-                        placeholder="Ketik Nama Lengkap" required>
+                         placeholder="Ketik Nama Lengkap" required>
                 </div>
 
                 <div class="col-span-4">

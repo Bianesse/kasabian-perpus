@@ -7,36 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Perpustakaan</title>
 
-    {{-- <style>
-        @media print {
-            .print-table {
-                font-size: 10px;
-                width: 80% !important;
-                overflow: hidden !important;
-            }
-
-            .print-table th,
-            .print-table td {
-                padding: 2px 4px !important;
-            }
-
-            .print-table span {
-                font-size: 8px !important;
-                padding: 1px 3px !important;
-            }
-
-            .overflow-y-hidden {
-                overflow: hidden !important;
-            }
-
-            .table-container {
-                max-height: none !important;
-                overflow: hidden !important;
-            }
-        }
-    </style> --}}
-
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 <body class="min-h-screen flex flex-col">
     <x-kasabian-navbar />
