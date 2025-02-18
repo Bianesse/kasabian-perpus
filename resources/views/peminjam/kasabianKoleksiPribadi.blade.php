@@ -22,6 +22,32 @@
                     <h1 class="text-gray-500 text-xs text-center">
                         {{ $item->books->relasi->kategori->kasabianNamaKategori }}
                     </h1>
+
+                    <div class="flex justify-center mt-2 space-x-2">
+                        <h1 class="text-gray-500 text-xs text-center">{{ $item->average_rating }}</h1>
+
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($item->average_rating >= $i)
+                                <i class="fas fa-star text-yellow-400"></i>
+                            @elseif ($item->average_rating >= $i - 0.5)
+                                <i class="fas fa-star-half-alt text-yellow-400"></i>
+                            @else
+                                <i class="far fa-star text-yellow-400"></i>
+                            @endif
+                        @endfor
+                    </div>
+
+                    @auth
+                    <div class="grid grid-cols-1 w-full">
+                        <a href="{{ route('pinjamPage', $item->bukuId) }}">
+                            <button class="col-span-1 bg-gray-300 font-medium text-black rounded-lg border-2 border-gray-700 w-full h-11 mt-5">
+                                Pinjam
+                            </button>
+                        </a>
+                    </div>
+        
+                    
+                    @endauth
                 </div>
             </div>
         @endforeach

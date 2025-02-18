@@ -20,7 +20,7 @@ class KasabianBookController extends Controller
      */
     public function index()
     {
-        $kasabianBuku = Kasabian_book::with('relasi.kategori')->get();
+        $kasabianBuku = Kasabian_book::with(['relasi.kategori'])->get();
         $kasabianKategori = KasabianKategoriBuku::get();
 
         return view('admin.buku.kasabianBuku', ['dataBuku' => $kasabianBuku, 'dataKategori' => $kasabianKategori]);
@@ -40,7 +40,7 @@ class KasabianBookController extends Controller
             $kasabianUser = Auth::user()->id;
             $kasabianCheckUlasan = KasabianUlasanBuku::where('userId', $kasabianUser)->where('bukuId', $id)->exists();
             $kasabianCheckPeminjaman = KasabianPeminjaman::where('userId', $kasabianUser)->where('bukuId', $id)->exists();
-        }else{
+        } else {
             $kasabianCheckUlasan = false;
             $kasabianCheckPeminjaman = false;
         }
@@ -74,7 +74,7 @@ class KasabianBookController extends Controller
         if ($request->hasFile('kasabianGambar')) {
             $file = $request->file('kasabianGambar');
             $path = $file->store('photos', 'public');
-        }else{
+        } else {
             $path = null;
         }
 
