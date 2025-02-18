@@ -5,44 +5,52 @@
 @endsection
 
 @section('content')
-<style>
-    @media print {
-    body {
-        font-size: 12px; /* Reduce overall font size */
-    }
+    <style>
+        @media print {
+            body {
+                font-size: 12px;
+                /* Reduce overall font size */
+            }
 
-    .print-table {
-        font-size: 10px; /* Smaller text for the table */
-    }
+            .print-table {
+                font-size: 10px;
+                /* Smaller text for the table */
+            }
 
-    .print-table th, .print-table td {
-        padding: 4px; /* Reduce padding to fit more content */
-    }
+            .print-table th,
+            .print-table td {
+                padding: 4px;
+                /* Reduce padding to fit more content */
+            }
 
-    .print-table th {
-        font-size: 11px;
-    }
+            .print-table th {
+                font-size: 11px;
+            }
 
-    .print-table td {
-        font-size: 10px;
-    }
+            .print-table td {
+                font-size: 10px;
+            }
 
-    .flex.items-center.gap-4 { 
-        display: none !important; /* Hide filter form when printing */
-    }
-}
+            .flex.items-center.gap-4 {
+                display: none !important;
+                /* Hide filter form when printing */
+            }
 
-</style>
+            .dt-length, .dt-search, .dt-info, .dt-paging{
+                display: none !important;
+            }
+        }
+    </style>
 
     <x-dashboard-data :kasabianTotalTerpinjam="$kasabianTotalTerpinjam" :kasabianTotalBuku="$kasabianTotalBuku" :kasabianTotalKategori="$kasabianTotalKategori" :kasabianBukuPopuler="$kasabianBukuPopuler" :kasabianBukuTidakPopuler="$kasabianBukuTidakPopuler" />
 
     <form action="{{ route('showLogFilter') }}" method="POST" class="flex items-center gap-4 bg-gray-100 p-4 rounded-lg">
         @csrf
         <label for="kasabianTanggalAwal" class="text-gray-700 font-medium">Dari:</label>
-        <input type="date" name="kasabianDari" id="kasabianTanggalAwal" 
+        <input type="date" name="kasabianDari" id="kasabianTanggalAwal"
             class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         <label for="kasabianTanggalAkhir" class="text-gray-700 font-medium">Hingga:</label>
-        <input type="date" name="kasabianHingga" id="kasabianTanggalAkhir" 
+        <input type="date" name="kasabianHingga" id="kasabianTanggalAkhir"
             class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
 
         <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-4 py-2">
@@ -56,7 +64,8 @@
     </form>
 
 
-    <table class="w-full text-sm text-left text-gray-500 border border-gray-300 rounded-lg shadow-lg print-table">
+    <table id="logsTable"
+        class="w-full text-sm text-left text-gray-500 border border-gray-300 rounded-lg shadow-lg print-table">
         <thead class="bg-gray-100 text-gray-700 text-sm uppercase">
             <tr>
                 <th class="px-4 py-3">No.</th>
@@ -105,3 +114,17 @@
         </section>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#logsTable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                responsive: true,
+            });
+        });
+    </script>
+@endpush

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <table class="w-full text-sm text-left text-gray-500 border border-gray-300 rounded-lg shadow-lg">
+    <table id="peminjamanTable" class="w-full text-sm text-left text-gray-500 border border-gray-300 rounded-lg shadow-lg">
         <thead class="bg-gray-100 text-gray-700 text-sm uppercase">
             <tr>
                 <th class="px-4 py-3">No.</th>
@@ -70,3 +70,17 @@
         </tbody>
     </table>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#peminjamanTable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                responsive: true,
+            });
+        });
+    </script>
+@endpush

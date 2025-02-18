@@ -12,16 +12,20 @@ class KasabianHomeController extends Controller
 {
     public function index()
     {
-        $kasabianUser = Auth::user();
+        if (Auth::check()) {
+            $kasabianUser = Auth::user()->kasabianRoleId;
+        }else{
+            $kasabianUser = 0;
+        }
 
-        if ($kasabianUser->kasabianRoleId == 1) {
+        if ($kasabianUser == 1) {
             return redirect()->route('dashboard');
-        } elseif ($kasabianUser->kasabianRoleId == 2) {
+        } elseif ($kasabianUser == 2) {
             return redirect()->route('dashboard');
-        } elseif ($kasabianUser->kasabianRoleId == 3) {
+        } elseif ($kasabianUser == 3) {
             return redirect()->route('peminjamHome');
         } else {
-            return redirect()->back();
+            return redirect()->route('peminjamHome');
         }
     }
 

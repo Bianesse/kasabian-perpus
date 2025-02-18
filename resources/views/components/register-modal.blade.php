@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<div id="register-modal" tabindex="-1" aria-hidden="true"
+    class="fixed inset-0 flex items-center justify-center hidden z-50">
+    <div class="relative w-full max-w-xl bg-white shadow-lg rounded-lg p-6">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <button type="button" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+            data-modal-hide="register-modal">
+            ✖
+        </button>
 
-    <script type="module" src="{{ asset('assets/js/login.js') }}"></script>
-
-    <title>Login</title>
-    <style>
-
-    </style>
-</head>
-
-<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6">Perpustakaan Digital</h1>
-
-    <div class="bg-white shadow-lg rounded-lg p-8 w-1/3">
         <h1 class="text-2xl font-semibold text-center text-gray-800">Buat Akun Baru</h1>
 
         <form class="mt-6 space-y-4" method="POST" action="/register">
@@ -73,21 +60,7 @@
             </button>
         </form>
 
-        @if ($errors->has('message'))
-            <div class="mt-4 text-red-600 bg-red-100 p-3 rounded border border-red-300">
-                {{ $errors->first('message') }}
-            </div>
-        @endif
+        
 
-        <div class="mt-4 text-center text-gray-600">
-            <p>Sudah punya akun?
-                <a href="{{ route('loginPage') }}" class="text-blue-600 font-medium hover:underline">Login di sini</a>
-            </p>
-        </div>
     </div>
-
-
-
-</body>
-
-</html>
+</div>

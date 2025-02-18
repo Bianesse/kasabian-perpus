@@ -28,9 +28,7 @@ class KasabianLoginController extends Controller
         if (Auth::attempt(['kasabianUsername' => $request->kasabianUser, 'password' => $request->kasabianPass])) {
             return redirect()->route('main');
         } else {
-            return back()->withErrors([
-                'message' => 'Credential Unkown',
-            ]);
+            return back()->with('error', 'Invalid Credential');
         }
     }
 
@@ -64,18 +62,12 @@ class KasabianLoginController extends Controller
             'kasabianAlamat' => $request->address,
         ]);
 
-        return redirect()->route('loginPage')->with('success', 'Akun berhasil dibuat, silakan login.');
-    }
-
-
-    public function register()
-    {
-        return view('login.kasabianRegister');
+        return redirect()->route('main')->with('success', 'Akun berhasil dibuat, silakan login.');
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('loginPage');
+        return redirect()->route('main');
     }
 }

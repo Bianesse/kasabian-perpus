@@ -5,7 +5,12 @@
 @endsection
 
 @section('content')
-    <form action="{{route('peminjamHome')}}" method="POST" class="mb-5 flex space-x-4">
+    @if ($errors->has('message'))
+        <div class="mt-4 mb-4 text-red-600 bg-red-100 p-3 rounded border border-red-300">
+            {{ $errors->first('message') }}
+        </div>
+    @endif
+    <form action="{{ route('peminjamHome') }}" method="POST" class="mb-5 flex space-x-4">
         @csrf
         <select class="bg-white border border-gray-300 rounded-lg block w-48 p-2.5" name="kategoriId" id="">
             <option value="all" selected hidden>Pilih Kategori</option>
@@ -23,7 +28,8 @@
             <div class="bg-white rounded-lg shadow-md overflow-hidden p-4">
                 <div class="flex flex-col items-center">
                     <a href="{{ route('bukuDetail', $item->bukuId) }}">
-                        <img src="{{ asset('storage/'.$item->kasabianGambar ) }}" class="w-full h-60 object-cover rounded-md" alt="">
+                        <img src="{{ asset('storage/' . $item->kasabianGambar) }}"
+                            class="w-full h-60 object-cover rounded-md" alt="">
                     </a>
                     <h1 class="mt-2 text-gray-500 text-xs text-center">
                         {{ $item->kasabianPenulis }}, {{ $item->kasabianPenerbit }}

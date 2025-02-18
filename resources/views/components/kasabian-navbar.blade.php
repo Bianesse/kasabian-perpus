@@ -5,12 +5,12 @@
             <a class="text-2xl font-semibold text-gray-800" href="{{ route('main') }}">Perpustakaan</a>
 
             <!-- Desktop Menu -->
+            @auth
             <div class="hidden md:flex space-x-6">
                 @if ($userData->kasabianRoleId == 1 || $userData->kasabianRoleId == 2)
                     <a class="nav-link" href="{{ route('book') }}">Buku</a>
                     <a class="nav-link" href="{{ route('kategori') }}">Kategori</a>
                     <a class="nav-link" href="{{ route('users') }}">User</a>
-                    {{-- <a class="nav-link" href="{{ route('showLog') }}">Logs Peminjaman</a> --}}
                     <a class="nav-link" href="{{ route('adminPeminjaman') }}">Peminjaman</a>
                 @elseif ($userData->kasabianRoleId == 3)
                     <a class="nav-link" href="{{ route('peminjamHome') }}">Buku</a>
@@ -18,9 +18,11 @@
                     <a class="nav-link" href="{{ route('koleksiPribadi') }}">Koleksi Pribadi</a>
                 @endif
             </div>
+            @endauth
         </div>
 
-        <!-- Right Section: Username & Logout -->
+        <!-- Right Section: Username & Logout for Authenticated Users -->
+        @auth
         <div class="hidden md:flex items-center space-x-4">
             <span class="text-gray-800 font-medium">{{ $userData->kasabianUsername }}</span>
             <form method="POST" action="/logout">
@@ -30,6 +32,15 @@
                 </button>
             </form>
         </div>
+        @endauth
+
+        <!-- Right Section: Login & Register for Guests -->
+        @guest
+        <div class="hidden md:flex items-center space-x-4">
+            <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition" data-modal-toggle="login-modal" data-modal-target="login-modal">Login</button>
+            <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition" data-modal-toggle="register-modal" data-modal-target="register-modal">Register</button>
+        </div>
+        @endguest
 
         <!-- Mobile Menu Button -->
         <button id="menu-toggle" class="md:hidden focus:outline-none print:hidden">
@@ -55,19 +66,29 @@
                 </svg>
             </button>
 
+            @auth
             @if ($userData->kasabianRoleId == 1 || $userData->kasabianRoleId == 2)
                 <a class="nav-link-mobile" href="{{ route('book') }}">Buku</a>
                 <a class="nav-link-mobile" href="{{ route('kategori') }}">Kategori</a>
                 <a class="nav-link-mobile" href="{{ route('users') }}">User</a>
-                {{-- <a class="nav-link-mobile" href="{{ route('showLog') }}">Logs Peminjaman</a> --}}
                 <a class="nav-link-mobile" href="{{ route('adminPeminjaman') }}">Peminjaman</a>
             @elseif ($userData->kasabianRoleId == 3)
                 <a class="nav-link-mobile" href="{{ route('peminjamHome') }}">Buku</a>
                 <a class="nav-link-mobile" href="{{ route('displayPinjam') }}">Peminjaman</a>
                 <a class="nav-link-mobile" href="{{ route('koleksiPribadi') }}">Koleksi Pribadi</a>
             @endif
+            @endauth
+
+            <!-- Mobile Login & Register for Guests -->
+            @guest
+            <div class="flex flex-col border-gray-400 pt-4 space-y-3">
+                <button class="w-full block text-center bg-blue-500 text-white rounded-lg py-2 hover:bg-blue-600 transition" data-modal-target="login-modal" data-modal-toggle="login-modal">Login</button>
+                <button class="w-full block text-center bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition" data-modal-target="register-modal" data-modal-toggle="register-modal">Register</button>
+            </div>
+            @endguest
 
             <!-- Mobile Logout -->
+            @auth
             <div class="border-t border-gray-400 pt-4">
                 <span class="text-gray-800">{{ $userData->kasabianUsername }}</span>
                 <form method="POST" action="/logout">
@@ -78,9 +99,15 @@
                     </button>
                 </form>
             </div>
+            @endauth
         </div>
     </div>
 </nav>
+
+@guest
+    <x-login-modal id="login-modal" />
+    <x-register-modal id="register-modal" />
+@endguest
 
 <!-- JavaScript for Mobile Menu -->
 <script>

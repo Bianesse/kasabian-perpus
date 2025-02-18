@@ -36,9 +36,15 @@ class KasabianBookController extends Controller
             })
             ->exists();
 
-        $kasabianUser = Auth::user()->id;
-        $kasabianCheckUlasan = KasabianUlasanBuku::where('userId', $kasabianUser)->where('bukuId', $id)->exists();
-        $kasabianCheckPeminjaman = KasabianPeminjaman::where('userId', $kasabianUser)->where('bukuId', $id)->exists();
+        if (Auth::check()) {
+            $kasabianUser = Auth::user()->id;
+            $kasabianCheckUlasan = KasabianUlasanBuku::where('userId', $kasabianUser)->where('bukuId', $id)->exists();
+            $kasabianCheckPeminjaman = KasabianPeminjaman::where('userId', $kasabianUser)->where('bukuId', $id)->exists();
+        }else{
+            $kasabianCheckUlasan = false;
+            $kasabianCheckPeminjaman = false;
+        }
+
 
         $kasabianCount = $kasabianBuku->ulasan->count('rating');
         $kasabianSum = $kasabianBuku->ulasan->sum('rating');
@@ -65,9 +71,12 @@ class KasabianBookController extends Controller
             return redirect()->back();
         }
 
-        $file = $request->file('kasabianGambar');
-        $path = $file->store('photos', 'public');
-        $url = asset('storage/' . $path);
+        if ($request->hasFile('kasabianGambar')) {
+            $file = $request->file('kasabianGambar');
+            $path = $file->store('photos', 'public');
+        }else{
+            $path = null;
+        }
 
         $kasabianBuku = Kasabian_book::create([
             'kasabianJudul' => $request->kasabianJudul,
@@ -85,7 +94,7 @@ class KasabianBookController extends Controller
             'kategoriId' => $request->kasabianKategori
         ]);
 
-        return redirect()->route('book');
+        return redirect()->route('book')->with('success', 'Data Berhasil Ditambahkan');
     }
 
 
@@ -145,7 +154,7 @@ class KasabianBookController extends Controller
 
         $kasabianKategori->save();
 
-        return redirect()->route('book');
+        return redirect()->route('book')->with('success', 'Buku Berhasil Diedit');
     }
 
     public function hapusBuku($id)
@@ -156,7 +165,7 @@ class KasabianBookController extends Controller
         }
         $kasabianBuku->delete();
 
-        return redirect()->route('book');
+        return redirect()->route('book')->with('success', 'Buku Berhasil Dihapus');
     }
 
     public function kategori()
@@ -180,13 +189,13 @@ class KasabianBookController extends Controller
             'kasabianNamaKategori' => $request->kasabianKategori
         ]);
 
-        return redirect()->route('kategori');
+        return redirect()->route('kategori')->with('success', 'Kategori Berhasil Ditambahkan');
     }
 
     public function hapusKategori($id)
     {
         $kasabianKategori = KasabianKategoriBuku::destroy($id);
-        return redirect()->route('kategori');
+        return redirect()->route('kategori')->with('success', 'Kategori Berhasil Dihapus');
     }
 
 
@@ -206,6 +215,6 @@ class KasabianBookController extends Controller
             'kasabianNamaKategori' => $request->kasabianKategori,
         ]);
 
-        return redirect()->route('kategori');
+        return redirect()->route('kategori')->with('success', 'Kategori Berhasil Diedit');
     }
 }

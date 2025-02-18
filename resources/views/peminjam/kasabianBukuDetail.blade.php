@@ -24,6 +24,7 @@
                 {{ $dataBuku->kasabianDeskripsi }}
             </h1>
 
+            @auth
             <div class="grid grid-cols-5 gap-2">
                 <a href="{{ route('pinjamPage', $dataBuku->bukuId) }}" class="col-span-4">
                     <button class="bg-gray-300 font-medium text-black rounded-lg border-2 border-gray-700 w-full h-10 mt-3">
@@ -40,8 +41,8 @@
                     </button>
                 </form>
             </div>
-
-
+                
+            @endauth
         </div>
     </div>
 @endsection
@@ -51,6 +52,7 @@
         <section>
             <h2 class="text-2xl font-semibold text-gray-800 mb-4">Ulasan</h2>
 
+            @auth
             @if ($checkPeminjaman && $checkUlasan != 1)
                 <form action="{{ route('tambahUlasan', $dataBuku->bukuId) }}" method="POST" class="mb-6">
                     @csrf
@@ -76,6 +78,7 @@
                     </button>
                 </form>
             @endif
+            @endauth
 
             <div class="grid grid-cols-2 gap-4">
                 @forelse ($dataBuku->ulasan as $ulasan)

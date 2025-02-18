@@ -43,13 +43,13 @@ class kasabianUserController extends Controller
             'kasabianAlamat' => $request->kasabianAlamat,
         ]);
 
-        return redirect()->route('users');
+        return redirect()->route('users')->with('success', 'User Berhasil Ditambahkan');
     }
 
     public function hapusUsers($id)
     {
         $user = User::destroy($id);
-        return redirect()->route('users');
+        return redirect()->route('users')->with('success', 'User Berhasil Dihapus');
     }
 
     public function editUsers(Request $request, $id)
@@ -76,7 +76,7 @@ class kasabianUserController extends Controller
             'kasabianAlamat' => $request->kasabianAlamat,
         ]);
 
-        return redirect()->route('users');
+        return redirect()->route('users')->with('success', 'User Berhasil Diedit');
     }
 
 }

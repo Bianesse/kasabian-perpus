@@ -19,7 +19,7 @@ class AuthMiddleware
         if(Auth::check()){
             return $next($request);
         }else{
-            return redirect()->route('loginPage');
+            return redirect()->back();
         }
     }
 }

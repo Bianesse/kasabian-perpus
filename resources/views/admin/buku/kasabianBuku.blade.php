@@ -12,7 +12,7 @@
                 Tambah
             </button>
         @endif
-        <table class="w-full text-sm text-left text-gray-500 border border-gray-300 rounded-lg shadow-lg">
+        <table id="bukuTable" class="w-full text-sm text-left text-gray-500 border border-gray-300 rounded-lg shadow-lg">
             <thead class="bg-gray-100 text-gray-700 text-sm uppercase">
                 <tr class="text-left">
                     <th class="px-4 py-3">No.</th>
@@ -31,12 +31,11 @@
                 @foreach ($dataBuku as $item)
                     <tr>
                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                        <td class="px-4 py-3"><img src="{{ asset('storage/' . $item->kasabianGambar) }}" class="w-10"
-                                alt=""></td>
-                        <td class="px-4 py-3">{{ $item->kasabianJudul }}</td>
                         <td class="px-4 py-3">
-                            {{ $item->relasi->kategori->kasabianNamaKategori }}
+                            <img src="{{ asset('storage/' . $item->kasabianGambar) }}" class="w-10" alt="">
                         </td>
+                        <td class="px-4 py-3">{{ $item->kasabianJudul }}</td>
+                        <td class="px-4 py-3">{{ $item->relasi->kategori->kasabianNamaKategori }}</td>
                         <td class="px-4 py-3">{{ $item->kasabianPenulis }}</td>
                         <td class="px-4 py-3">{{ $item->kasabianPenerbit }}</td>
                         <td class="px-4 py-3">{{ $item->kasabianTahunTerbit }}</td>
@@ -49,8 +48,7 @@
                                 </button>
                                 <form method="POST" action="{{ route('hapusBuku', $item->bukuId) }}">
                                     @csrf
-                                    <button onclick="return confirm('Apakah ingin menghapus data ini?')"
-                                        class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
+                                    <button onclick="confirmDelete(event, this)" class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
                                         Hapus
                                     </button>
                                 </form>
@@ -60,6 +58,8 @@
                 @endforeach
             </tbody>
         </table>
+
+
 
     </div>
 
@@ -250,3 +250,17 @@
         </x-crud-modal>
     @endforeach
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#bukuTable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                responsive: true,
+            });
+        });
+    </script>
+@endpush

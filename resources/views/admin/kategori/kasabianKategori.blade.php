@@ -12,7 +12,7 @@
                 Tambah
             </button>
         @endif
-        <table class="w-full text-sm text-left text-gray-500 border border-gray-300 rounded-lg shadow-lg">
+        <table class="w-full text-sm text-left text-gray-500 border border-gray-300 rounded-lg shadow-lg" id="kategoriTable">
             <thead class="bg-gray-100 text-gray-700 text-sm uppercase">
                 <tr class="text-left">
                     <th class="px-4 py-3">No.</th>
@@ -41,7 +41,7 @@
                                     </button>
                                 <form method="POST" action="{{ route('hapusKategori', $item->kategoriId) }}">
                                     @csrf
-                                    <button onclick="return confirm('Apakah ingin menghapus data ini?')"
+                                    <button onclick="confirmDelete(event, this)"
                                         class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
                                         Hapus
                                     </button>
@@ -144,3 +144,18 @@
         </x-crud-modal>
     @endforeach
 @endsection
+
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#kategoriTable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                responsive: true,
+            });
+        });
+    </script>
+@endpush

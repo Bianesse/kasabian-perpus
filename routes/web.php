@@ -12,8 +12,14 @@ use App\Http\Controllers\KasabianUlasanBukuController;
 use App\Http\Controllers\kasabianUserController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/peminjam', [KasabianPeminjamController::class, 'home'])->name('peminjamHome');
+Route::post('/peminjam', [KasabianPeminjamController::class, 'home'])->name('peminjamHome');
+Route::get('/buku/{id}', [KasabianBookController::class, 'detail'])->name('bukuDetail');
+
+Route::get('/', [KasabianHomeController::class, 'index'])->name('main');
+
 Route::middleware('auth')->group(function () {
-    Route::get('/', [KasabianHomeController::class, 'index'])->name('main');
+    
 
     //admin
     Route::middleware('role:1')->group(function () {
@@ -67,10 +73,6 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:3')->group(function () {
         Route::prefix('peminjam')->group(function () {
-            Route::get('/', [KasabianPeminjamController::class, 'home'])->name('peminjamHome');
-            Route::post('/', [KasabianPeminjamController::class, 'home'])->name('peminjamHome');
-            Route::get('/buku/{id}', [KasabianBookController::class, 'detail'])->name('bukuDetail');
-
             Route::get('/pinjam', [KasabianPeminjamanController::class, 'displayPinjam'])->name('displayPinjam');
             Route::get('/pinjam/{id}', [KasabianPeminjamanController::class, 'pinjamPage'])->name('pinjamPage');
             Route::post('/pinjam/{id}', [KasabianPeminjamanController::class, 'pinjamBuku'])->name('pinjamBuku');
@@ -88,10 +90,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('logout')->group(function () {
     Route::post('/login', [KasabianLoginController::class, 'index'])->name('loginProcess');
-    Route::get('/register', [KasabianLoginController::class, 'register'])->name('registerPage');
+    /* Route::get('/register', [KasabianLoginController::class, 'register'])->name('registerPage'); */
     Route::post('/register', [KasabianLoginController::class, 'registerProcess'])->name('registerProcess');
 
-    Route::get('/login', function () {
+    /* Route::get('/login', function () {
         return view('login.kasabianLogin');
-    })->name('loginPage');
+    })->name('loginPage'); */
 });
