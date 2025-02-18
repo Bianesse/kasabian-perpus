@@ -12,7 +12,10 @@
     @endif
     <form action="{{ route('peminjamHome') }}" method="POST" class="mb-5 flex space-x-4">
         @csrf
-        <select class="bg-white border border-gray-300 rounded-lg block w-48 p-2.5" name="kategoriId" id="">
+        <input type="text" name="kasabianSearch" placeholder="Search..."
+            class="bg-white border border-gray-300 rounded-lg block w-64 p-2.5">
+
+        <select class="bg-white border border-gray-300 rounded-lg block w-40 p-2.5" name="kategoriId">
             <option value="all" selected hidden>Pilih Kategori</option>
             @foreach ($dataKategori as $item)
                 <option value="{{ $item->kategoriId }}">{{ $item->kasabianNamaKategori }}</option>
