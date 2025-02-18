@@ -42,8 +42,10 @@
                     <td class="px-4 py-3 flex flex-row space-x-2">
                         <form action="{{ route('kembalikanBuku', $item->peminjamanId) }}" method="POST">
                             @csrf
-                            @if ($item->statusPeminjaman === 'Dikembalikan')
-                                
+                            @if ($item->statusPeminjaman === 'Pending Dikembalikan' || $item->statusPeminjaman === 'Pending Dipinjam')
+                            Tunggu Konfirmasi
+                            @elseif ($item->statusPeminjaman === 'Dikembalikan')
+                                Selesai
                             @else
                                 <button onclick="return confirm('Apakah mau mengembalikan buku?')"
                                     class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-4 py-2"

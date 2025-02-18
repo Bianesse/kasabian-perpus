@@ -27,7 +27,7 @@
             <span class="text-gray-800 font-medium">{{ $userData->kasabianUsername }}</span>
             <form method="POST" action="/logout">
                 @csrf
-                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                <button type="submit" onclick="confirmLogout(event, this)" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
                     Logout
                 </button>
             </form>
@@ -93,7 +93,7 @@
                 <span class="text-gray-800">{{ $userData->kasabianUsername }}</span>
                 <form method="POST" action="/logout">
                     @csrf
-                    <button type="submit"
+                    <button type="submit" onclick="confirmLogout(event, this)"
                         class="w-full bg-red-600 text-white rounded-lg py-2 hover:bg-red-700 transition">
                         Logout
                     </button>

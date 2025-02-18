@@ -43,15 +43,18 @@
                             action="{{ route('adminKonfirmasiPeminjaman', $item->peminjamanId) }}" method="POST">
                             @csrf
                             @if ($item->statusPeminjaman === 'Pending Dikembalikan' || $item->statusPeminjaman === 'Pending Dipinjam')
-                                <button onclick="return confirm('Apakah mau konfirmasi buku?')" name="kasabianKonfirmasi" value="1"
-                                    class="col-span-1 bg-green-500 hover:bg-blue-600 text-white font-medium rounded-lg py-2"
+                                <button onclick="return confirm('Apakah mau konfirmasi buku?')" name="kasabianKonfirmasi"
+                                    value="1"
+                                    class="col-span-1 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg py-2 flex items-center justify-center space-x-2"
                                     @disabled($item->statusPeminjaman === 'Dikembalikan')>
-                                    ✔
+                                    <i class="fas fa-check"></i>
                                 </button>
-                                <button onclick="return confirm('Apakah mau konfirmasi peminjaman?')" name="kasabianTolak" value="1"
-                                    class="col-span-1 bg-red-500 hover:bg-blue-600 text-white font-medium rounded-lg py-2"
+
+                                <button onclick="return confirm('Apakah mau konfirmasi peminjaman?')" name="kasabianTolak"
+                                    value="1"
+                                    class="col-span-1 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg py-2 flex items-center justify-center space-x-2"
                                     @disabled($item->statusPeminjaman === 'Dikembalikan')>
-                                    ✖
+                                    <i class="fas fa-times"></i>
                                 </button>
                             @elseif ($item->statusPeminjaman === 'Dipinjam')
                                 <button onclick="return confirm('Apakah mau tolak peminjaman?')"
