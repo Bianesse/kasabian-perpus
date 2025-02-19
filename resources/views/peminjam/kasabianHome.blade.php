@@ -22,17 +22,19 @@
             @endforeach
         </select>
 
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-4 py-2">
+        <button type="submit"
+            class="border-2 border-blue-500 text-blue-500 bg-transparent font-medium rounded-lg px-4 py-2 transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white">
             Filter
         </button>
+
     </form>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         @foreach ($dataBuku as $item)
-            <div class="bg-white rounded-lg shadow-md overflow-hidden p-4">
-                <div class="flex flex-col items-center">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden p-4 flex flex-col h-full">
+                <!-- Content Section -->
+                <div class="flex flex-col items-center flex-grow">
                     <a href="{{ route('bukuDetail', $item->bukuId) }}">
-                        <img src="{{ asset('storage/' . $item->kasabianGambar) }}"
-                            class="w-full h-60 object-cover rounded-md" alt="">
+                        <img src="{{ asset('storage/' . $item->kasabianGambar) }}" class="w-full h-60 object-cover rounded-md" alt="">
                     </a>
                     <h1 class="mt-2 text-gray-500 text-xs text-center">
                         {{ $item->kasabianPenulis }}, {{ $item->kasabianPenerbit }}
@@ -43,10 +45,13 @@
                     <h1 class="text-gray-500 text-xs text-center">
                         {{ $item->relasi->kategori->kasabianNamaKategori }}
                     </h1>
+                </div>
 
-                    <div class="flex justify-center mt-2 space-x-2">
-                        <h1 class="text-gray-500 text-xs text-center">{{ $item->average_rating }}</h1>
-
+                <!-- Bottom Section (Pinned Rating & Button) -->
+                <div class="mt-auto">
+                    <!-- Rating Section -->
+                    <div class="flex justify-center items-center mt-2 space-x-2">
+                        <h1 class="text-gray-500 text-xs">{{ $item->average_rating }}</h1>
                         @for ($i = 1; $i <= 5; $i++)
                             @if ($item->average_rating >= $i)
                                 <i class="fas fa-star text-yellow-400"></i>
@@ -59,20 +64,20 @@
                     </div>
 
                     @auth
-                    <div class="grid grid-cols-1 w-full">
+                    <!-- Pinjam Button -->
+                    <div class="w-full mt-3">
                         <a href="{{ route('pinjamPage', $item->bukuId) }}">
-                            <button class="col-span-1 bg-gray-300 font-medium text-black rounded-lg border-2 border-gray-700 w-full h-11 mt-5">
+                            <button class="bg-gray-300 font-medium text-black rounded-lg border-2 border-gray-700 w-full h-11">
                                 Pinjam
                             </button>
                         </a>
                     </div>
-        
-                    
                     @endauth
-
                 </div>
             </div>
         @endforeach
-
     </div>
+
+
+
 @endsection

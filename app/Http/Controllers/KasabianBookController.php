@@ -64,6 +64,7 @@ class KasabianBookController extends Controller
             'kasabianDeskripsi' => 'required',
             'kasabianGambar' => 'image|mimes:jpeg,png,jpg|max:2048',
             'kasabianTahunTerbit' => 'required',
+            'kasabianStock' => 'required',
             'kasabianKategori' => 'required',
         ]);
 
@@ -83,6 +84,7 @@ class KasabianBookController extends Controller
             'kasabianPenulis' => $request->kasabianPenulis,
             'kasabianPenerbit' => $request->kasabianPenerbit,
             'kasabianTahunTerbit' => $request->kasabianTahunTerbit,
+            'stock' => $request->kasabianStock,
             'kasabianGambar' => $path,
             'kasabianDeskripsi' => $request->kasabianDeskripsi,
         ]);
@@ -107,6 +109,7 @@ class KasabianBookController extends Controller
             'kasabianDeskripsi' => 'required',
             'kasabianGambar' => 'image|mimes:jpeg,png,jpg|max:2048',
             'kasabianTahunTerbit' => 'required',
+            'kasabianStock' => 'required',
             'kasabianKategori' => 'required',
         ]);
 
@@ -135,6 +138,7 @@ class KasabianBookController extends Controller
             'kasabianPenerbit' => $request->kasabianPenerbit,
             'kasabianTahunTerbit' => $request->kasabianTahunTerbit,
             'kasabianDeskripsi' => $request->kasabianDeskripsi,
+            'stock' => $request->kasabianStock,
         ]);
 
         if ($request->file('kasabianGambar')) {

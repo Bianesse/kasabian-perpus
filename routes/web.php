@@ -19,7 +19,7 @@ Route::get('/buku/{id}', [KasabianBookController::class, 'detail'])->name('bukuD
 Route::get('/', [KasabianHomeController::class, 'index'])->name('main');
 
 Route::middleware('auth')->group(function () {
-    
+
 
     //admin
     Route::middleware('role:1')->group(function () {
@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('peminjaman')->group(function () {
             Route::get('/', [KasabianPeminjamanController::class, 'adminDisplayPinjam'])->name('adminPeminjaman');
             Route::post('/pinjam/{id}', [KasabianPeminjamanController::class, 'adminKonfirmasiPinjam'])->name('adminKonfirmasiPeminjaman');
+            Route::post('/pinjam', [KasabianPeminjamanController::class, 'adminPinjamkan'])->name('adminPinjamkan');
         });
 
         /* Route::prefix('log')->group(function () {

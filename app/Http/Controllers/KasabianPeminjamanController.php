@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreKasabianPeminjamanRequest;
 use App\Http\Requests\UpdateKasabianPeminjamanRequest;
+use App\Models\User;
 
 class KasabianPeminjamanController extends Controller
 {
@@ -65,14 +66,37 @@ class KasabianPeminjamanController extends Controller
     public function adminDisplayPinjam()
     {
         $kasabianPeminjaman = KasabianPeminjaman::with(['users', 'books'])->get();
+        $kasabianBuku = Kasabian_book::select('bukuId', 'kasabianJudul', 'stock')->get();
+        $kasabianUser = User::select('id', 'kasabianNamaLengkap')->where('kasabianRoleId', 3)->get();
 
-        return view('admin.peminjaman.kasabianDisplayPeminjaman', ['dataPeminjaman' => $kasabianPeminjaman]);
+        return view('admin.peminjaman.kasabianDisplayPeminjaman', ['dataPeminjaman' => $kasabianPeminjaman, 'dataBuku' => $kasabianBuku, 'dataUser' => $kasabianUser]);
+    }
+
+    public function adminPinjamkan(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'kasabianUser' => 'required',
+            'kasabianBuku' => 'required',
+            'kasabianTanggalPeminjaman' => 'required',
+        ]);
+
+        $kasabianPeminjaman = KasabianPeminjaman::create([
+            'userId' => $request->kasabianUser,
+            'bukuId' => $request->kasabianBuku,
+            'tanggalPeminjaman' => $request->kasabianTanggalPeminjaman,
+            'tanggalPengembalian' => null,
+            'statusPeminjaman' => 'Dipinjam',
+        ]);
+
+        Kasabian_book::where('bukuId', $request->kasabianBuku)->decrement('stock');
+
+        return redirect()->route('adminPeminjaman');
     }
 
     public function adminKonfirmasiPinjam(Request $request, $id)
     {
-        $kasabianPeminjaman = KasabianPeminjaman::find($id);
-
+        $kasabianPeminjaman = KasabianPeminjaman::with('books')->find($id);
+        $kasabianBookId = $kasabianPeminjaman->books->bukuId;
 
         switch ($kasabianPeminjaman->statusPeminjaman) {
             case 'Pending Dipinjam':
@@ -85,6 +109,7 @@ class KasabianPeminjamanController extends Controller
                     $kasabianPeminjaman->update([
                         'statusPeminjaman' => 'Dipinjam',
                     ]);
+                    Kasabian_book::where('bukuId', $kasabianBookId)->decrement('stock');
                 }
                 break;
             case 'Pending Dikembalikan':
@@ -97,6 +122,7 @@ class KasabianPeminjamanController extends Controller
                         'statusPeminjaman' => 'Dikembalikan',
                         'tanggalPengembalian' => Carbon::now()->format('Y-m-d'),
                     ]);
+                    Kasabian_book::where('bukuId', $kasabianBookId)->increment('stock');
                 }
                 break;
             case 'Dipinjam':
@@ -104,6 +130,7 @@ class KasabianPeminjamanController extends Controller
                     'statusPeminjaman' => 'Dikembalikan',
                     'tanggalPengembalian' => Carbon::now()->format('Y-m-d'),
                 ]);
+                Kasabian_book::where('bukuId', $kasabianBookId)->increment('stock');
                 break;
         }
 

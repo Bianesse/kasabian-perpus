@@ -22,6 +22,7 @@
                     <th class="px-4 py-3">Penulis</th>
                     <th class="px-4 py-3">Penerbit</th>
                     <th class="px-4 py-3">Tahun Terbit</th>
+                    <th class="px-4 py-3">Stok</th>
                     @if ($userData->kasabianRoleId == 1)
                         <th class="px-4 py-3">Action</th>
                     @endif
@@ -39,6 +40,7 @@
                         <td class="px-4 py-3">{{ $item->kasabianPenulis }}</td>
                         <td class="px-4 py-3">{{ $item->kasabianPenerbit }}</td>
                         <td class="px-4 py-3">{{ $item->kasabianTahunTerbit }}</td>
+                        <td class="px-4 py-3">{{ $item->stock }}</td>
                         @if ($userData->kasabianRoleId == 1)
                             <td class="flex flex-row space-x-2 px-4 py-3 text-white">
                                 <button class="bg-blue-500 rounded-lg w-20 h-10 font-medium my-2"
@@ -118,7 +120,7 @@
                             placeholder="Ketik Tahun Terbit" required>
                     </div>
 
-                    <div class="col-span-4">
+                    <div class="col-span-2">
                         <label for="kategori" class="block mb-2 text-sm font-medium text-gray-700">Kategori</label>
                         <select name="kasabianKategori" id="kategori"
                             class="bg-white border border-gray-300 rounded-lg block w-full p-2.5">
@@ -126,6 +128,13 @@
                                 <option value="{{ $item->kategoriId }}">{{ $item->kasabianNamaKategori }}</option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="stock" class="block mb-2 text-sm font-medium text-gray-700">Stock</label>
+                        <input type="number" name="kasabianStock" id="stock"
+                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
+                            placeholder="Stock Buku" required>
                     </div>
 
                     <div class="col-span-4">
@@ -209,7 +218,7 @@
                                 value="{{ $item->kasabianTahunTerbit }}" placeholder="Ketik Tahun Terbit" required>
                         </div>
 
-                        <div class="col-span-4">
+                        <div class="col-span-2">
                             <label for="kategori" class="block mb-2 text-sm font-medium text-gray-700">Kategori</label>
                             <select name="kasabianKategori" id="kategori"
                                 class="bg-white border border-gray-300 rounded-lg block w-full p-2.5">
@@ -222,6 +231,13 @@
                                     </option>
                                 @endforeach
                             </select>
+                        </div>
+
+                        <div class="col-span-2">
+                            <label for="stock" class="block mb-2 text-sm font-medium text-gray-700">Stock</label>
+                            <input type="number" name="kasabianStock" id="stock"
+                                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-yellow focus:border-primary-yellow block w-full p-2.5"
+                                value="{{ $item->stock }}" placeholder="Ketik Tahun Terbit" required>
                         </div>
 
                         <div class="col-span-4">

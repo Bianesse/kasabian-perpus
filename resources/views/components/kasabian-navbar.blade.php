@@ -6,40 +6,50 @@
 
             <!-- Desktop Menu -->
             @auth
-            <div class="hidden md:flex space-x-6">
-                @if ($userData->kasabianRoleId == 1 || $userData->kasabianRoleId == 2)
-                    <a class="nav-link" href="{{ route('book') }}">Buku</a>
-                    <a class="nav-link" href="{{ route('kategori') }}">Kategori</a>
-                    <a class="nav-link" href="{{ route('users') }}">User</a>
-                    <a class="nav-link" href="{{ route('adminPeminjaman') }}">Peminjaman</a>
-                @elseif ($userData->kasabianRoleId == 3)
-                    <a class="nav-link" href="{{ route('peminjamHome') }}">Buku</a>
-                    <a class="nav-link" href="{{ route('displayPinjam') }}">Peminjaman</a>
-                    <a class="nav-link" href="{{ route('koleksiPribadi') }}">Koleksi Pribadi</a>
-                @endif
-            </div>
+                <div class="hidden md:flex space-x-6">
+                    @if ($userData->kasabianRoleId == 1 || $userData->kasabianRoleId == 2)
+                        <a class="nav-link" href="{{ route('book') }}">Buku</a>
+                        <a class="nav-link" href="{{ route('kategori') }}">Kategori</a>
+                        <a class="nav-link" href="{{ route('users') }}">User</a>
+                        <a class="nav-link" href="{{ route('adminPeminjaman') }}">Peminjaman</a>
+                    @elseif ($userData->kasabianRoleId == 3)
+                        <a class="nav-link" href="{{ route('peminjamHome') }}">Buku</a>
+                        <a class="nav-link" href="{{ route('displayPinjam') }}">Peminjaman</a>
+                        <a class="nav-link" href="{{ route('koleksiPribadi') }}">Koleksi Pribadi</a>
+                    @endif
+                </div>
             @endauth
         </div>
 
         <!-- Right Section: Username & Logout for Authenticated Users -->
         @auth
-        <div class="hidden md:flex items-center space-x-4">
-            <span class="text-gray-800 font-medium">{{ $userData->kasabianUsername }}</span>
-            <form method="POST" action="/logout">
-                @csrf
-                <button type="submit" onclick="confirmLogout(event, this)" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
-                    Logout
-                </button>
-            </form>
-        </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <span class="text-gray-800 font-medium">{{ $userData->kasabianUsername }}</span>
+                <form method="POST" action="/logout">
+                    @csrf
+                    <button type="submit" onclick="confirmLogout(event, this)"
+                        class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                        Logout
+                    </button>
+                </form>
+            </div>
         @endauth
 
         <!-- Right Section: Login & Register for Guests -->
         @guest
-        <div class="hidden md:flex items-center space-x-4">
-            <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition" data-modal-toggle="login-modal" data-modal-target="login-modal">Login</button>
-            <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition" data-modal-toggle="register-modal" data-modal-target="register-modal">Register</button>
-        </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <button
+                    class="px-4 py-2 border-2 border-blue-500 text-blue-500 bg-transparent rounded-lg transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white"
+                    data-modal-target="login-modal" data-modal-toggle="login-modal">
+                    Login
+                </button>
+                <button
+                    class="px-4 py-2 border-2 border-green-600 text-green-600 bg-transparent rounded-lg transition duration-300 ease-in-out hover:bg-green-600 hover:text-white"
+                    data-modal-target="register-modal" data-modal-toggle="register-modal">
+                    Register
+                </button>
+            </div>
+
         @endguest
 
         <!-- Mobile Menu Button -->
@@ -67,38 +77,46 @@
             </button>
 
             @auth
-            @if ($userData->kasabianRoleId == 1 || $userData->kasabianRoleId == 2)
-                <a class="nav-link-mobile" href="{{ route('book') }}">Buku</a>
-                <a class="nav-link-mobile" href="{{ route('kategori') }}">Kategori</a>
-                <a class="nav-link-mobile" href="{{ route('users') }}">User</a>
-                <a class="nav-link-mobile" href="{{ route('adminPeminjaman') }}">Peminjaman</a>
-            @elseif ($userData->kasabianRoleId == 3)
-                <a class="nav-link-mobile" href="{{ route('peminjamHome') }}">Buku</a>
-                <a class="nav-link-mobile" href="{{ route('displayPinjam') }}">Peminjaman</a>
-                <a class="nav-link-mobile" href="{{ route('koleksiPribadi') }}">Koleksi Pribadi</a>
-            @endif
+                @if ($userData->kasabianRoleId == 1 || $userData->kasabianRoleId == 2)
+                    <a class="nav-link-mobile" href="{{ route('book') }}">Buku</a>
+                    <a class="nav-link-mobile" href="{{ route('kategori') }}">Kategori</a>
+                    <a class="nav-link-mobile" href="{{ route('users') }}">User</a>
+                    <a class="nav-link-mobile" href="{{ route('adminPeminjaman') }}">Peminjaman</a>
+                @elseif ($userData->kasabianRoleId == 3)
+                    <a class="nav-link-mobile" href="{{ route('peminjamHome') }}">Buku</a>
+                    <a class="nav-link-mobile" href="{{ route('displayPinjam') }}">Peminjaman</a>
+                    <a class="nav-link-mobile" href="{{ route('koleksiPribadi') }}">Koleksi Pribadi</a>
+                @endif
             @endauth
 
             <!-- Mobile Login & Register for Guests -->
             @guest
-            <div class="flex flex-col border-gray-400 pt-4 space-y-3">
-                <button class="w-full block text-center bg-blue-500 text-white rounded-lg py-2 hover:bg-blue-600 transition" data-modal-target="login-modal" data-modal-toggle="login-modal">Login</button>
-                <button class="w-full block text-center bg-green-600 text-white rounded-lg py-2 hover:bg-green-700 transition" data-modal-target="register-modal" data-modal-toggle="register-modal">Register</button>
-            </div>
+                <div class="flex flex-col border-gray-400 pt-4 space-y-3">
+                    <button
+                        class="px-4 py-2 border-2 border-blue-500 text-blue-500 bg-transparent rounded-lg transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white"
+                        data-modal-target="login-modal" data-modal-toggle="login-modal">
+                        Login
+                    </button>
+                    <button
+                        class="px-4 py-2 border-2 border-green-600 text-green-600 bg-transparent rounded-lg transition duration-300 ease-in-out hover:bg-green-600 hover:text-white"
+                        data-modal-target="register-modal" data-modal-toggle="register-modal">
+                        Register
+                    </button>
+                </div>
             @endguest
 
             <!-- Mobile Logout -->
             @auth
-            <div class="border-t border-gray-400 pt-4">
-                <span class="text-gray-800">{{ $userData->kasabianUsername }}</span>
-                <form method="POST" action="/logout">
-                    @csrf
-                    <button type="submit" onclick="confirmLogout(event, this)"
-                        class="w-full bg-red-600 text-white rounded-lg py-2 hover:bg-red-700 transition">
-                        Logout
-                    </button>
-                </form>
-            </div>
+                <div class="border-t border-gray-400 pt-4">
+                    <span class="text-gray-800">{{ $userData->kasabianUsername }}</span>
+                    <form method="POST" action="/logout">
+                        @csrf
+                        <button type="submit" onclick="confirmLogout(event, this)"
+                            class="w-full bg-red-600 text-white rounded-lg py-2 hover:bg-red-700 transition">
+                            Logout
+                        </button>
+                    </form>
+                </div>
             @endauth
         </div>
     </div>

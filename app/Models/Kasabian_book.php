@@ -17,6 +17,7 @@ class Kasabian_book extends Model
         'kasabianGambar',
         'kasabianDeskripsi',
         'kasabianTahunTerbit',
+        'stock',
     ];
 
     protected $primaryKey = 'bukuId';

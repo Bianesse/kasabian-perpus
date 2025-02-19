@@ -7,8 +7,8 @@
 @section('content')
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         @foreach ($dataKoleksi as $item)
-            <div class="bg-white rounded-lg shadow-md overflow-hidden p-4">
-                <div class="flex flex-col items-center">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden p-4 flex flex-col h-full">
+                <div class="flex flex-col items-center flex-grow">
                     <a href="{{ route('bukuDetail', $item->bukuId) }}">
                         <img src="{{ asset('storage/' . $item->books->kasabianGambar) }}"
                             class="w-full h-60 object-cover rounded-md" alt="">
@@ -22,7 +22,10 @@
                     <h1 class="text-gray-500 text-xs text-center">
                         {{ $item->books->relasi->kategori->kasabianNamaKategori }}
                     </h1>
+                </div>
 
+                <!-- Rating and Button at Bottom -->
+                <div class="mt-auto">
                     <div class="flex justify-center mt-2 space-x-2">
                         <h1 class="text-gray-500 text-xs text-center">{{ $item->average_rating }}</h1>
 
@@ -38,15 +41,14 @@
                     </div>
 
                     @auth
-                    <div class="grid grid-cols-1 w-full">
-                        <a href="{{ route('pinjamPage', $item->bukuId) }}">
-                            <button class="col-span-1 bg-gray-300 font-medium text-black rounded-lg border-2 border-gray-700 w-full h-11 mt-5">
-                                Pinjam
-                            </button>
-                        </a>
-                    </div>
-        
-                    
+                        <div class="w-full mt-3">
+                            <a href="{{ route('pinjamPage', $item->bukuId) }}">
+                                <button
+                                    class="bg-gray-300 font-medium text-black rounded-lg border-2 border-gray-700 w-full h-11">
+                                    Pinjam
+                                </button>
+                            </a>
+                        </div>
                     @endauth
                 </div>
             </div>
