@@ -28,6 +28,7 @@ Route::middleware(['auth', 'checkPengembalian'])->group(function () {
             Route::post('/edit/{id}', [KasabianUserController::class, 'editUsers'])->name('editUsers');
             Route::get('/approve', [KasabianUserController::class, 'displayApprove'])->name('displayApprove');
             Route::post('/approve/{id}', [KasabianUserController::class, 'approveUser'])->name('approveUser');
+            Route::post('/reject/{id}', [KasabianUserController::class, 'rejectUser'])->name('rejectUser');
         });
 
         //buku

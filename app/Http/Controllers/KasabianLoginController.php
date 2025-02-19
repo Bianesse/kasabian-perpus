@@ -27,9 +27,12 @@ class KasabianLoginController extends Controller
 
 
         if (Auth::attempt(['kasabianUsername' => $request->kasabianUser, 'password' => $request->kasabianPass])) {
-            if(!Auth::user()->kasabianApproved){
+            if(is_null(Auth::user()->kasabianApproved)){
                 Auth::logout();
                 return back()->with('error', 'Akun ini belum di approve oleh admin');
+            }if(!Auth::user()->kasabianApproved){
+                Auth::logout();
+                return back()->with('error', 'Akun ini di reject oleh admin');
             }
             return redirect()->route('main');
         } else {
@@ -65,10 +68,10 @@ class KasabianLoginController extends Controller
             'kasabianNamaLengkap' => $request->full_name,
             'kasabianRoleId' => 3,
             'kasabianAlamat' => $request->address,
-            'kasabianApproved' => false,
+            'kasabianApproved' => null,
         ]);
 
-        return redirect()->route('main')->with('success', 'Akun berhasil dibuat, silakan login.');
+        return redirect()->route('main')->with('success', 'Akun ini berhasil di reject');
     }
 
     public function logout()

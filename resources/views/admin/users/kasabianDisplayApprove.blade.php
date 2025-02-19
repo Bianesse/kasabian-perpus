@@ -38,9 +38,9 @@
                                         Approve
                                     </button>
                                 </form>
-                                <form method="POST" action="{{-- {{ route('rejectUser', $item->id) }} --}}">
+                                <form method="POST" action="{{ route('rejectUser', $item->id) }}">
                                     @csrf
-                                    <button onclick="confirmApprove(event, this)"
+                                    <button onclick="confirmReject(event, this)"
                                         class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
                                         Reject
                                     </button>
