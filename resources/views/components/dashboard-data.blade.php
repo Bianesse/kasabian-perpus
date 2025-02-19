@@ -1,4 +1,4 @@
-<div class="grid grid-cols-3 gap-6">
+<div class="grid grid-cols-3 gap-6 print:hidden">
     <!-- Total Books -->
     <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
         <h2 class="text-lg font-semibold text-gray-700">Total Buku</h2>
@@ -19,7 +19,7 @@
 </div>
 
 <!-- Popular & Least Popular Books -->
-<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 print:hidden">
     <!-- Most Popular Books -->
     <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
         <h2 class="text-lg font-semibold text-gray-700">Buku Paling Populer</h2>

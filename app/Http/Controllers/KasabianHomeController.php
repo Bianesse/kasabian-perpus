@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Kasabian_book;
 use App\Models\KasabianPeminjaman;
@@ -12,9 +13,10 @@ class KasabianHomeController extends Controller
 {
     public function index()
     {
+
         if (Auth::check()) {
             $kasabianUser = Auth::user()->kasabianRoleId;
-        }else{
+        } else {
             $kasabianUser = 0;
         }
 
@@ -50,11 +52,11 @@ class KasabianHomeController extends Controller
         if ($request->filled('kasabianDari') && $request->filled('kasabianHingga')) {
             $kasabianDari = $request->kasabianDari;
             $kasabianHingga = $request->kasabianHingga;
-        
+
             $kasabianLog = $kasabianLog->whereBetween('tanggalPeminjaman',  [$kasabianDari, $kasabianHingga]);
         }
 
-        $kasabianLog = $kasabianLog->get();
+        $kasabianLog = $kasabianLog->orderByDesc('tanggalPeminjaman')->get();
 
         return view('admin.kasabianDashboard', compact(
             'kasabianTotalBuku',

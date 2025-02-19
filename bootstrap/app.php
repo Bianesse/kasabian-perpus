@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             "auth" => \App\Http\Middleware\AuthMiddleware::class,
             "logout" => \App\Http\Middleware\LogoutMiddleware::class,
             "role" => \App\Http\Middleware\RoleMiddleware::class,
+            "checkPengembalian" => \App\Http\Middleware\PengembalianCheckMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

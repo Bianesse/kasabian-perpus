@@ -18,9 +18,7 @@ Route::get('/buku/{id}', [KasabianBookController::class, 'detail'])->name('bukuD
 
 Route::get('/', [KasabianHomeController::class, 'index'])->name('main');
 
-Route::middleware('auth')->group(function () {
-
-
+Route::middleware(['auth', 'checkPengembalian'])->group(function () {
     //admin
     Route::middleware('role:1')->group(function () {
         //user

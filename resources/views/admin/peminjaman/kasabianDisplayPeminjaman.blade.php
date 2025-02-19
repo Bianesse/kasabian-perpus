@@ -41,7 +41,7 @@
                         @elseif ($item->statusPeminjaman === 'Pending Dipinjam')
                             <span class="px-2 py-1 text-yellow-700 bg-yellow-100 rounded-lg">Pending Dipinjam</span>
                         @else
-                            <span class="px-2 py-1 text-red-700 bg-red-100 rounded-lg">Overdue</span>
+                            <span class="px-2 py-1 text-red-700 bg-red-100 rounded-lg">Terlambat</span>
                         @endif
                     </td>
                     <td class="px-4 py-3 space-x-2">

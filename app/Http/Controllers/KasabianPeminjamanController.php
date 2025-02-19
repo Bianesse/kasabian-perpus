@@ -18,13 +18,30 @@ class KasabianPeminjamanController extends Controller
      * Display a listing of the resource.
      */
 
-    public function displayPinjam()
-    {
-        $kasabianUserId = Auth::user()->id;
-        $kasabianPeminjaman = KasabianPeminjaman::with(['users', 'books'])->where('userId', $kasabianUserId)->get();
+     public function displayPinjam()
+     {
+         $kasabianUserId = Auth::user()->id;
 
-        return view('peminjam.kasabianDisplayPeminjaman', ['dataPeminjaman' => $kasabianPeminjaman]);
-    }
+         $kasabianPeminjaman = KasabianPeminjaman::with(['users', 'books'])
+             ->where('userId', $kasabianUserId)->orderByDesc('tanggalPeminjaman')
+             ->get();
+
+         foreach ($kasabianPeminjaman as $peminjaman) {
+             $tanggalPengembalian = Carbon::parse($peminjaman->tanggalPengembalian);
+             $today = Carbon::now();
+
+             if ($today->greaterThan($tanggalPengembalian)) {
+                 $peminjaman->daysPassed = $tanggalPengembalian->diffInDays($today);
+             } else {
+                 $peminjaman->daysPassed = 0;
+             }
+         }
+
+         return view('peminjam.kasabianDisplayPeminjaman', [
+             'dataPeminjaman' => $kasabianPeminjaman
+         ]);
+     }
+
 
     public function pinjamPage($id)
     {
@@ -41,11 +58,13 @@ class KasabianPeminjamanController extends Controller
             'kasabianTanggalPeminjaman' => 'required',
         ]);
 
+        $kasabianPengembalian = Carbon::parse($request->kasabianTanggalPeminjaman)->addDays(7);
+
         $kasabianPeminjaman = KasabianPeminjaman::create([
             'userId' => $request->kasabianPeminjamId,
             'bukuId' => $request->kasabianBukuId,
             'tanggalPeminjaman' => $request->kasabianTanggalPeminjaman,
-            'tanggalPengembalian' => null,
+            'tanggalPengembalian' => $kasabianPengembalian,
             'statusPeminjaman' => 'Pending Dipinjam',
         ]);
 
@@ -65,7 +84,7 @@ class KasabianPeminjamanController extends Controller
 
     public function adminDisplayPinjam()
     {
-        $kasabianPeminjaman = KasabianPeminjaman::with(['users', 'books'])->get();
+        $kasabianPeminjaman = KasabianPeminjaman::with(['users', 'books'])->orderByDesc('tanggalPeminjaman')->get();
         $kasabianBuku = Kasabian_book::select('bukuId', 'kasabianJudul', 'stock')->get();
         $kasabianUser = User::select('id', 'kasabianNamaLengkap')->where('kasabianRoleId', 3)->get();
 
@@ -80,11 +99,14 @@ class KasabianPeminjamanController extends Controller
             'kasabianTanggalPeminjaman' => 'required',
         ]);
 
+        $kasabianPengembalian = Carbon::parse($request->kasabianTanggalPeminjaman)->addDays(7);
+
+
         $kasabianPeminjaman = KasabianPeminjaman::create([
             'userId' => $request->kasabianUser,
             'bukuId' => $request->kasabianBuku,
             'tanggalPeminjaman' => $request->kasabianTanggalPeminjaman,
-            'tanggalPengembalian' => null,
+            'tanggalPengembalian' => $kasabianPengembalian,
             'statusPeminjaman' => 'Dipinjam',
         ]);
 
@@ -103,7 +125,7 @@ class KasabianPeminjamanController extends Controller
                 if ($request->kasabianTolak) {
                     $kasabianPeminjaman->update([
                         'statusPeminjaman' => 'Dikembalikan',
-                        'tanggalPengembalian' => Carbon::now()->format('Y-m-d'),
+                        /* 'tanggalPengembalian' => Carbon::now()->format('Y-m-d'), */
                     ]);
                 } elseif ($request->kasabianKonfirmasi) {
                     $kasabianPeminjaman->update([
@@ -120,7 +142,7 @@ class KasabianPeminjamanController extends Controller
                 } elseif ($request->kasabianKonfirmasi) {
                     $kasabianPeminjaman->update([
                         'statusPeminjaman' => 'Dikembalikan',
-                        'tanggalPengembalian' => Carbon::now()->format('Y-m-d'),
+                        /* 'tanggalPengembalian' => Carbon::now()->format('Y-m-d'), */
                     ]);
                     Kasabian_book::where('bukuId', $kasabianBookId)->increment('stock');
                 }
@@ -128,7 +150,7 @@ class KasabianPeminjamanController extends Controller
             case 'Dipinjam':
                 $kasabianPeminjaman->update([
                     'statusPeminjaman' => 'Dikembalikan',
-                    'tanggalPengembalian' => Carbon::now()->format('Y-m-d'),
+                    /* 'tanggalPengembalian' => Carbon::now()->format('Y-m-d'), */
                 ]);
                 Kasabian_book::where('bukuId', $kasabianBookId)->increment('stock');
                 break;

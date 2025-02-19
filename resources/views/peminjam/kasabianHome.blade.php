@@ -66,9 +66,16 @@
                     @auth
                     <!-- Pinjam Button -->
                     <div class="w-full mt-3">
-                        <a href="{{ route('pinjamPage', $item->bukuId) }}">
-                            <button class="bg-gray-300 font-medium text-black rounded-lg border-2 border-gray-700 w-full h-11">
-                                Pinjam
+                        <a href="{{ $item->stock > 0 ? route('pinjamPage', $item->bukuId) : '#' }}" class="col-span-4">
+                            <button
+                                class="bg-gray-300 font-medium text-black rounded-lg border-2 border-gray-700 w-full h-10 mt-3
+                                @if ($item->stock < 1) opacity-50 cursor-not-allowed @endif"
+                                @if ($item->stock < 1) disabled @endif>
+                                @if ($item->stock > 0)
+                                    Pinjam
+                                @else
+                                    Stock Habis
+                                @endif
                             </button>
                         </a>
                     </div>

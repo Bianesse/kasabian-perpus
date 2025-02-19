@@ -31,10 +31,11 @@ class KasabianLogPeminjamanController extends Controller
             $kasabianDari = $request->kasabianDari;
             $kasabianHingga = $request->kasabianHingga;
 
-            $kasabianLog = $kasabianLog->whereBetween('tanggalPeminjaman',  [$kasabianDari, $kasabianHingga]);
+            $kasabianLog = $kasabianLog->whereBetween('tanggalPeminjaman', [$kasabianDari, $kasabianHingga]);
         }
 
-        $kasabianLog = $kasabianLog->get();
+        $kasabianLog = $kasabianLog->orderByDesc('tanggalPeminjaman')->get();
+
 
         return view('admin.logs.kasabianLogPeminjaman', compact(
             'kasabianTotalBuku',
