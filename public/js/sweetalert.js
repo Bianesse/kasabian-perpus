@@ -21,6 +21,29 @@ function confirmDelete(event, button) {
     });
 }
 
+function confirmApprove(event, button) {
+    event.preventDefault(); // Prevent the default button behavior
+
+    Swal.fire({
+        title: "Apakah Anda yakin?",
+        text: "Akun ini akan di approve!",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#22c55e ",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Ya!",
+        cancelButtonText: "Batal"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Find the form and submit it after confirmation
+            let form = button.closest('form');
+            if (form) {
+                form.submit(); // Submit the form
+            }
+        }
+    });
+}
+
 function confirmLogout(event, button) {
     event.preventDefault(); // Prevent the default button behavior
     Swal.fire({

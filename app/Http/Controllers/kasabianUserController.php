@@ -79,4 +79,21 @@ class kasabianUserController extends Controller
         return redirect()->route('users')->with('success', 'User Berhasil Diedit');
     }
 
+    public function displayApprove()
+    {
+        $user = User::with('kasabianRoles')->where('kasabianApproved', false)->get();
+        return view('admin.users.kasabianDisplayApprove', ['dataUser' => $user]);
+    }
+
+    public function approveUser($id)
+    {
+        $kasabianUser = User::find($id);
+
+        $kasabianUser->update([
+            'kasabianApproved' => true,
+        ]);
+
+        return redirect()->route('displayApprove')->with('success', 'User Berhasil di approve');
+    }
+
 }

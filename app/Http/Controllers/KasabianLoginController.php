@@ -25,7 +25,12 @@ class KasabianLoginController extends Controller
             return response('fails');
         }
 
+
         if (Auth::attempt(['kasabianUsername' => $request->kasabianUser, 'password' => $request->kasabianPass])) {
+            if(!Auth::user()->kasabianApproved){
+                Auth::logout();
+                return back()->with('error', 'Akun ini belum di approve oleh admin');
+            }
             return redirect()->route('main');
         } else {
             return back()->with('error', 'Invalid Credential');
@@ -60,6 +65,7 @@ class KasabianLoginController extends Controller
             'kasabianNamaLengkap' => $request->full_name,
             'kasabianRoleId' => 3,
             'kasabianAlamat' => $request->address,
+            'kasabianApproved' => false,
         ]);
 
         return redirect()->route('main')->with('success', 'Akun berhasil dibuat, silakan login.');

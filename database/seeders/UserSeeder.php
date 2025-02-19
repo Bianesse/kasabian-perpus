@@ -15,9 +15,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::insert([
-            ['kasabianUsername' => 'Mista', 'kasabianEmail' => 'mista@gmail.com', 'password' => Hash::make('mista123'), 'kasabianRoleId' => '1', 'kasabianNamaLengkap' => 'Mista Sr.', 'kasabianAlamat' => 'Cimahi' ],
-            ['kasabianUsername' => 'Jon', 'kasabianEmail' => 'jon@gmail.com', 'password' => Hash::make('jon123'), 'kasabianRoleId' => '2', 'kasabianNamaLengkap' => 'Jon Doe', 'kasabianAlamat' => 'Cimahi' ],
-            ['kasabianUsername' => 'Kai', 'kasabianEmail' => 'kai@gmail.com', 'password' => Hash::make('kai123'), 'kasabianRoleId' => '3', 'kasabianNamaLengkap' => 'Kai C', 'kasabianAlamat' => 'Bandung' ],
+            ['kasabianUsername' => 'Mista', 'kasabianEmail' => 'mista@gmail.com', 'password' => Hash::make('mista123'), 'kasabianRoleId' => '1', 'kasabianNamaLengkap' => 'Mista Sr.', 'kasabianAlamat' => 'Cimahi', 'kasabianApproved' => true ],
+            ['kasabianUsername' => 'Jon', 'kasabianEmail' => 'jon@gmail.com', 'password' => Hash::make('jon123'), 'kasabianRoleId' => '2', 'kasabianNamaLengkap' => 'Jon Doe', 'kasabianAlamat' => 'Cimahi', 'kasabianApproved' => true ],
+            ['kasabianUsername' => 'Kai', 'kasabianEmail' => 'kai@gmail.com', 'password' => Hash::make('kai123'), 'kasabianRoleId' => '3', 'kasabianNamaLengkap' => 'Kai C', 'kasabianAlamat' => 'Bandung', 'kasabianApproved' => true ],
         ]);
     }
 }

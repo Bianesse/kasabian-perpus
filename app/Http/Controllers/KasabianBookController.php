@@ -138,7 +138,7 @@ class KasabianBookController extends Controller
             'kasabianPenerbit' => $request->kasabianPenerbit,
             'kasabianTahunTerbit' => $request->kasabianTahunTerbit,
             'kasabianDeskripsi' => $request->kasabianDeskripsi,
-            'stock' => $request->kasabianStock,
+            'stock' => $kasabianBuku->stock + $request->kasabianStock,
         ]);
 
         if ($request->file('kasabianGambar')) {

@@ -24,6 +24,7 @@ class User extends Authenticatable
         'kasabianRoleId',
         'kasabianNamaLengkap',
         'kasabianAlamat',
+        'kasabianApproved',
     ];
 
     public function kasabianRoles()

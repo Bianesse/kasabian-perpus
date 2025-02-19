@@ -12,6 +12,7 @@
                         <a class="nav-link" href="{{ route('kategori') }}">Kategori</a>
                         <a class="nav-link" href="{{ route('users') }}">User</a>
                         <a class="nav-link" href="{{ route('adminPeminjaman') }}">Peminjaman</a>
+                        <a class="nav-link" href="{{ route('displayApprove') }}">Approve User</a>
                     @elseif ($userData->kasabianRoleId == 3)
                         <a class="nav-link" href="{{ route('peminjamHome') }}">Buku</a>
                         <a class="nav-link" href="{{ route('displayPinjam') }}">Peminjaman</a>
@@ -82,6 +83,7 @@
                     <a class="nav-link-mobile" href="{{ route('kategori') }}">Kategori</a>
                     <a class="nav-link-mobile" href="{{ route('users') }}">User</a>
                     <a class="nav-link-mobile" href="{{ route('adminPeminjaman') }}">Peminjaman</a>
+                    <a class="nav-link" href="{{ route('displayApprove') }}">Approve User</a>
                 @elseif ($userData->kasabianRoleId == 3)
                     <a class="nav-link-mobile" href="{{ route('peminjamHome') }}">Buku</a>
                     <a class="nav-link-mobile" href="{{ route('displayPinjam') }}">Peminjaman</a>

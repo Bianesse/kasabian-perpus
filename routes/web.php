@@ -26,6 +26,8 @@ Route::middleware(['auth', 'checkPengembalian'])->group(function () {
             Route::post('/add', [KasabianUserController::class, 'tambahUsers'])->name('tambahUsers');
             Route::post('/hapus/{id}', [KasabianUserController::class, 'hapusUsers'])->name('hapusUsers');
             Route::post('/edit/{id}', [KasabianUserController::class, 'editUsers'])->name('editUsers');
+            Route::get('/approve', [KasabianUserController::class, 'displayApprove'])->name('displayApprove');
+            Route::post('/approve/{id}', [KasabianUserController::class, 'approveUser'])->name('approveUser');
         });
 
         //buku
