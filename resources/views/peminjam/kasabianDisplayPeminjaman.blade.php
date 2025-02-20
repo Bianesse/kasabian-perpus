@@ -50,10 +50,12 @@
                                     Kembalikan
                                 </button>
                             @elseif ($item->statusPeminjaman === 'Terlambat')
-                            Selesai
-{{--                             @for ($i = 1; $i <= $item->daysPassed; $i++)
-                            {{$}}
-                            @endfor --}}
+                                @if ($item->denda == 0)
+                                <span class="text-green-600 font-medium">Denda sudah dibayar</span>
+                                @else
+                                <span class="text-red-600 font-semibold">Denda: Rp
+                                    {{ number_format($item->denda, 0, ',', '.') }}</span>
+                                @endif
                             @else
                                 Selesai
                             @endif

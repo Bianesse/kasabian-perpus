@@ -18,6 +18,7 @@ class PengembalianCheckMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $this->checkPengembalian();
+        $this->checkDenda();
         return $next($request);
     }
 
@@ -28,5 +29,26 @@ class PengembalianCheckMiddleware
         KasabianPeminjaman::where('tanggalPengembalian', '<', $today)
             ->where('statusPeminjaman', '!=', 'Dikembalikan')
             ->update(['statusPeminjaman' => 'Terlambat']);
+    }
+
+    public function checkDenda()
+    {
+        $today = Carbon::now();
+
+        $kasabianTerlambat = KasabianPeminjaman::where('statusPeminjaman', 'Terlambat')
+            ->where(function ($query) {
+                $query->whereNull('denda')
+                    ->orWhere('denda', '!=', 0);
+            })
+            ->get();
+
+        foreach ($kasabianTerlambat as $record) {
+            $newDenda = round(Carbon::parse($record->tanggalPengembalian)->diffInDays($today)) * 1000;
+
+            if ($record->denda != $newDenda) {
+                $record->denda = $newDenda;
+                $record->save();
+            }
+        }
     }
 }

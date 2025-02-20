@@ -1,5 +1,5 @@
 function confirmDelete(event, button) {
-    event.preventDefault(); // Prevent the default button behavior
+    event.preventDefault();
 
     Swal.fire({
         title: "Apakah Anda yakin?",
@@ -12,17 +12,17 @@ function confirmDelete(event, button) {
         cancelButtonText: "Batal"
     }).then((result) => {
         if (result.isConfirmed) {
-            // Find the form and submit it after confirmation
+
             let form = button.closest('form');
             if (form) {
-                form.submit(); // Submit the form
+                form.submit();
             }
         }
     });
 }
 
 function confirmApprove(event, button) {
-    event.preventDefault(); // Prevent the default button behavior
+    event.preventDefault();
 
     Swal.fire({
         title: "Apakah Anda yakin?",
@@ -35,17 +35,17 @@ function confirmApprove(event, button) {
         cancelButtonText: "Batal"
     }).then((result) => {
         if (result.isConfirmed) {
-            // Find the form and submit it after confirmation
+
             let form = button.closest('form');
             if (form) {
-                form.submit(); // Submit the form
+                form.submit();
             }
         }
     });
 }
 
 function confirmReject(event, button) {
-    event.preventDefault(); // Prevent the default button behavior
+    event.preventDefault();
 
     Swal.fire({
         title: "Apakah Anda yakin?",
@@ -58,17 +58,40 @@ function confirmReject(event, button) {
         cancelButtonText: "Batal"
     }).then((result) => {
         if (result.isConfirmed) {
-            // Find the form and submit it after confirmation
+
             let form = button.closest('form');
             if (form) {
-                form.submit(); // Submit the form
+                form.submit();
+            }
+        }
+    });
+}
+
+function confirmBayar(event, button) {
+    event.preventDefault();
+
+    Swal.fire({
+        title: "Apakah Anda yakin?",
+        text: "Denda ini akan dibayar!",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#22c55e ",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Ya!",
+        cancelButtonText: "Batal"
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            let form = button.closest('form');
+            if (form) {
+                form.submit();
             }
         }
     });
 }
 
 function confirmLogout(event, button) {
-    event.preventDefault(); // Prevent the default button behavior
+    event.preventDefault();
     Swal.fire({
         title: "Apakah Anda yakin?",
         text: "Anda akan Logout",
@@ -80,17 +103,17 @@ function confirmLogout(event, button) {
         cancelButtonText: "Batal"
     }).then((result) => {
         if (result.isConfirmed) {
-            // Find the form and submit it after confirmation
+
             let form = button.closest('form');
             if (form) {
-                form.submit(); // Submit the form
+                form.submit();
             }
         }
     });
 }
 
 /* function confirmKonfirmasi(event, button) {
-    event.preventDefault(); // Prevent the default button behavior
+    event.preventDefault();
     console.log(button.closest('form'));
     Swal.fire({
         title: "Apakah Anda yakin?",
@@ -103,17 +126,17 @@ function confirmLogout(event, button) {
         cancelButtonText: "Batal"
     }).then((result) => {
         if (result.isConfirmed) {
-            // Find the form and submit it after confirmation
+
             let form = button.closest('form');
             if (form) {
-                form.submit(); // Submit the form
+                form.submit();
             }
         }
     });
 }
 
 function confirmTolak(event, button) {
-    event.preventDefault(); // Prevent the default button behavior
+    event.preventDefault();
 
     Swal.fire({
         title: "Apakah Anda yakin?",
@@ -126,17 +149,17 @@ function confirmTolak(event, button) {
         cancelButtonText: "Batal"
     }).then((result) => {
         if (result.isConfirmed) {
-            // Find the form and submit it after confirmation
+
             let form = button.closest('form');
             if (form) {
-                form.submit(); // Submit the form
+                form.submit();
             }
         }
     });
 }
 
 function confirmKembalikan(event, button) {
-    event.preventDefault(); // Prevent the default button behavior
+    event.preventDefault();
 
     Swal.fire({
         title: "Apakah Anda yakin?",
@@ -149,10 +172,10 @@ function confirmKembalikan(event, button) {
         cancelButtonText: "Batal"
     }).then((result) => {
         if (result.isConfirmed) {
-            // Find the form and submit it after confirmation
+
             let form = button.closest('form');
             if (form) {
-                form.submit(); // Submit the form
+                form.submit();
             }
         }
     });

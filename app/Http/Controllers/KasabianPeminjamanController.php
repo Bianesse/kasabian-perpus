@@ -18,29 +18,29 @@ class KasabianPeminjamanController extends Controller
      * Display a listing of the resource.
      */
 
-     public function displayPinjam()
-     {
-         $kasabianUserId = Auth::user()->id;
+    public function displayPinjam()
+    {
+        $kasabianUserId = Auth::user()->id;
 
-         $kasabianPeminjaman = KasabianPeminjaman::with(['users', 'books'])
-             ->where('userId', $kasabianUserId)->orderByDesc('tanggalPeminjaman')
-             ->get();
+        $kasabianPeminjaman = KasabianPeminjaman::with(['users', 'books'])
+            ->where('userId', $kasabianUserId)->orderByDesc('tanggalPeminjaman')
+            ->get();
 
-         foreach ($kasabianPeminjaman as $peminjaman) {
-             $tanggalPengembalian = Carbon::parse($peminjaman->tanggalPengembalian);
-             $today = Carbon::now();
+        foreach ($kasabianPeminjaman as $peminjaman) {
+            $tanggalPengembalian = Carbon::parse($peminjaman->tanggalPengembalian);
+            $today = Carbon::now();
 
-             if ($today->greaterThan($tanggalPengembalian)) {
-                 $peminjaman->daysPassed = $tanggalPengembalian->diffInDays($today);
-             } else {
-                 $peminjaman->daysPassed = 0;
-             }
-         }
+            if ($today->greaterThan($tanggalPengembalian)) {
+                $peminjaman->daysPassed = $tanggalPengembalian->diffInDays($today);
+            } else {
+                $peminjaman->daysPassed = 0;
+            }
+        }
 
-         return view('peminjam.kasabianDisplayPeminjaman', [
-             'dataPeminjaman' => $kasabianPeminjaman
-         ]);
-     }
+        return view('peminjam.kasabianDisplayPeminjaman', [
+            'dataPeminjaman' => $kasabianPeminjaman
+        ]);
+    }
 
 
     public function pinjamPage($id)
@@ -101,7 +101,6 @@ class KasabianPeminjamanController extends Controller
 
         $kasabianPengembalian = Carbon::parse($request->kasabianTanggalPeminjaman)->addDays(7);
 
-
         $kasabianPeminjaman = KasabianPeminjaman::create([
             'userId' => $request->kasabianUser,
             'bukuId' => $request->kasabianBuku,
@@ -157,5 +156,16 @@ class KasabianPeminjamanController extends Controller
         }
 
         return redirect()->route('adminPeminjaman');
+    }
+
+    public function bayarDenda($id)
+    {
+        $kasabianDenda = KasabianPeminjaman::find($id);
+
+        $kasabianDenda->update([
+            'denda' => 0,
+        ]);
+
+        return redirect()->route('adminPeminjaman')->with('success', 'Denda Berhasil Dibayar');
     }
 }

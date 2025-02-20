@@ -65,6 +65,7 @@ Route::middleware(['auth', 'checkPengembalian'])->group(function () {
             Route::get('/', [KasabianPeminjamanController::class, 'adminDisplayPinjam'])->name('adminPeminjaman');
             Route::post('/pinjam/{id}', [KasabianPeminjamanController::class, 'adminKonfirmasiPinjam'])->name('adminKonfirmasiPeminjaman');
             Route::post('/pinjam', [KasabianPeminjamanController::class, 'adminPinjamkan'])->name('adminPinjamkan');
+            Route::post('/pinjam/bayar/{id}', [KasabianPeminjamanController::class, 'bayarDenda'])->name('bayarDenda');
         });
 
         /* Route::prefix('log')->group(function () {

@@ -45,10 +45,10 @@
                         @endif
                     </td>
                     <td class="px-4 py-3 space-x-2">
-                        <form class="flex space-x-1" action="{{ route('adminKonfirmasiPeminjaman', $item->peminjamanId) }}"
-                            method="POST">
-                            @csrf
-                            @if ($item->statusPeminjaman === 'Pending Dikembalikan' || $item->statusPeminjaman === 'Pending Dipinjam')
+                        @if ($item->statusPeminjaman === 'Pending Dikembalikan' || $item->statusPeminjaman === 'Pending Dipinjam')
+                            <form class="flex space-x-1"
+                                action="{{ route('adminKonfirmasiPeminjaman', $item->peminjamanId) }}" method="POST">
+                                @csrf
                                 <div class="flex space-x-2 w-full">
                                     <button onclick="return confirm('Apakah mau konfirmasi buku?')"
                                         name="kasabianKonfirmasi" value="1"
@@ -64,16 +64,36 @@
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </div>
-                            @elseif ($item->statusPeminjaman === 'Dipinjam')
+                            </form>
+                        @elseif ($item->statusPeminjaman === 'Dipinjam')
+                            <form class="flex space-x-1"
+                                action="{{ route('adminKonfirmasiPeminjaman', $item->peminjamanId) }}" method="POST">
+                                @csrf
                                 <button onclick="return confirm('Apakah mau tolak peminjaman?')"
                                     class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg px-4 py-2 flex-1"
                                     @disabled($item->statusPeminjaman === 'Dikembalikan')>
                                     Kembalikan
                                 </button>
+                            </form>
+                        @elseif ($item->statusPeminjaman === 'Terlambat')
+                            @if ($item->denda == 0)
+                                <span class="text-green-600 font-medium">Denda sudah dibayar</span>
                             @else
-                                <h1 class="text-gray-700 font-medium">Selesai</h1>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-red-600 font-semibold">Denda: Rp
+                                        {{ number_format($item->denda, 0, ',', '.') }}</span>
+                                    <form action="{{ route('bayarDenda', $item->peminjamanId) }}" method="POST">
+                                        @csrf
+                                        <button onclick="confirmBayar(event, this)"
+                                            class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-lg px-3 py-1 mt-2">
+                                            Bayar
+                                        </button>
+                                    </form>
+                                </div>
                             @endif
-                        </form>
+                        @else
+                            <h1 class="text-gray-700 font-medium">Selesai</h1>
+                        @endif
 
                     </td>
                 </tr>

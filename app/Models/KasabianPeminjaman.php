@@ -13,7 +13,7 @@ class KasabianPeminjaman extends Model
     protected $primaryKey = 'peminjamanId';
 
     public $fillable = [
-        'userId', 'bukuId', 'tanggalPeminjaman', 'tanggalPengembalian', 'statusPeminjaman',
+        'userId', 'bukuId', 'tanggalPeminjaman', 'tanggalPengembalian', 'statusPeminjaman', 'denda'
     ];
 
     public function users()

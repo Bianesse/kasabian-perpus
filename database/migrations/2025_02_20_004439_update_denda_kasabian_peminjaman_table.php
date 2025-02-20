@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('kasabianApproved')->after('kasabianAlamat')->default(null)->nullable();
+        Schema::table('kasabian_peminjaman', function (Blueprint $table) {
+            $table->integer('denda')->after('statusPeminjaman')->default(null)->nullable();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-                $table->dropColumn('kasabianApproved');
+        Schema::table('kasabian_peminjaman', function (Blueprint $table) {
+            $table->dropColumn('denda');
         });
     }
 };
