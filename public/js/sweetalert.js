@@ -112,6 +112,15 @@ function confirmLogout(event, button) {
     });
 }
 
+function rejectDelete(event, button) {
+    event.preventDefault();
+    Swal.fire({
+        title: "Tidak Boleh",
+        text: "Buku ini sedang dipinjam!",
+        icon: "warning",
+    })
+}
+
 /* function confirmKonfirmasi(event, button) {
     event.preventDefault();
     console.log(button.closest('form'));

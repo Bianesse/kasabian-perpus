@@ -47,6 +47,10 @@ class KasabianHomeController extends Controller
             ->orderBy('peminjaman_count')
             ->first();
 
+            $kasabianBelumDikembalikan = KasabianPeminjaman::where('statusPeminjaman', 'Dipinjam')->count();
+            $kasabianSudahDikembalikan = KasabianPeminjaman::where('statusPeminjaman', 'Dikembalikan')->count();
+
+
         $kasabianLog = KasabianPeminjaman::with(['users', 'books']);
 
         $kasabianDari = "-";
@@ -68,6 +72,8 @@ class KasabianHomeController extends Controller
             'kasabianTotalTerpinjam',
             'kasabianBukuPopuler',
             'kasabianBukuTidakPopuler',
+            'kasabianBelumDikembalikan',
+            'kasabianSudahDikembalikan',
             'kasabianLog',
             'kasabianDari',
             'kasabianHingga',

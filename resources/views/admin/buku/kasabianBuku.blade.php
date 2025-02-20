@@ -48,12 +48,23 @@
                                     data-modal-toggle="edit-modal{{ $item->bukuId }}">
                                     Edit
                                 </button>
-                                <form method="POST" action="{{ route('hapusBuku', $item->bukuId) }}">
-                                    @csrf
-                                    <button onclick="confirmDelete(event, this)" class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
+
+                                @if (in_array($item->bukuId, $dataPeminjaman->pluck('bukuId')->toArray()))
+                                    <button onclick="rejectDelete(event, this)"
+                                        class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
                                         Hapus
                                     </button>
-                                </form>
+                                @else
+                                    <form method="POST" action="{{ route('hapusBuku', $item->bukuId) }}">
+                                        @csrf
+                                        <button onclick="confirmDelete(event, this)"
+                                            class="bg-red-500 rounded-lg w-20 h-10 font-medium my-2">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                @endif
+
+
                             </td>
                         @endif
                     </tr>

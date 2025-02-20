@@ -114,6 +114,9 @@
             @endforeach
         </tbody>
     </table>
+
+    <h1 class="print:blocked text-md">Buku yang sedang dipinjam : {{$kasabianBelumDikembalikan}}</h1>
+    <h1 class="print:blocked text-md">Buku yang sudah dikembalikan : {{$kasabianSudahDikembalikan}}</h1>
 @endsection
 
 @section('extra')

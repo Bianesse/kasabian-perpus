@@ -25,7 +25,9 @@ class KasabianBookController extends Controller
         $kasabianBuku = Kasabian_book::with(['relasi.kategori'])->get();
         $kasabianKategori = KasabianKategoriBuku::get();
 
-        return view('admin.buku.kasabianBuku', ['dataBuku' => $kasabianBuku, 'dataKategori' => $kasabianKategori]);
+        $kasabianPeminjaman = KasabianPeminjaman::select('bukuId')->where('statusPeminjaman', 'Dipinjam')->get();
+
+        return view('admin.buku.kasabianBuku', ['dataBuku' => $kasabianBuku, 'dataKategori' => $kasabianKategori, 'dataPeminjaman' => $kasabianPeminjaman]);
     }
 
     public function detail($id)
