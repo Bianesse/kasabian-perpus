@@ -10,7 +10,7 @@
     <form action="{{ route('showLogFilter') }}" method="POST" class="flex items-center gap-4 bg-gray-100 p-4 rounded-lg">
         @csrf
         <label for="kasabianTanggalAwal" class="text-gray-700 font-medium">Dari:</label>
-        <input type="date" name="kasabianDari" id="kasabianTanggalAwal" 
+        <input type="date" name="kasabianDari" id="kasabianTanggalAwal"
             class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         <label for="kasabianTanggalAkhir" class="text-gray-700 font-medium">Hingga:</label>
         <input type="date" name="kasabianHingga" id="kasabianTanggalAkhir"
@@ -56,7 +56,7 @@
                         @elseif ($item->statusPeminjaman === 'Pending Dipinjam')
                             <span class="px-2 py-1 text-yellow-700 bg-yellow-100 rounded-lg">Pending Dipinjam</span>
                         @else
-                            <span class="px-2 py-1 text-red-700 bg-red-100 rounded-lg">Overdue</span>
+                            <span class="px-2 py-1 text-red-700 bg-red-100 rounded-lg">Terlambat</span>
                         @endif
                     </td>
                 </tr>

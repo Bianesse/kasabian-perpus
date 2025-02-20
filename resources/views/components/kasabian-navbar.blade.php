@@ -1,4 +1,4 @@
-<nav class="w-full h-16 bg-yellow-400 shadow-md z-40">
+<nav class="w-full h-16 bg-yellow-400 shadow-md z-40 print:hidden">
     <div class="flex justify-between items-center px-6 md:px-12 h-full">
         <!-- Left Section -->
         <div class="flex items-center space-x-6">

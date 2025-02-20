@@ -49,12 +49,16 @@ class KasabianHomeController extends Controller
 
         $kasabianLog = KasabianPeminjaman::with(['users', 'books']);
 
+        $kasabianDari = "-";
+        $kasabianHingga = "-";
+
         if ($request->filled('kasabianDari') && $request->filled('kasabianHingga')) {
             $kasabianDari = $request->kasabianDari;
             $kasabianHingga = $request->kasabianHingga;
 
             $kasabianLog = $kasabianLog->whereBetween('tanggalPeminjaman',  [$kasabianDari, $kasabianHingga]);
         }
+
 
         $kasabianLog = $kasabianLog->orderByDesc('tanggalPeminjaman')->get();
 
@@ -64,7 +68,9 @@ class KasabianHomeController extends Controller
             'kasabianTotalTerpinjam',
             'kasabianBukuPopuler',
             'kasabianBukuTidakPopuler',
-            'kasabianLog'
+            'kasabianLog',
+            'kasabianDari',
+            'kasabianHingga',
         ));
     }
 }
