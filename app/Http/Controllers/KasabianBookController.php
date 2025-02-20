@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kasabian_book;
+use App\Models\KasabianPeminjaman;
+use App\Models\KasabianUlasanBuku;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Models\KasabianKategoriBuku;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Models\KasabianKategoriBukuRelasi;
 use App\Http\Requests\UpdateKasabian_bookRequest;
-use App\Models\KasabianPeminjaman;
-use App\Models\KasabianUlasanBuku;
-use Illuminate\Support\Facades\Auth;
 
 class KasabianBookController extends Controller
 {
@@ -109,7 +111,6 @@ class KasabianBookController extends Controller
             'kasabianDeskripsi' => 'required',
             'kasabianGambar' => 'image|mimes:jpeg,png,jpg|max:2048',
             'kasabianTahunTerbit' => 'required',
-            'kasabianStock' => 'required',
             'kasabianKategori' => 'required',
         ]);
 
@@ -151,12 +152,9 @@ class KasabianBookController extends Controller
             ]);
         }
 
-        $kasabianKategori = KasabianKategoriBukuRelasi::where('bukuId', $id)->first();
-        $kasabianKategori->update([
-            'kategoriId' => $request->kasabianKategori,
-        ]);
-
-        $kasabianKategori->save();
+        $kasabianKategori = DB::table('kasabian_kategori_buku_relasi')
+            ->where('bukuId', $id)
+            ->update(['kategoriId' => $request->kasabianKategori]);
 
         return redirect()->route('book')->with('success', 'Buku Berhasil Diedit');
     }
