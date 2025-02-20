@@ -31,7 +31,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         @foreach ($dataBuku as $item)
             <div class="bg-white rounded-lg shadow-md overflow-hidden p-4 flex flex-col h-full">
-                <!-- Content Section -->
+
                 <div class="flex flex-col items-center flex-grow">
                     <a href="{{ route('bukuDetail', $item->bukuId) }}">
                         <img src="{{ asset('storage/' . $item->kasabianGambar) }}" class="w-full h-60 object-cover rounded-md" alt="">
@@ -47,9 +47,9 @@
                     </h1>
                 </div>
 
-                <!-- Bottom Section (Pinned Rating & Button) -->
+
                 <div class="mt-auto">
-                    <!-- Rating Section -->
+
                     <div class="flex justify-center items-center mt-2 space-x-2">
                         <h1 class="text-gray-500 text-xs">{{ $item->average_rating }}</h1>
                         @for ($i = 1; $i <= 5; $i++)
@@ -64,7 +64,6 @@
                     </div>
 
                     @auth
-                    <!-- Pinjam Button -->
                     <div class="w-full mt-3">
                         <a href="{{ $item->stock > 0 ? route('pinjamPage', $item->bukuId) : '#' }}" class="col-span-4">
                             <button

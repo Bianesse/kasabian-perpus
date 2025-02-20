@@ -24,7 +24,6 @@
                     </h1>
                 </div>
 
-                <!-- Rating and Button at Bottom -->
                 <div class="mt-auto">
                     <div class="flex justify-center mt-2 space-x-2">
                         <h1 class="text-gray-500 text-xs text-center">{{ $item->average_rating }}</h1>

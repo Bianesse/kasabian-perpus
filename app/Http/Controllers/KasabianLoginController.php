@@ -71,7 +71,7 @@ class KasabianLoginController extends Controller
             'kasabianApproved' => null,
         ]);
 
-        return redirect()->route('main')->with('success', 'Akun ini berhasil di reject');
+        return redirect()->route('peminjamHome')->with('success', 'Tunggu akun anda di terima oleh admin!');
     }
 
     public function logout()

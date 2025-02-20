@@ -104,7 +104,7 @@ class kasabianUserController extends Controller
             'kasabianApproved' => false,
         ]);
 
-        return redirect()->route('displayApprove')->with('success', 'User Berhasil di approve');
+        return redirect()->route('displayApprove')->with('success', 'User Berhasil di reject');
     }
 
 }

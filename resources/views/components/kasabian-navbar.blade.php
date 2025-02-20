@@ -129,7 +129,6 @@
     <x-register-modal id="register-modal" />
 @endguest
 
-<!-- JavaScript for Mobile Menu -->
 <script>
     document.getElementById("menu-toggle").addEventListener("click", function() {
         document.getElementById("mobile-menu").classList.remove("translate-x-full");
@@ -140,7 +139,6 @@
     });
 </script>
 
-<!-- Tailwind Styles for Links -->
 <style>
     .nav-link {
         @apply text-gray-800 font-medium hover:text-gray-900 transition;
