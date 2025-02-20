@@ -79,10 +79,11 @@
                             @if ($item->denda == 0)
                                 <span class="text-green-600 font-medium">Denda sudah dibayar</span>
                             @else
-                                <div class="flex flex-col items-center">
+                                <div class="flex flex-col items-center w-full">
                                     <span class="text-red-600 font-semibold">Denda: Rp
                                         {{ number_format($item->denda, 0, ',', '.') }}</span>
-                                    <form action="{{ route('bayarDenda', $item->peminjamanId) }}" method="POST">
+                                    <form action="{{ route('bayarDenda', $item->peminjamanId) }}" method="POST"
+                                        class="w-full">
                                         @csrf
                                         <button onclick="confirmBayar(event, this)"
                                             class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-lg px-3 py-1 mt-2">
