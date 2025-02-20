@@ -28,7 +28,7 @@
         <div class="col-span-4">
             <label for="tanggalPeminjaman" class="block mb-2 text-sm font-medium text-gray-700">Tanggal
                 Peminjaman</label>
-            <input type="date" name="kasabianTanggalPeminjaman" id="tanggalPeminjaman"
+            <input type="date" name="kasabianTanggalPeminjaman" id="tanggalPeminjaman" min={{ date('Y-m-d') }}
                 class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" required>
         </div>
         <div class="col-span-4">
