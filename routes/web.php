@@ -26,8 +26,6 @@ Route::middleware(['auth', 'checkPengembalian'])->group(function () {
             Route::post('/add', [KasabianUserController::class, 'tambahUsers'])->name('tambahUsers');
             Route::post('/hapus/{id}', [KasabianUserController::class, 'hapusUsers'])->name('hapusUsers');
             Route::post('/edit/{id}', [KasabianUserController::class, 'editUsers'])->name('editUsers');
-            Route::get('/approve', [KasabianUserController::class, 'displayApprove'])->name('displayApprove');
-            Route::post('/approve/{id}', [KasabianUserController::class, 'approveUser'])->name('approveUser');
             Route::post('/reject/{id}', [KasabianUserController::class, 'rejectUser'])->name('rejectUser');
         });
 
@@ -51,6 +49,8 @@ Route::middleware(['auth', 'checkPengembalian'])->group(function () {
         Route::post('/dashboard', [KasabianHomeController::class, 'dashboard'])->name('showLogFilter');
         Route::prefix('users')->group(function () {
             Route::get('/', [kasabianUserController::class, 'index'])->name('users');
+            Route::get('/approve', [KasabianUserController::class, 'displayApprove'])->name('displayApprove');
+            Route::post('/approve/{id}', [KasabianUserController::class, 'approveUser'])->name('approveUser');
         });
 
         Route::prefix('buku')->group(function () {

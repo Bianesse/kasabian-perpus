@@ -15,7 +15,7 @@
                     <th class="px-4 py-3">Role</th>
                     <th class="px-4 py-3">Nama Lengkap</th>
                     <th class="px-4 py-3">Alamat</th>
-                    @if ($userData->kasabianRoleId == 1)
+                    @if ($userData->kasabianRoleId == 1 || $userData->kasabianRoleId == 2)
                         <th class="px-4 py-3">Action</th>
                     @endif
                 </tr>
@@ -29,7 +29,7 @@
                         <td class="px-4 py-3">{{ $item->kasabianRoles->kasabianRoleName }}</td>
                         <td class="px-4 py-3">{{ $item->kasabianNamaLengkap }}</td>
                         <td class="px-4 py-3">{{ $item->kasabianAlamat }}</td>
-                        @if ($userData->kasabianRoleId == 1)
+                        @if ($userData->kasabianRoleId == 1 || $userData->kasabianRoleId == 2)
                             <td class="px-4 py-3 flex flex-row space-x-2 text-white">
                                 <form method="POST" action="{{ route('approveUser', $item->id) }}">
                                     @csrf
