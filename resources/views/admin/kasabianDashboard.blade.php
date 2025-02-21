@@ -68,13 +68,15 @@
 
     <div class="hidden print:block">
         <h1 class="text-center text-3xl">Perpustakaan</h1>
-        <h1 class="text-center mt-2">Bandung, Buah Batu Dlm.II, | Telepon : 0899-3746-8433 | Email: infoPerpus@gmail.com</h1>
+        <h1 class="text-center mt-2">Bandung, Buah Batu Dlm.II, | Telepon : 0899-3746-8433 | Email: infoPerpus@gmail.com
+        </h1>
         <div class="border-1 border-t border-black w-3/4 mx-auto mt-3">
 
         </div>
 
-        <h1 class="text-center text-xl font-bold mt-3">Pencetakan Laporan</div>
-        <h1 class="text-center text-md font-semibold">Dari {{$kasabianDari}} Hingga {{$kasabianHingga}}</h1>
+        <h1 class="text-center text-xl font-bold mt-3">Pencetakan Laporan
+    </div>
+    <h1 class="text-center text-md font-semibold">Dari {{ $kasabianDari }} Hingga {{ $kasabianHingga }}</h1>
     </div>
 
     <table id="logsTable"
@@ -87,6 +89,7 @@
                 <th class="px-4 py-3">Tanggal Peminjaman</th>
                 <th class="px-4 py-3">Tanggal Pengembalian</th>
                 <th class="px-4 py-3">Status Peminjaman</th>
+                <th class="px-4 py-3">Denda</th>
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 bg-white">
@@ -110,13 +113,21 @@
                             <span class="px-2 py-1 text-red-700 bg-red-100 rounded-lg">Terlambat</span>
                         @endif
                     </td>
+                    <td class="px-4 py-3">
+                        @if(is_null($item->denda))
+                            -
+                        @else
+                            Rp. {{ number_format($item->denda, 0, ',', '.') }}
+                        @endif
+                    </td>
+
                 </tr>
             @endforeach
         </tbody>
     </table>
 
-    <h1 class="print:blocked text-md">Buku yang sedang dipinjam : {{$kasabianBelumDikembalikan}}</h1>
-    <h1 class="print:blocked text-md">Buku yang sudah dikembalikan : {{$kasabianSudahDikembalikan}}</h1>
+    <h1 class="print:blocked text-md">Buku yang sedang dipinjam : {{ $kasabianBelumDikembalikan }}</h1>
+    <h1 class="print:blocked text-md">Buku yang sudah dikembalikan : {{ $kasabianSudahDikembalikan }}</h1>
 @endsection
 
 @section('extra')
